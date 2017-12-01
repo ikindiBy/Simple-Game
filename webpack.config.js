@@ -38,13 +38,16 @@ module.exports = {
       },
       {
         test : /\.(png|jpg|gif)$/,
-        use : [ 'url-loader' ],
-        options : {
-          limit : 8192,
-        },
-      }
+        use : [ 
+        {
+          loader: 'url-loader',
+          options : {
+          limit : 8192
+          }
+        }
     ]
-  },
+  }
+  ]},
 
   stats: {
     // Colored output
