@@ -1,1 +1,41 @@
-// Your entry for scss must be here
+@import "fonts";
+
+
+
+$main-color: rgb(0,0,128);
+$title-color: rgb(255, 215, 0);
+$text-color: rgb(238, 232, 170);
+
+@mixin block_flex ($justify-content: flex-start, $align-items: stretch, $direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+
+body {
+  @include block_flex ($justify-content: space-between, $direction: column);
+  background-color: $main-color;
+  color: $text-color;
+  height: 100vh;
+}
+
+header, main, footer {
+  width: 50%;
+  margin: 0 auto;
+
+}
+
+
+h1 {
+  font-size: 2rem;
+  font-family: "Bello-Script", Arial;
+  color: $title-color;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+article {
+   font-family: Arial;
+}
