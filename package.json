@@ -4,9 +4,9 @@
   "description": "A sample setup for Webpack with ES6 and Sass",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.js --port 8000 --hot --inline",
+    "start": "webpack-dev-server --config webpack.config.js --port 8000 --hot --inline",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/.bin/webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js"
   },
   "author": "Santa Claus",
   "devDependencies": {
