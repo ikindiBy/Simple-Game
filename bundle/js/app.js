@@ -78,6 +78,40 @@ module.exports = __webpack_require__(3);
 
 // Entry file for js scripts
 
+console.log('Go ahead!!!');
+
+function loadImage(url) {
+	return new Promise(resolve => {
+		const img = new Image();
+		img.src = url;
+		img.addEventListener('load', () => {
+			resolve(img);
+		});
+	});
+}
+
+function getDataFromJSON(nameFile) {
+	return fetch(`/database/${nameFile}.json`).then(response => response.json());
+}
+
+getDataFromJSON('sprite').then(fileJSON => console.log(fileJSON));
+
+const canvas = document.getElementById('canvas');
+
+canvas.setAttribute('width', 960);
+canvas.setAttribute('height', 640);
+
+const context = canvas.getContext('2d');
+context.fillStyle = "orange";
+context.fillRect(80, 80, 60, 25);
+
+loadImage('../images/sprites.png').then(image => {
+	context.drawImage(image, 0, 76, 39, 50, 150, 150, 39, 50);
+	context.drawImage(image, 39, 76, 37, 50, 200, 150, 37, 50);
+});
+
+// console.log('!!', context);
+
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
@@ -88,7 +122,7 @@ module.exports = __webpack_require__(3);
 /* 3 */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: ModuleNotFoundError: Module not found: Error: Can't resolve '../src/fonts/Bello-Script.ttf' in 'D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\style\\scss'\n    at factoryCallback (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\webpack\\lib\\Compilation.js:276:40)\n    at factory (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\webpack\\lib\\NormalModuleFactory.js:235:20)\n    at resolver (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\webpack\\lib\\NormalModuleFactory.js:60:20)\n    at asyncLib.parallel.e (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\webpack\\lib\\NormalModuleFactory.js:127:20)\n    at D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\async\\dist\\async.js:3874:9\n    at D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\async\\dist\\async.js:473:16\n    at iteratorCallback (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\async\\dist\\async.js:1048:13)\n    at D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\async\\dist\\async.js:958:16\n    at D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\async\\dist\\async.js:3871:13\n    at resolvers.normal.resolve (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\webpack\\lib\\NormalModuleFactory.js:119:22)\n    at onError (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\Resolver.js:65:10)\n    at loggingCallbackWrapper (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\createInnerCallback.js:31:19)\n    at runAfter (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\Resolver.js:158:4)\n    at innerCallback (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\Resolver.js:146:3)\n    at loggingCallbackWrapper (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\createInnerCallback.js:31:19)\n    at next (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\tapable\\lib\\Tapable.js:252:11)\n    at D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\UnsafeCachePlugin.js:40:4\n    at loggingCallbackWrapper (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\createInnerCallback.js:31:19)\n    at runAfter (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\Resolver.js:158:4)\n    at innerCallback (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\Resolver.js:146:3)\n    at loggingCallbackWrapper (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\createInnerCallback.js:31:19)\n    at next (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\tapable\\lib\\Tapable.js:252:11)\n    at innerCallback (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\Resolver.js:144:11)\n    at loggingCallbackWrapper (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\createInnerCallback.js:31:19)\n    at next (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\tapable\\lib\\Tapable.js:249:35)\n    at resolver.doResolve.createInnerCallback (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\DescriptionFilePlugin.js:44:6)\n    at loggingCallbackWrapper (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\createInnerCallback.js:31:19)\n    at afterInnerCallback (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\Resolver.js:168:10)\n    at loggingCallbackWrapper (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\createInnerCallback.js:31:19)\n    at next (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\tapable\\lib\\Tapable.js:252:11)");
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

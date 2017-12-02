@@ -40,5 +40,30 @@ q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0; }
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  background-color: navy;
+  color: palegoldenrod;
+  height: 100vh; }
+
+header, main, footer {
+  width: 50%;
+  margin: 0 auto; }
+
+h1 {
+  font-size: 2rem;
+  font-family: "Bello-Script", Arial;
+  color: gold;
+  text-transform: uppercase;
+  text-align: center; }
+
+canvas {
+  border: 1px solid #00CED1; }
+
+article {
+  font-family: Arial; }
 
 /*# sourceMappingURL=style.css.map*/

@@ -24,16 +24,19 @@ body {
 header, main, footer {
   width: 50%;
   margin: 0 auto;
-
 }
 
 
 h1 {
-  font-size: 2rem;
-  font-family: "Bello-Script", Arial;
+  font-size: 2.2rem;
+  font-family: "Bello-Script";
   color: $title-color;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   text-align: center;
+}
+
+canvas {
+  border: 1px solid #00CED1;
 }
 
 article {
