@@ -5,7 +5,7 @@ export default class spriteSheet {
     }
     draw(context, name, posx, posy){
         const png = this.data[`${name}`].frame;
-
-        context.drawImage(this.image, png[0], png[1], png[2], png[3], posx, posy, png[2], png[3]);
+        context.drawImage(this.image, png['x'], png['y'], png['w'], png['h'],
+                                      posx,     posy,     png['w'], png['h']);
     }
 }

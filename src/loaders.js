@@ -10,5 +10,5 @@ export function loadImage(url) {
 
 export function loadJSON(name) {
     return fetch(`./src/database/${name}.json`)
-    .then(r => r.json());
+    .then(response => response.json());
 }
