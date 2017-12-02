@@ -1,9 +1,6 @@
-// Entry file for js scripts
 
 import SourceSprites from './SourceSprites.js';
 import {loadImage, loadTilesFromJSON} from './loaders.js';
-
-	// console.log('Go ahead!!!')
 
 	
 function drawBackground(backgrounOf, context, sprites) {
@@ -23,8 +20,7 @@ function drawBackground(backgrounOf, context, sprites) {
 	canvas.setAttribute('height', 640);
 
 	const context = canvas.getContext('2d');
-	// context.fillStyle = "orange";
-	// context.fillRect(80,80,60,25);
+
 
 
 	loadImage('../images/sprites.png')

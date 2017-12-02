@@ -11,25 +11,6 @@ export default class SourceSprites {
 		this.startOfTileY ;
 	}
 
-	// defineTile(name, x, y) {
-	// 	console.log('image-->', this.image);
-	// 	const bufferForTile = document.createElement('canvas');
-	// 	bufferForTile.width = this.widthOfTile;
-	// 	bufferForTile.height = this.heightOfTile;
-	// 	const bufferContext = bufferForTile.getContext('2d');
-	// 	bufferContext.drawImage(
-	// 		this.image,
-	// 		150,
-	// 		0,
-	// 		this.widthOfTile,
-	// 		this.heightOfTile,
-	// 		0,
-	// 		0,
-	// 		this.widthOfTile,
-	// 		this.heightOfTile);
-	// 		this.tilesMap.set(name, bufferForTile);
-	// }
-
 	defineTilePerJSON(fileJSON, nameTile) {
 		this.getCoordinatesOfTileFromJSON(fileJSON, nameTile);
 		const bufferForTile = document.createElement('canvas');
@@ -52,7 +33,6 @@ export default class SourceSprites {
 	drawTile(nameTile, context, x, y) {
 			const buffer = this.tilesMap.get(nameTile);
 			context.drawImage(buffer, x, y);	
-			// console.log(this.tilesMap);
 	}
 
 	getCoordinatesOfTileFromJSON(fileJSON, nameTile) {
@@ -61,80 +41,6 @@ export default class SourceSprites {
 		this.widthOfTile = fileJSON[nameTile].frame.w;
 		this.heightOfTile = fileJSON[nameTile].frame.h;
 	}
-
-
-	// defineTileFromJSON(nameTile) {
-	// 	loadTilesFromJSON('sprites')
-	// 	.then( fileJSON => {
-	// 		this.getCoordinatesOfTileFromJSON(fileJSON, nameTile);
-	// 	})
-	// 	.then(()=> {
-	// 		const bufferForTile = document.createElement('canvas');
-	// 		bufferForTile.width = this.widthOfTile;
-	// 		bufferForTile.height = this.heightOfTile;
-	// 		const bufferContext = bufferForTile.getContext('2d');
-	// 		bufferContext.drawImage(
-	// 			this.image,
-	// 			this.startOfTileX,
-	// 			this.startOfTileY,
-	// 			this.widthOfTile,
-	// 			this.heightOfTile,
-	// 			0,
-	// 			0,
-	// 			this.widthOfTile,
-	// 			this.heightOfTile);
-	// 		this.tilesMap.set(nameTile, bufferForTile);
-			
-	// 		console.log('TILE -  - ->', this.startOfTileX, this.tilesMap);
-	// 	});
-	// }
-
-	// draw(nameTile, context, x, y) {
-	// 	this.defineTileFromJSONPr(nameTile).
-	// 	then(() => {
-	// 		console.log('image and map->', this.image, this.tilesMap, context, nameTile);
-	// 		const buffer = this.tilesMap.get(nameTile);
-	// 		console.log('draw buffer->',buffer);
-	// 		context.drawImage(buffer, x, y);
-	// 	})
-		
-	// }
-
-	
-
-
-	// defineTileFromJSONPr(nameTile) {
-	// 	return new Promise(resolve => {
-
-	// 		loadTilesFromJSON('sprites')
-	// 		.then( fileJSON => {
-	// 			this.getCoordinatesOfTileFromJSON(fileJSON, nameTile);
-	// 		})
-	// 		.then(()=> {
-	// 			const bufferForTile = document.createElement('canvas');
-	// 			bufferForTile.width = this.widthOfTile;
-	// 			bufferForTile.height = this.heightOfTile;
-	// 			const bufferContext = bufferForTile.getContext('2d');
-	// 			bufferContext.drawImage(
-	// 				this.image,
-	// 				this.startOfTileX,
-	// 				this.startOfTileY,
-	// 				this.widthOfTile,
-	// 				this.heightOfTile,
-	// 				0,
-	// 				0,
-	// 				this.widthOfTile,
-	// 				this.heightOfTile);
-	// 			this.tilesMap.set(nameTile, bufferForTile);
-				
-	// 			console.log('TILE - pr  - ->', this.startOfTileX, this.tilesMap);
-	// 		});
-	// 		resolve();
-	// 	})
-		
-	// }
-
-
 }
 
 

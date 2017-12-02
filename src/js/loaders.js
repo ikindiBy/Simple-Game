@@ -8,7 +8,7 @@
 			});
 		}
 
-	export function loadTilesFromJSON(nameFile) {
+	export function loadDataFromJSON(nameFile) {
 		return fetch(`/src/database/${nameFile}.json`)
 		.then(response => response.json());
 	}
