@@ -32,7 +32,6 @@ export default class SourceSprites {
 
 	defineTilePerJSON(fileJSON, nameTile) {
 		this.getCoordinatesOfTileFromJSON(fileJSON, nameTile);
-		// console.log('workWithJSON--',this.widthOfTile, nameTile);
 		const bufferForTile = document.createElement('canvas');
 			bufferForTile.width = this.widthOfTile;
 			bufferForTile.height = this.heightOfTile;
@@ -51,10 +50,9 @@ export default class SourceSprites {
 	}
 
 	drawTile(nameTile, context, x, y) {
-			// console.log('image and map->', this.image, this.tilesMap, context, nameTile);
 			const buffer = this.tilesMap.get(nameTile);
-			// console.log('draw buffer->',buffer);
 			context.drawImage(buffer, x, y);	
+			// console.log(this.tilesMap);
 	}
 
 	getCoordinatesOfTileFromJSON(fileJSON, nameTile) {

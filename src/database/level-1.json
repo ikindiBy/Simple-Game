@@ -1,11 +1,27 @@
 {
   "backgrounds": [
     {
-      "tile": "ground",
+      "tile": "box-g.png",
+      "description": "sky",
       "ranges": [
         [
-          0, 30,
-          0,10
+          0, 960,
+          0, 630
+        ]
+        
+      ]
+    },
+    {
+      "tile": "box-b1.png",
+      "description": "ground",
+      "ranges": [
+        [
+          0, 960,
+          566, 640
+        ], 
+        [
+          370,518,
+          480, 517
         ]
       ]
     }

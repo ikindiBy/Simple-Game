@@ -6,13 +6,15 @@ import {loadImage, loadTilesFromJSON} from './loaders.js';
 	// console.log('Go ahead!!!')
 
 	
-// function drawBackground(backgrounTile, context, sprites) {
-// 	let startX = backgrounTile["sky1.png"].frame.x;
-// 	let startY = backgrounTile["sky1.png"].frame.x;
-// 	let weightTile = backgrounTile["sky1.png"].frame.w;
-// 	let weightTile = backgrounTile["sky1.png"].frame.h;
-
-// }
+function drawBackground(backgrounOf, context, sprites) {
+		backgrounOf.ranges.forEach(([x1, x2, y1, y2]) => {
+			for(let x = x1; x < x2; x = x+37) {
+				for(let y = y1; y<y2; y= y+37) {
+				sprites.drawTile(backgrounOf.tile, context, x, y);	
+			}
+		}
+	})
+}
 
 
 	const canvas = document.getElementById('canvas');
@@ -28,13 +30,18 @@ import {loadImage, loadTilesFromJSON} from './loaders.js';
 	loadImage('../images/sprites.png')
 	.then(image => {
 		const sprites = new SourceSprites(image);
+
 		loadTilesFromJSON('sprites')
 		.then( fileJSON => {
 			sprites.defineTilePerJSON(fileJSON, 'box-g.png');
-			
-			for(let x = 0; x<960; x = x+37) {
-				sprites.drawTile('box-g.png', context, x, 640-137);	
-			}
-		} );
+			sprites.defineTilePerJSON(fileJSON, 'box-b1.png');
+
+			loadTilesFromJSON('level-1')
+			.then( fileJSON => {
+				fileJSON.backgrounds.forEach(background => {
+					drawBackground(background, context, sprites);
+				})
+			});
+		});
 	});
 	
