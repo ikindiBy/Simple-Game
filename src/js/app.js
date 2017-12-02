@@ -1,6 +1,7 @@
+// Entry file for js scripts
 
 import SourceSprites from './SourceSprites.js';
-import {loadImage, loadTilesFromJSON} from './loaders.js';
+import {loadImage, loadDataFromJSON} from './loaders.js';
 
 	
 function drawBackground(backgrounOf, context, sprites) {
@@ -21,22 +22,20 @@ function drawBackground(backgrounOf, context, sprites) {
 
 	const context = canvas.getContext('2d');
 
-
-
 	loadImage('../images/sprites.png')
 	.then(image => {
 		const sprites = new SourceSprites(image);
 
-		loadTilesFromJSON('sprites')
+		loadDataFromJSON('sprites')
 		.then( fileJSON => {
 			sprites.defineTilePerJSON(fileJSON, 'box-g.png');
 			sprites.defineTilePerJSON(fileJSON, 'box-b1.png');
 
-			loadTilesFromJSON('level-1')
+			loadDataFromJSON('level-1')
 			.then( fileJSON => {
 				fileJSON.backgrounds.forEach(background => {
 					drawBackground(background, context, sprites);
-				})
+				});
 			});
 		});
 	});

@@ -12,8 +12,8 @@ export default class SourceSprites {
 	}
 
 	defineTilePerJSON(fileJSON, nameTile) {
-		this.getCoordinatesOfTileFromJSON(fileJSON, nameTile);
-		const bufferForTile = document.createElement('canvas');
+			this.getCoordinatesOfTileFromJSON(fileJSON, nameTile);
+			const bufferForTile = document.createElement('canvas');
 			bufferForTile.width = this.widthOfTile;
 			bufferForTile.height = this.heightOfTile;
 			const bufferContext = bufferForTile.getContext('2d');
