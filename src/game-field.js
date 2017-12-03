@@ -3,12 +3,16 @@ import {loadImage,loadJSON} from './loaders';
 import Background from './background';
 
 export default function drawField(context, canvas) {
-
-    Promise.all([
+    return Promise.all([
         loadImage('./images/sprites.png'),
-        loadJSON('./sprites')
+        loadJSON('./sprites'),
+        loadImage('./images/bg.png')
     ])
-    .then(([image, data]) => {
+    .then(([image, data, bgImage]) => {
+        const bg = new Background(bgImage, canvas);
+        bg.define();
+        bg.draw(context);
+
         const sprites = new Spritesheet(image, data, canvas);
 
         for (let i in data) {
@@ -17,11 +21,7 @@ export default function drawField(context, canvas) {
 
         sprites.drawGround(`box-b`, 0);
         sprites.drawGround(`box-gb1`, 0.5);
-    });
 
-    loadImage('./images/bg.png').then( bgImage => {
-        const bg = new Background(bgImage, canvas);
-        bg.define();
-        bg.draw(context);
+        return [sprites, bg];
     });
 }
