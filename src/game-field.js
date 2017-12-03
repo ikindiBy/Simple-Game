@@ -4,18 +4,19 @@ import Background from './background';
 
 export default function drawField(context, canvas) {
 
-    loadImage('./images/sprites.png').then(image => {
+    Promise.all([
+        loadImage('./images/sprites.png'),
+        loadJSON('./sprites')
+    ])
+    .then(([image, data]) => {
+        const sprites = new Spritesheet(image, data, canvas);
 
-        loadJSON('./sprites').then( data => {
-            const sprites = new Spritesheet(image, data, canvas);
+        for (let i in data) {
+            sprites.define(i)
+        }
 
-            for (let i in data) {
-                sprites.define(i)
-            }
-
-            sprites.drawGround(`box-b`, 0);
-            sprites.drawGround(`box-gb1`, 0.5);
-        });
+        sprites.drawGround(`box-b`, 0);
+        sprites.drawGround(`box-gb1`, 0.5);
     });
 
     loadImage('./images/bg.png').then( bgImage => {

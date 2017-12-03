@@ -16,7 +16,6 @@ export default class Spritesheet {
         buffer.width = png['w'];
         buffer.height = png['h'];
 
-
         context.drawImage(this.image, png['x'], png['y'], png['w'], png['h'],
                                       0,        0,        png['w'], png['h']);
 
