@@ -25,14 +25,20 @@ export default class Spritesheet {
 
     draw(name, context, x, y){
         const buffer = this.tiles.get(`${name}.png`);
+        if (!y) {
+            y = this.availableHeight - buffer.height;
+        }
         context.drawImage(buffer, x, y);
     }
 
     drawGround(name, offset, initial) {
         const context = this.canvas.getContext('2d');
         const png = this.tiles.get(`${name}.png`);
-        if (initial) {
+        if (!initial) {
+            this.availableHeight -= png.height;
+        } else {
             this.availableHeight = this.canvas.height;
+            this.availableHeight -= png.height;
         }
 
         const iterationCount = Math.ceil(this.availableWidth / png.width);
