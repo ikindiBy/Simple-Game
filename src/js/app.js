@@ -1,21 +1,18 @@
-// Entry file for js scripts
 
 import SourceSprites from './SourceSprites.js';
-import {loadImage, loadDataFromJSON} from './loaders.js';
+import Compositor from './Compositor.js';
+import {loadDataFromJSON} from './loaders.js';
 import {loadBacgroundSprites, loadHeroSprites} from './sprites.js';
-	
-function drawBackground(backgrounOf, context, sprites) {
-		backgrounOf.ranges.forEach(([x1, x2, y1, y2]) => {
-			for(let x = x1; x < x2; x = x+37) {
-				for(let y = y1; y<y2; y= y+37) {
-				sprites.drawTile(backgrounOf.tile, context, x, y);	
-			}
+import {createBackgroundLayer} from './layers.js';
+
+	function createSpriteLayer(sprite, position) {
+		return function drawSpriteLayer(context) {
+			sprite.drawTile('boy3.png', context, position.x, position.y);
 		}
-	})
-}
+	}
+
 
 	const canvas = document.getElementById('canvas');
-
 	canvas.setAttribute('width', 960);
 	canvas.setAttribute('height', 640);
 
@@ -47,10 +44,27 @@ Promise.all([
 	loadBacgroundSprites(),
 	loadDataFromJSON('level-1')
 	])
-	.then(([hero, sprites, levelDataFromJSON]) => {
-		levelDataFromJSON.backgrounds.forEach(background => {
-		drawBackground(background, context, sprites);
-		});
+	.then(([heroSprite, bacgroundSprites, levelDataFromJSON]) => {
+		
+		let pos = {x:200, y: 520};  // for example
 
-		hero.drawTile('boy3.png', context, 200, 520);
+		let compos = new Compositor();
+
+		let backgroundLayer = createBackgroundLayer(levelDataFromJSON.backgrounds, bacgroundSprites);
+		compos.layers.push(backgroundLayer);
+
+		let heroLayer = createSpriteLayer(heroSprite, pos);
+		compos.layers.push(heroLayer);
+
+		function update() {
+			compos.drawLayerWithContext(context);
+			pos.x += 2;
+			pos.y -= 1;
+			requestAnimationFrame(update);
+		}
+
+		 update();
 	})
+
+	
+
