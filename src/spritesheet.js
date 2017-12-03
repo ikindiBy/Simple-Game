@@ -8,6 +8,7 @@ export default class Spritesheet {
         this.availableWidth = canvas.width;
         this.canvas = canvas;
     }
+
     define(name) {
         const buffer = document.createElement('canvas');
         const context = buffer.getContext('2d');
@@ -21,14 +22,18 @@ export default class Spritesheet {
 
         this.tiles.set(name, buffer);
     }
+
     draw(name, context, x, y){
         const buffer = this.tiles.get(`${name}.png`);
         context.drawImage(buffer, x, y);
     }
-    drawGround(name, offset) {
+
+    drawGround(name, offset, initial) {
         const context = this.canvas.getContext('2d');
         const png = this.tiles.get(`${name}.png`);
-        this.availableHeight -= png.height;
+        if (initial) {
+            this.availableHeight = this.canvas.height;
+        }
 
         const iterationCount = Math.ceil(this.availableWidth / png.width);
 
