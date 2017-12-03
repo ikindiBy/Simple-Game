@@ -23,9 +23,6 @@ export default class Spritesheet {
     }
     draw(name, context, x, y){
         const buffer = this.tiles.get(`${name}.png`);
-        if (!y) {
-            y = this.availableHeight - buffer.height;
-        }
         context.drawImage(buffer, x, y);
     }
     drawGround(name, offset) {

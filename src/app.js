@@ -1,4 +1,4 @@
-import game from './game.js';
+import drawField from './game-field';
 
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
@@ -9,4 +9,4 @@ const context = canvas.getContext('2d');
 canvas.setAttribute('width', 960);
 canvas.setAttribute('height', 640);
 
-game(canvas, context);
+drawField(context, canvas);
