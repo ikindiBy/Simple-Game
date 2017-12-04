@@ -20,10 +20,23 @@ export default function drawField(context, canvas) {
             sprites.define(i)
         }
 
-        sprites.drawGround(`box-b`, 0);
-        sprites.drawGround(`box-gb1`, 0.5);
+        sprites.drawGround(`box-b`, context, 0);
+        sprites.drawGround(`box-gb1`, context, 0.5);
 
         sprites.draw('boy1', context, 64);
+
+
+        const drawBackground = (canvasWidth, canvasHeight) => {
+            const buffer = document.createElement('canvas');
+            const bufferContext = buffer.getContext('2d');
+            buffer.width = canvasWidth;
+            buffer.height = canvasHeight;
+            bg.draw(bufferContext);
+            sprites.drawGround(`box-b`, bufferContext, 0, `initial`);
+            sprites.drawGround(`box-gb1`, bufferContext, 0.5);
+            return buffer;
+        };
+        const background = drawBackground(canvas.width, canvas.height);
 
         const pos = {
             x: 120,
@@ -31,9 +44,7 @@ export default function drawField(context, canvas) {
         }
 
         function update() {
-            bg.draw(context);
-            sprites.drawGround(`box-b`, 0, `initial`);
-            sprites.drawGround(`box-gb1`, 0.5);
+            context.drawImage(background, 0, 0);
             sprites.draw('boy1', context, pos.x, pos.y);
             pos.x++;
             pos.y--;

@@ -31,8 +31,7 @@ export default class Spritesheet {
         context.drawImage(buffer, x, y);
     }
 
-    drawGround(name, offset, initial) {
-        const context = this.canvas.getContext('2d');
+    drawGround(name, context, offset, initial) {
         const png = this.tiles.get(`${name}.png`);
         if (!initial) {
             this.availableHeight -= png.height;
