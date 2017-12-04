@@ -1,4 +1,5 @@
 import drawField from './game-field';
+import makeHero from './hero';
 
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
@@ -9,4 +10,6 @@ const context = canvas.getContext('2d');
 canvas.setAttribute('width', 960);
 canvas.setAttribute('height', 640);
 
-drawField(context, canvas);
+drawField(context, canvas).then(([buffer, sprites, bgImage]) => {
+    makeHero(buffer, sprites, bgImage, context);
+});
