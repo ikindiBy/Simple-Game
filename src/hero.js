@@ -1,21 +1,27 @@
+import Entity from './entity.js';
+import {createcosmo} from './entities.js';
+import Timer from './timer.js';
+
 export default function makeHero(buffer, sprites, bgImage, context) {
     sprites.draw('boy1', context, 64);
 
-    console.log(buffer, sprites, bgImage, context);
+    const gravity = 2000;
 
-    const pos = {
-        x: 120,
-        y: 516
-    }
+    const cosmo = createcosmo();
+    cosmo.pos.set(120, 516);
+    cosmo.vel.set(150, -600);
 
-    function update() {
-        context.drawImage(buffer, 0, 0);
-        sprites.draw('boy1', context, pos.x, pos.y);
-        pos.x++;
-        pos.y--;
-        if (pos.y > 0) {
-            requestAnimationFrame(update);
-        }
+
+    const timer = new Timer(1/60);
+
+    timer.update = function update(deltaTime) {
+            cosmo.update(deltaTime);
+            console.log(deltaTime);
+
+            context.drawImage(buffer, 0, 0);
+            sprites.draw('boy1', context, cosmo.pos.x, cosmo.pos.y);
+
+            cosmo.vel.y += gravity * deltaTime;
     }
-    update();
+    timer.start();
 }
