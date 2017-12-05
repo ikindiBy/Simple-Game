@@ -1,11 +1,12 @@
-import Entity from './entity.js';
+import Entity from './entity';
+import Velocity from './Traits/velocity'
+import Jump from './Traits/jump';
 
-export function createcosmo() {
+export function createCosmo() {
     const cosmo = new Entity();
 
-    cosmo.update = function(deltaTime) {
-        this.pos.x += this.vel.x * deltaTime;
-        this.pos.y += this.vel.y * deltaTime;
-    }
+    cosmo.addTrait(new Velocity());
+    cosmo.addTrait(new Jump());
+
     return cosmo;
 }
