@@ -40,6 +40,12 @@ q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0; }
+@font-face {
+  font-family: "Bello-Script";
+  src: url("/src/fonts/Bello-Script.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal; }
+
 body {
   display: flex;
   flex-direction: column;
@@ -54,10 +60,9 @@ header, main, footer {
   margin: 0 auto; }
 
 h1 {
-  font-size: 2rem;
-  font-family: "Bello-Script", Arial;
+  font-size: 2.2rem;
+  font-family: "Bello-Script";
   color: gold;
-  text-transform: uppercase;
   text-align: center; }
 
 canvas {

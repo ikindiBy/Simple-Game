@@ -27,30 +27,22 @@ import {createHero} from './entities.js';
 			let backgroundLayer = createBackgroundLayer(levelDataFromJSON.backgrounds, bacgroundSprites);
 			compos.layers.push(backgroundLayer);
 
-			const gravity = 1;  // for example
+			const gravity = 10;  // for example
+			hero.position.set(60, 520);
+			hero.velocity.set(200, -500);
 
 			let heroLayer = createSpriteLayer(hero);
 			compos.layers.push(heroLayer);
 
-			// let timer = new TimeHandler(1/60);
-			// timer.update = function update(deltaTime) {
-			// 	compos.drawLayerWithContext(context);
-			// 	hero.update(deltaTime);
-			// 	hero.velocity.y += gravity;
-			// };
-
-			// timer.start();
-
-			function update() {
+			let timer = new TimeHandler(1/60);
+			timer.update = function update(deltaTime) {
 				compos.drawLayerWithContext(context);
-				hero.update();
+				hero.update(deltaTime);
 				hero.velocity.y += gravity;
-				requestAnimationFrame(update);
-			}
+			};
 
-			update();
+			timer.start();
 
-			
 		})
 
 
