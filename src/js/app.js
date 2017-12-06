@@ -9,6 +9,7 @@ import {loadBacgroundSprites, loadHeroSprites} from './sprites.js';
 import {createBackgroundLayer, createSpriteLayer} from './layers.js';
 import {createHero} from './entities.js';
 
+import KeyboardListener from './KeyboardListener.js';
 
 	const canvas = document.getElementById('canvas');
 	canvas.setAttribute('width', 960);
@@ -27,18 +28,32 @@ import {createHero} from './entities.js';
 			let backgroundLayer = createBackgroundLayer(levelDataFromJSON.backgrounds, bacgroundSprites);
 			compos.layers.push(backgroundLayer);
 
-			const gravity = 10;  // for example
+			const gravity = 200;  // for example
 			hero.position.set(60, 520);
-			hero.velocity.set(200, -500);
+			// hero.velocity.set(300, -700);
+
+			const SPACE = 32;
+			let keyInput = new KeyboardListener();
+			keyInput.addMapping(SPACE, keyState => {
+				if(keyState) {
+					hero.jump.start();
+				} else {
+					hero.jump.cancel();
+				}
+			});
+
+			keyInput.listenTo(window);
 
 			let heroLayer = createSpriteLayer(hero);
 			compos.layers.push(heroLayer);
 
+			/* for normalize and unification time flying */
 			let timer = new TimeHandler(1/60);
 			timer.update = function update(deltaTime) {
-				compos.drawLayerWithContext(context);
+				
 				hero.update(deltaTime);
-				hero.velocity.y += gravity;
+				compos.drawLayerWithContext(context);
+				hero.velocity.y += gravity*deltaTime;
 			};
 
 			timer.start();
