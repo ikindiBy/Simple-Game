@@ -3,13 +3,12 @@ const RELEASED = false;
 
 export default class KeyboardListener {
 	constructor() {
-
 		this.currentKeyStates = new Map();
 		this.funsForKeyMap = new Map();
 	}
 
-	addMapping(keyKode, callback) {
-		this.funsForKeyMap.set(keyKode, callback);
+	addMapping(keyCode, callback) {
+		this.funsForKeyMap.set(keyCode, callback);
 	}
 
 	handleEvent(event) {
@@ -21,7 +20,7 @@ export default class KeyboardListener {
 
 		event.preventDefault();
 
-		const keyState = (event.type === 'keydown') ? PRESSED : RELEASED;
+		const keyState = event.type === 'keydown' ? PRESSED : RELEASED;
 
 		if (this.currentKeyStates.get(keyCode) === keyState) {
 			return;

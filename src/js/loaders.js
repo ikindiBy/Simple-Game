@@ -1,4 +1,4 @@
-	export function loadImage(url) {
+export function loadImage(url) {
 			return new Promise(resolve => {
 				const img = new Image();
 				img.src = url;
@@ -9,6 +9,6 @@
 		}
 
 	export function loadDataFromJSON(nameFile) {
-		return fetch(`/src/database/${nameFile}.json`)
+		return fetch(`../src/database/${nameFile}.json`)
 		.then(response => response.json());
 	}

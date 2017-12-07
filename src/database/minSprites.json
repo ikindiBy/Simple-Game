@@ -1,0 +1,28 @@
+{
+	"box-ice.png": {
+	"frame": {"x":1,"y":326,"w":35,"h":35},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":35},
+	"sourceSize": {"w":35,"h":35},
+	"pivot": {"x":0.5,"y":0.5}
+},
+
+	"boy4.png" : {
+	"frame": {"x":1,"y":1,"w":39,"h":50},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":39,"h":50},
+	"sourceSize": {"w":40,"h":50},
+	"pivot": {"x":0.5,"y":0.5}
+},
+	
+	"sky.png" : { 
+	"frame": {"x":1,"y":287,"w":37,"h":37},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":37,"h":37},
+	"sourceSize": {"w":37,"h":37},
+	"pivot": {"x":0.5,"y":0.5}
+}
+}

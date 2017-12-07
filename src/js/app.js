@@ -22,15 +22,16 @@ import KeyboardListener from './KeyboardListener.js';
 		loadDataFromJSON('level-1')
 		])
 		.then(([hero, bacgroundSprites, levelDataFromJSON]) => {
-
+         
 			let compos = new Compositor();
 
 			let backgroundLayer = createBackgroundLayer(levelDataFromJSON.backgrounds, bacgroundSprites);
 			compos.layers.push(backgroundLayer);
 
-			const gravity = 200;  // for example
-			hero.position.set(60, 520);
-			// hero.velocity.set(300, -700);
+			const gravity = 1000;  // for example
+			hero.position.set(60, 320);
+			// hero.position.set(60, 520);
+			// hero.velocity.set(300, -1000);
 
 			const SPACE = 32;
 			let keyInput = new KeyboardListener();

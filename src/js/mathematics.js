@@ -4,7 +4,6 @@ export 	class Vector {
 		}
 
 		set(x, y) {
-			console.log('adasdasdasd asdas asd asd ', x, y)
 			this.x = x;
 			this.y = y;
 		}

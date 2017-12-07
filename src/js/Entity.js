@@ -1,5 +1,15 @@
 import {Vector} from './mathematics.js';
+	
+	export class Feature {
+		constructor(name) {
+			this.NAME = name;
+		}
 
+		update() {
+			
+		}
+	}
+	
 	export default class Entity {
 		constructor() {
 			this.position = new Vector(0,0);
@@ -20,12 +30,3 @@ import {Vector} from './mathematics.js';
 		}
 	}
 
-	export class Feature {
-		constructor(name) {
-			this.NAME = name;
-		}
-
-		update() {
-			
-		}
-	}
