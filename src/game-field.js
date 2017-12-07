@@ -15,9 +15,9 @@ export default function drawField(context, canvas) {
         buffer.width = canvas.width;
         buffer.height = canvas.height;
 
-        // const bgClass = new Background(bgImage, canvas);
-        // bgClass.define();
-        // bgClass.draw(bufferContext);
+        // const bg = new Background(bgImage, canvas);
+        // bg.define();
+        // bg.draw(bufferContext);
 
         const sprites = new Spritesheet(image, data, canvas);
 
