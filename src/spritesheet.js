@@ -5,16 +5,16 @@ export default class Spritesheet {
     constructor(image, data, canvas) {
         this.image = image;
         this.data = data;
-        this.units = new Map();
+        this.tiles = new Map();
 
         this.availableHeight = canvas.height;
         this.availableWidth = canvas.width;
         this.canvas = canvas;
 
         this.entities = new Set();
-        this.tiles = new Layout();
+        this.tilesLayout = new Layout();
 
-        this.tileCollider = new TileCollider(this.tiles);
+        this.tileCollider = new TileCollider(this.tilesLayout);
     }
 
     define(name) {
@@ -28,11 +28,11 @@ export default class Spritesheet {
         context.drawImage(this.image, png['x'], png['y'], png['w'], png['h'],
                                       0,        0,        png['w'], png['h']);
 
-        this.units.set(name, buffer);
+        this.tiles.set(name, buffer);
     }
 
     draw(name, context, x, y){
-        const buffer = this.units.get(`${name}.png`);
+        const buffer = this.tiles.get(`${name}.png`);
         if (!y) {
             y = this.availableHeight - buffer.height;
         }
@@ -40,7 +40,8 @@ export default class Spritesheet {
     }
 
     drawGround(name, context, offset, initial) {
-        const png = this.units.get(`${name}.png`);
+        const png = this.tiles.get(`${name}.png`);
+
         if (!!initial) {
             this.availableHeight = this.canvas.height;
         }
@@ -48,25 +49,46 @@ export default class Spritesheet {
 
         const iterationCount = Math.ceil(this.availableWidth / png.width);
 
-        //костыль для работы с коллизией (this.tiles)
-        // const y = ((this.canvas.height - this.availableHeight) / png.height);
-
+        //костыль для работы с коллизией (this.tilesLayout)
         const y = Math.floor(this.canvas.height / png.height)
                 - ((this.canvas.height - this.availableHeight) / png.height);
 
         for (let i = 0 - offset; i < iterationCount; ++i) {
             context.drawImage(png, i * png.width, this.availableHeight);
-            this.tiles.set(i, y, {
-                'name': name
-            });
+            // console.log('ground: ', i, y);
+            if(offset === 0) {
+                this.tilesLayout.set(i, y, {
+                    'name': name
+                });
+            }
         }
+    }
+
+    drawSomething(name, context, x, y) {
+        const png = this.tiles.get(`${name}.png`);
+
+        context.drawImage(png, x, y);
+
+        x = this.tileCollider.tiles.toIndex(x);
+        y = this.tileCollider.tiles.toIndex(y);
+        // console.log('something: ', x, y);
+
+        this.tilesLayout.set(x, y, {
+            'name': name
+        });
     }
 
     update(deltaTime) {
         this.entities.forEach(entity => {
             entity.update(deltaTime);
 
-            this.tileCollider.test(entity);
+            entity.pos.x += entity.vel.x * deltaTime;
+            this.tileCollider.checkX(entity);
+
+            entity.pos.y += entity.vel.y * deltaTime;
+            this.tileCollider.checkY(entity);
+
+            // this.tileCollider.test(entity);
         });
     }
 }

@@ -8,7 +8,7 @@ const context = canvas.getContext('2d');
 // canvas.style.width = `960px`;
 // canvas.style.height = `640px`;
 canvas.setAttribute('width', 960);
-canvas.setAttribute('height', 640);
+canvas.setAttribute('height', 629);
 
 drawField(context, canvas).then(([buffer, sprites, bgImage]) => {
     makeHero(buffer, sprites, bgImage, context);

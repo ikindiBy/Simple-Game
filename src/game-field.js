@@ -26,8 +26,8 @@ export default function drawField(context, canvas) {
         }
 
         bufferContext.drawImage(bgImage, 0, 0);
-        sprites.drawGround(`box-b`, bufferContext, 0, `initial`);
-        sprites.drawGround(`box-gb1`, bufferContext, 0.5);
+        sprites.drawGround(`box-b`, bufferContext, 0.5, `initial`);
+        sprites.drawGround(`box-gb1`, bufferContext, 0);
 
         return [buffer, sprites, bgImage];
     });
