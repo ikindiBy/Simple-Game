@@ -1,13 +1,35 @@
 	
 
 
-	export function createBackgroundLayer(backgrounds, sprites) {
+	// export function createBackgroundLayer(backgrounds, sprites) {
+	// 	let bgcBuffer = document.createElement('canvas');
+	// 	bgcBuffer.width = 960;
+	// 	bgcBuffer.height = 640;
+
+	// 	backgrounds.forEach(background => {
+	// 		drawBackground(background, bgcBuffer.getContext('2d'), sprites);
+	// 	});
+
+	// 	return function drawBgcLayer(context) {
+	// 		context.drawImage(bgcBuffer, 0, 0);
+	// 	}
+	// }
+
+	export function createBackgroundLayer(level, sprites) {
 		let bgcBuffer = document.createElement('canvas');
 		bgcBuffer.width = 960;
 		bgcBuffer.height = 640;
+		let context = bgcBuffer.getContext('2d');
 
-		backgrounds.forEach(background => {
-			drawBackground(background, bgcBuffer.getContext('2d'), sprites);
+		// level.tiles.grid.forEach((column, x) => {
+		// 	column.forEach((tile, y) => {
+		// 		sprites.drawTile(tile.name, context, x, y);
+		// 	});
+
+		// });
+
+		level.tiles.forEach((tile, x, y) => {
+				sprites.drawTile(tile.name, context, x, y);
 		});
 
 		return function drawBgcLayer(context) {
@@ -15,15 +37,16 @@
 		}
 	}
 
-	function drawBackground(backgrounOf, context, sprites) {
-		backgrounOf.ranges.forEach(([x1, x2, y1, y2]) => {
-			for(let x = x1; x < x2; x = x+37) {
-				for(let y = y1; y<y2; y= y+37) {
-				sprites.drawTile(backgrounOf.tile, context, x, y);	
-				}
-			}
-		})
-	}	
+
+	// function drawBackground(backgrounOf, context, sprites) {
+	// 	backgrounOf.ranges.forEach(([x1, x2, y1, y2]) => {
+	// 		for(let x = x1; x < x2; x = x+37) {
+	// 			for(let y = y1; y<y2; y= y+37) {
+	// 			sprites.drawTile(backgrounOf.tile, context, x, y);	
+	// 			}
+	// 		}
+	// 	})
+	// }	
 
 	export 	function createSpriteLayer(entities) {
 		return function drawSpriteLayer(context) {
