@@ -1,6 +1,7 @@
 export default 	class Compositor {
 		constructor(){
 			this.layers = [];
+			console.log('new Compositor')
 		}
 
 		drawLayerWithContext(context) {

@@ -14,6 +14,7 @@ import Jump  from './features/Jump.js';
 			hero.addFeature(new Jump());
 
 			hero.draw = function drawHero(context) {
+				
 				sprite.drawTile('boy3.png', context, this.position.x, this.position.y);
 			}
 			return hero;

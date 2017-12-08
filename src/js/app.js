@@ -4,7 +4,7 @@ import Compositor from './Compositor.js';
 import {Vector} from './mathematics.js';
 import Entity from './Entity.js';
 import TimeHandler from './TimeHandler.js';
-import {loadDataFromJSON} from './loaders.js';
+import {loadDataFromJSON, loadLevel} from './loaders.js';
 import {loadBacgroundSprites, loadHeroSprites} from './sprites.js';
 import {createBackgroundLayer, createSpriteLayer} from './layers.js';
 import {createHero} from './entities.js';
@@ -18,20 +18,17 @@ import KeyboardListener from './KeyboardListener.js';
 
 	Promise.all([
 		createHero(),
-		loadBacgroundSprites(),
-		loadDataFromJSON('level-1')
+		// loadBacgroundSprites(),
+		loadLevel('level-1')
+		// loadDataFromJSON('level-1')
 		])
-		.then(([hero, bacgroundSprites, levelDataFromJSON]) => {
-         
-			let compos = new Compositor();
+		.then(([hero, level]) => {
+		// .then(([hero, bacgroundSprites, levelDataFromJSON]) => {
+			
+			const gravity = 5;  // for example   1000
+			hero.position.set(60, 100);
 
-			let backgroundLayer = createBackgroundLayer(levelDataFromJSON.backgrounds, bacgroundSprites);
-			compos.layers.push(backgroundLayer);
-
-			const gravity = 1000;  // for example
-			hero.position.set(60, 320);
-			// hero.position.set(60, 520);
-			// hero.velocity.set(300, -1000);
+			level.entities.add(hero);
 
 			const SPACE = 32;
 			let keyInput = new KeyboardListener();
@@ -45,15 +42,12 @@ import KeyboardListener from './KeyboardListener.js';
 
 			keyInput.listenTo(window);
 
-			let heroLayer = createSpriteLayer(hero);
-			compos.layers.push(heroLayer);
-
 			/* for normalize and unification time flying */
 			let timer = new TimeHandler(1/60);
 			timer.update = function update(deltaTime) {
 				
 				hero.update(deltaTime);
-				compos.drawLayerWithContext(context);
+				level.compos.drawLayerWithContext(context);
 				hero.velocity.y += gravity*deltaTime;
 			};
 
