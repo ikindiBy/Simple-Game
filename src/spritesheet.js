@@ -15,6 +15,8 @@ export default class Spritesheet {
         this.tilesLayout = new Layout();
 
         this.tileCollider = new TileCollider(this.tilesLayout);
+
+        this.gravity = 2000;
     }
 
     define(name) {
@@ -55,7 +57,7 @@ export default class Spritesheet {
 
         for (let i = 0 - offset; i < iterationCount; ++i) {
             context.drawImage(png, i * png.width, this.availableHeight);
-            // console.log('ground: ', i, y);
+
             if(offset === 0) {
                 this.tilesLayout.set(i, y, {
                     'name': name
@@ -71,7 +73,6 @@ export default class Spritesheet {
 
         x = this.tileCollider.tiles.toIndex(x);
         y = this.tileCollider.tiles.toIndex(y);
-        // console.log('something: ', x, y);
 
         this.tilesLayout.set(x, y, {
             'name': name
@@ -88,7 +89,7 @@ export default class Spritesheet {
             entity.pos.y += entity.vel.y * deltaTime;
             this.tileCollider.checkY(entity);
 
-            // this.tileCollider.test(entity);
+            entity.vel.y += this.gravity * deltaTime;
         });
     }
 }

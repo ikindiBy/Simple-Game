@@ -1,15 +1,13 @@
 import Entity from './entity';
 import {createCosmo} from './entities';
 import Timer from './timer';
-import KeyboardListener from './keyboardState';
 import {createCollisionLayer} from './layers';
+import setupKeyboard from './input';
 
 export default function makeHero(buffer, sprites, bgImage, context) {
 
-    const gravity = 2000;
-
     const cosmo = createCosmo();
-    cosmo.pos.set(120, 510);
+    cosmo.pos.set(185, 420);
     // cosmo.vel.set(150, -600);
     cosmo.vel.set(0, -600);
 
@@ -17,22 +15,7 @@ export default function makeHero(buffer, sprites, bgImage, context) {
 
     sprites.entities.add(cosmo);
 
-    const SPACE = 32;
-    const input = new KeyboardListener();
-
-    input.addMapping(SPACE, keyState => {
-        if (keyState) {
-            cosmo.jump.start();
-        } else {
-            cosmo.jump.cancel();
-        }
-    });
-    input.addMapping(39, keyState => {
-        cosmo.go.dir = keyState;
-    });
-    input.addMapping(37, keyState => {
-        cosmo.go.dir = -keyState;
-    });
+    const input = setupKeyboard(cosmo);
     input.listenTo(window);
 
     // ['mousedown', 'mousemove'].forEach(eventName => {
@@ -57,8 +40,6 @@ export default function makeHero(buffer, sprites, bgImage, context) {
             sprites.draw('boy1', context, cosmo.pos.x, cosmo.pos.y);
 
             drawCollisions(context);
-
-            cosmo.vel.y += gravity * deltaTime;
     }
     timer.start();
 }
