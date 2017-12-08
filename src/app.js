@@ -6,10 +6,8 @@ const context = canvas.getContext('2d');
 // canvas.setAttribute('height', `${window.devicePixelRatio}` * 640);
 // canvas.style.width = `960px`;
 // canvas.style.height = `640px`;
-//
-const width = 37 * 100;
-const height = 37 * 17;
-canvas.setAttribute('width', width);
-canvas.setAttribute('height', height);
+
+canvas.setAttribute('width', 960);
+canvas.setAttribute('height', 629);
 
 drawField(context, canvas);

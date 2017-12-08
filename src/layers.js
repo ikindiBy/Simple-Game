@@ -12,13 +12,13 @@ export function createCollisionLayer(sprites) {
         return getByIndexOriginal.call(tileResolver, x, y);
     }
 
-    return function drawCollisions(context) {
+    return function drawCollisions(context, camera) {
 
         context.strokeStyle = 'blue';
         resolvedTiles.forEach(({x,y}) => {
             context.beginPath();
-            context.rect(x * tileSize,
-                         y * tileSize,
+            context.rect(x * tileSize - camera.pos.x,
+                         y * tileSize - camera.pos.y,
                          tileSize, tileSize);
             context.stroke();
         });
@@ -26,7 +26,8 @@ export function createCollisionLayer(sprites) {
         context.strokeStyle = 'red';
         sprites.entities.forEach(entity => {
             context.beginPath();
-            context.rect(entity.pos.x,  entity.pos.y,
+            context.rect(entity.pos.x - camera.pos.x,
+                         entity.pos.y - camera.pos.y,
                          entity.size.x, entity.size.y);
             context.stroke();
         })
@@ -35,11 +36,14 @@ export function createCollisionLayer(sprites) {
     };
 }
 
-export function drawBackground(canvas, sprites) {
+export function drawBackground(sprites) {
     const buffer = document.createElement('canvas');
     const bufferContext = buffer.getContext('2d');
-    buffer.setAttribute('width', canvas.width);
-    buffer.setAttribute('height', canvas.height);
+
+    const width = 37 * 100;
+    const height = 37 * 17;
+    buffer.setAttribute('width', width);
+    buffer.setAttribute('height', height);
 
     sprites.tilesLayout.backgrounds.forEach( tile => {
         const name = tile.name;

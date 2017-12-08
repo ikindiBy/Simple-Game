@@ -62,10 +62,10 @@ export default class Spritesheet {
             entity.update(deltaTime);
 
             entity.pos.x += entity.vel.x * deltaTime;
-            this.tileCollider.checkX(entity);
+            this.tileCollider.checkX(entity, this.camera);
 
             entity.pos.y += entity.vel.y * deltaTime;
-            this.tileCollider.checkY(entity);
+            this.tileCollider.checkY(entity, this.camera);
 
             entity.vel.y += this.gravity * deltaTime;
         });

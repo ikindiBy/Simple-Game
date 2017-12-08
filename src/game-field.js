@@ -32,11 +32,12 @@ export default function drawField(context, canvas) {
         cosmo.vel.set(0, -600);
         sprites.entities.add(cosmo);
 
-        const bg = drawBackground(canvas, sprites);
+        const bg = drawBackground(sprites);
 
         const drawCollisions = createCollisionLayer(sprites);
 
         const input = setupKeyboard(cosmo);
+        setupMouseControl(canvas, cosmo, sprites.camera);
         input.listenTo(window);
 
         const timer = new Timer(1/60);
@@ -44,10 +45,10 @@ export default function drawField(context, canvas) {
         timer.update = function update(deltaTime) {
                 sprites.update(deltaTime);
 
-                context.drawImage(bg, 0, 0);
+                context.drawImage(bg, 0 - sprites.camera.pos.x, 0 - sprites.camera.pos.y);
                 sprites.draw('boy1', context, cosmo.pos.x, cosmo.pos.y);
 
-                drawCollisions(context);
+                drawCollisions(context, sprites.camera);
         }
         timer.start();
 

@@ -20,13 +20,13 @@ export function setupMouseControl(canvas, entity, camera) {
     // canvas.addEventListener('contextmenu', event => {
     //     event.preventDefault();
     // });
-    
+
 
     ['mousedown', 'mousemove'].forEach(eventName => {
         canvas.addEventListener(eventName, event => {
             if (event.buttons === 1) {
-                cosmo.vel.set(0, 0);
-                cosmo.pos.set(event.offsetX, event.offsetY);
+                entity.vel.set(0, 0);
+                entity.pos.set(event.offsetX + camera.pos.x, event.offsetY + camera.pos.y);
             }
         })
     });
