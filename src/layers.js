@@ -47,9 +47,32 @@ export function drawBackground(sprites) {
 
     sprites.tilesLayout.backgrounds.forEach( tile => {
         const name = tile.name;
-        tile.pos.forEach(([x1, x2, y1, y2]) => {
-            sprites.drawTiles(name, bufferContext, x1, x2, y1, y2);
+
+        tile.pos.forEach(range => {
+            switch(range.length) {
+                case 4: {
+                    sprites.drawTiles(name, bufferContext, ...range);
+                    break;
+                }
+                case 3: {
+                    let [x, xLen, y] = range;
+                    xLen += x;
+                    sprites.drawTiles(name, bufferContext, x, xLen, y, (y + 1));
+                    break;
+                }
+                case 2: {
+                    const [x, y] = range;
+                    sprites.drawTiles(name, bufferContext, x, (x + 1), y, (y + 1));
+                    break;
+                }
+            }
         });
+
+            // tile.pos.forEach(([x1, x2, y1, y2]) => {
+            //     sprites.drawTiles(name, bufferContext, x1, x2, y1, y2);
+            // });
+
+
     });
 
     return buffer;
