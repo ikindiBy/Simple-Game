@@ -34,3 +34,19 @@ export function createCollisionLayer(sprites) {
         resolvedTiles.length = 0;
     };
 }
+
+export function drawBackground(canvas, sprites) {
+    const buffer = document.createElement('canvas');
+    const bufferContext = buffer.getContext('2d');
+    buffer.setAttribute('width', canvas.width);
+    buffer.setAttribute('height', canvas.height);
+
+    sprites.tilesLayout.backgrounds.forEach( tile => {
+        const name = tile.name;
+        tile.pos.forEach(([x1, x2, y1, y2]) => {
+            sprites.drawTiles(name, bufferContext, x1, x2, y1, y2);
+        });
+    });
+
+    return buffer;
+}

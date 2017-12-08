@@ -1,34 +1,56 @@
 import Spritesheet from './spritesheet';
 import {loadImage,loadJSON} from './loaders';
-import Background from './background';
+
+import Entity from './entity';
+import {createCosmo} from './entities';
+
+import Timer from './timer';
+
+import {createCollisionLayer, drawBackground} from './layers';
+
+import setupKeyboard from './input';
+import {setupMouseControl} from './debug';
+
 
 export default function drawField(context, canvas) {
-    return Promise.all([
+    Promise.all([
         loadImage('./images/sprites.png'),
         loadJSON('./sprites'),
-        loadImage('./images/bg.png')
+        loadJSON('./levels/1-1')
     ])
-    .then(([image, data, bgImage]) => {
+    .then(([image, data, layout]) => {
 
-        const buffer = document.createElement('canvas');
-        const bufferContext = buffer.getContext('2d');
-        buffer.width = canvas.width;
-        buffer.height = canvas.height;
+        const sprites = new Spritesheet(image, data, canvas, layout);
 
-        // const bg = new Background(bgImage, canvas);
-        // bg.define();
-        // bg.draw(bufferContext);
-
-        const sprites = new Spritesheet(image, data, canvas);
-
-        for (let i in data) {
-            sprites.define(i)
+        for (let sprite in data) {
+            sprites.define(sprite);
         }
 
-        bufferContext.drawImage(bgImage, 0, 0);
-        sprites.drawGround(`box-b`, bufferContext, 0.5, `initial`);
-        sprites.drawGround(`box-gb1`, bufferContext, 0);
+        const cosmo = createCosmo();
+        cosmo.pos.set(185, 420);
+        // cosmo.vel.set(150, -600);
+        cosmo.vel.set(0, -600);
+        sprites.entities.add(cosmo);
 
-        return [buffer, sprites, bgImage];
+        const bg = drawBackground(canvas, sprites);
+
+        const drawCollisions = createCollisionLayer(sprites);
+
+        const input = setupKeyboard(cosmo);
+        input.listenTo(window);
+
+        const timer = new Timer(1/60);
+
+        timer.update = function update(deltaTime) {
+                sprites.update(deltaTime);
+
+                context.drawImage(bg, 0, 0);
+                sprites.draw('boy1', context, cosmo.pos.x, cosmo.pos.y);
+
+                drawCollisions(context);
+        }
+        timer.start();
+
+        window.sprites = sprites;
     });
 }

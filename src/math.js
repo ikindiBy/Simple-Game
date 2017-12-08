@@ -1,4 +1,4 @@
-export class Layout {
+export class Matrix {
     constructor() {
         this.grid = [];
     }

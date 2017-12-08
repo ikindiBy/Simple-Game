@@ -1,22 +1,22 @@
-import {Layout} from './math';
-import TileCollider from './TileCollider'
+import {Matrix} from './math';
+import TileCollider from './TileCollider';
+import Camera from './Camera';
 
 export default class Spritesheet {
-    constructor(image, data, canvas) {
+    constructor(image, data, canvas, layout) {
+        this.canvas = canvas;
         this.image = image;
         this.data = data;
         this.tiles = new Map();
 
-        this.availableHeight = canvas.height;
-        this.availableWidth = canvas.width;
-        this.canvas = canvas;
-
         this.entities = new Set();
-        this.tilesLayout = new Layout();
+        this.tilesMatrix = new Matrix();
+        this.tilesLayout = layout;
 
-        this.tileCollider = new TileCollider(this.tilesLayout);
+        this.tileCollider = new TileCollider(this.tilesMatrix);
 
         this.gravity = 2000;
+        this.camera = new Camera();
     }
 
     define(name) {
@@ -33,51 +33,29 @@ export default class Spritesheet {
         this.tiles.set(name, buffer);
     }
 
-    draw(name, context, x, y){
+    draw(name, context, x, y, tile) {
         const buffer = this.tiles.get(`${name}.png`);
-        if (!y) {
-            y = this.availableHeight - buffer.height;
+
+        if (tile) {
+            this.tilesMatrix.set(x, y, {
+                'name': name
+            });
+
+            x = x * buffer.width;
+            y = y * buffer.width;
         }
-        context.drawImage(buffer, x, y);
+
+        context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
     }
 
-    drawGround(name, context, offset, initial) {
-        const png = this.tiles.get(`${name}.png`);
-
-        if (!!initial) {
-            this.availableHeight = this.canvas.height;
-        }
-            this.availableHeight -= png.height;
-
-        const iterationCount = Math.ceil(this.availableWidth / png.width);
-
-        //костыль для работы с коллизией (this.tilesLayout)
-        const y = Math.floor(this.canvas.height / png.height)
-                - ((this.canvas.height - this.availableHeight) / png.height);
-
-        for (let i = 0 - offset; i < iterationCount; ++i) {
-            context.drawImage(png, i * png.width, this.availableHeight);
-
-            if(offset === 0) {
-                this.tilesLayout.set(i, y, {
-                    'name': name
-                });
+    drawTiles(name, context, x1, x2, y1, y2) {
+        for (let x = x1; x < x2; ++x) {
+            for (let y = y1; y < y2; ++y) {
+                this.draw(name, context, x, y, 'tile');
             }
         }
     }
 
-    drawSomething(name, context, x, y) {
-        const png = this.tiles.get(`${name}.png`);
-
-        context.drawImage(png, x, y);
-
-        x = this.tileCollider.tiles.toIndex(x);
-        y = this.tileCollider.tiles.toIndex(y);
-
-        this.tilesLayout.set(x, y, {
-            'name': name
-        });
-    }
 
     update(deltaTime) {
         this.entities.forEach(entity => {
