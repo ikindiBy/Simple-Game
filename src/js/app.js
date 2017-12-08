@@ -4,8 +4,8 @@ import {createHero} from './entities.js';
 import KeyboardListener from './KeyboardListener.js';
 
 	const canvas = document.getElementById('canvas');
-	canvas.setAttribute('width', 960);
-	canvas.setAttribute('height', 640);
+	canvas.setAttribute('width', 962);
+	canvas.setAttribute('height', 629);
 	const context = canvas.getContext('2d');
 
 	Promise.all([
@@ -13,7 +13,7 @@ import KeyboardListener from './KeyboardListener.js';
 		loadLevel('level-1')
 		])
 		.then(([hero, level]) => {		
-			const gravity = 1;  // for example   1000
+			const gravity = 20;  // for example   1000
 
 			hero.position.set(60, 100);
 			level.entities.add(hero);

@@ -14,7 +14,7 @@ export class Matrix {
 		this.grid.forEach((column, x) => {
 			column.forEach((value, y) => {
 				callback(value, x, y);
-				// sprites.drawTile(tile.name, context, x, y);
+				// console.log('-forEach(callback-->>', x, y, value );
 			});
 
 		});
@@ -25,9 +25,7 @@ export class Matrix {
 		if (col) {
 			return col[y];
 		}
-
 		return undefined;
-
 	}	
 
 	set(x, y, value) {

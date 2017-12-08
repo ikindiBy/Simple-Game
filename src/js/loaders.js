@@ -39,7 +39,7 @@ import {loadBacgroundSprites} from './sprites.js';
 			let heroLayer = createSpriteLayer(level.entities);
 			level.compos.layers.push(heroLayer);
 
-			console.table(level.tiles.grid);
+			// console.table(level.tiles.grid);
 
 			return level;
 		})
