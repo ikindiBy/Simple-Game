@@ -16,7 +16,6 @@ export class Matrix {
 				callback(value, x, y);
 				// console.log('-forEach(callback-->>', x, y, value );
 			});
-
 		});
 	}	
 
@@ -38,9 +37,7 @@ export class Matrix {
 	}
 }
 
-window.Matrix = Matrix;
-
-
+// window.Matrix = Matrix;
 export class Vector {
 		constructor(x, y) {
 			this.set(x, y);

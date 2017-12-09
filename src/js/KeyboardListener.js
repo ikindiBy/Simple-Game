@@ -7,14 +7,14 @@ export default class KeyboardListener {
 		this.funsForKeyMap = new Map();
 	}
 
-	addMapping(keyCode, callback) {
-		this.funsForKeyMap.set(keyCode, callback);
+	addMapping(code, callback) {
+		this.funsForKeyMap.set(code, callback);
 	}
 
 	handleEvent(event) {
-		const {keyCode} = event;
+		const {code} = event;
 
-		if(!this.funsForKeyMap.has(keyCode)) {
+		if(!this.funsForKeyMap.has(code)) {
 			return;
 		}
 
@@ -22,13 +22,13 @@ export default class KeyboardListener {
 
 		const keyState = event.type === 'keydown' ? PRESSED : RELEASED;
 
-		if (this.currentKeyStates.get(keyCode) === keyState) {
+		if (this.currentKeyStates.get(code) === keyState) {
 			return;
 		}
 
-		this.currentKeyStates.set(keyCode, keyState);
+		this.currentKeyStates.set(code       , keyState);
 
-		this.funsForKeyMap.get(keyCode)(keyState);
+		this.funsForKeyMap.get(code       )(keyState);
 	}
 
 	listenTo(window) {

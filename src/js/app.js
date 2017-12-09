@@ -2,6 +2,8 @@ import TimeHandler from './TimeHandler.js';
 import {loadLevel} from './loaders.js';
 import {createHero} from './entities.js';
 import KeyboardListener from './KeyboardListener.js';
+import {createCollisionLayer} from './layers.js';
+import {setupKeyboard} from './Input.js';
 
 	const canvas = document.getElementById('canvas');
 	canvas.setAttribute('width', 962);
@@ -12,32 +14,20 @@ import KeyboardListener from './KeyboardListener.js';
 		createHero(),
 		loadLevel('level-1')
 		])
-		.then(([hero, level]) => {		
-			const gravity = 20;  // for example   1000
+		.then(([hero, level]) => {
 
 			hero.position.set(60, 100);
 			level.entities.add(hero);
 
-			const SPACE = 32;
-			let keyInput = new KeyboardListener();
-			keyInput.addMapping(SPACE, keyState => {
-				if(keyState) {
-					hero.jump.start();
-				} else {
-					hero.jump.cancel();
-				}
-			});
-			keyInput.listenTo(window);
+			let input = setupKeyboard(hero);
+			input.listenTo(window);
 
 			/* for normalize and unification time flying */
 			let timer = new TimeHandler(1/60);
-			timer.update = function update(deltaTime) {
-				
+			timer.update = function update(deltaTime) {	
 				level.update(deltaTime);
 				level.compos.drawLayerWithContext(context);
-				hero.velocity.y += gravity*deltaTime;
 			};
-
 			timer.start();
 		})
 

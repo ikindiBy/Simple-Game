@@ -14,13 +14,13 @@ export default class Jump extends Feature {
 		}
 
 		cancel() {
-
+			this.engageTime = 0;
 		}
 
 		update(entity, dT) {
 			if (this.engageTime > 0) {
 				entity.velocity.y = -this.velocity;
-				this.engageTime =- dT;
+				this.engageTime -= dT;
 			}
 		}
 	}  

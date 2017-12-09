@@ -52,6 +52,7 @@ import {loadBacgroundSprites} from './sprites.js';
 					for(let y = y1; y<y2; y= y+37) {
 						level.tiles.set(x, y, {
 							name: background.tile,
+							description: background.description,
 						})	
 					}
 				}
