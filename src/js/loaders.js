@@ -3,27 +3,28 @@ import {createBackgroundLayer, createSpriteLayer} from './layers.js';
 import {loadBacgroundSprites} from './sprites.js';
 
 	export function loadImage(url) {
-			return new Promise(resolve => {
-				const img = new Image();
-				img.src = url;
-				img.addEventListener('load', () => {
-					resolve(img);
-				});
+		return new Promise(resolve => {
+			const img = new Image();
+			img.src = url;
+			img.addEventListener('load', () => {
+				resolve(img);
 			});
-		}
+		});
+	}
 
-	export function loadDataFromJSON(nameFile) {
-		console.log('loadDataFromJSON',nameFile);
-		return fetch(`../src/database/${nameFile}.json`)
+	function loadJSON(url) {
+		return fetch(url)
 		.then(response => response.json());
 	}
 
-	export function loadLevel(nameFile) {
-		console.log('loadDataFromJSON',nameFile);
-		return Promise.all ([
-			fetch(`../src/database/${nameFile}.json`)
-			.then(response => response.json()),
+	export function loadDataFromJSON(nameFile) {
+		return loadJSON(`../src/database/${nameFile}.json`);	
+	}
 
+	export function loadLevel(nameFile) {
+		console.log('loadLevel',nameFile);
+		return Promise.all ([
+			loadJSON(`../src/database/${nameFile}.json`),
 			loadBacgroundSprites()
 		]) 
 		.then(([levelSpec, bacgroundSprites])  => {
@@ -33,33 +34,44 @@ import {loadBacgroundSprites} from './sprites.js';
 			createTiles(level, levelSpec.backgrounds);
 
 			let backgroundLayer = createBackgroundLayer(level, bacgroundSprites);
-			// let backgroundLayer = createBackgroundLayer(levelSpec.backgrounds, bacgroundSprites);
 			level.compos.layers.push(backgroundLayer);
 
 			let heroLayer = createSpriteLayer(level.entities);
 			level.compos.layers.push(heroLayer);
-
-			// console.table(level.tiles.grid);
 
 			return level;
 		})
 	}
 
 	function createTiles(level, backgrounds) {
-		backgrounds.forEach(background => {
-			background.ranges.forEach(([x1, x2, y1, y2]) => {
-				for(let x = x1; x < x2; x = x+37) {
-					for(let y = y1; y<y2; y= y+37) {
-						level.tiles.set(x, y, {
-							name: background.tile,
-							description: background.description,
-						})	
-					}
+		function applyRange(background, xStart, xAmount, yStart, yAmount) {
+			let xFrom = 37 * xStart;
+			let xTill = xFrom + 37 * xAmount;
+			let yFrom = 37 * yStart;
+			let yTill = yFrom + 37 * yAmount;
+			for(let x = xFrom; x < xTill; x = x + 37) {
+				for(let y = yFrom; y < yTill; y = y + 37) {
+					level.tiles.set(x, y, {
+						name: background.tile,
+						description: background.description,
+					});	
 				}
-			})
+			}
+		}
+
+		console.log('createTiles');
+		backgrounds.forEach(background => {
+			background.ranges.forEach(range => {
+				if (range.length === 4) {
+					let [xStart, xAmount, yStart, yAmount] = range;
+					applyRange(background, xStart, xAmount, yStart, yAmount);
+				} else if (range.length === 2) {
+					let [xStart, yStart] = range;
+					applyRange(background, xStart, 1, yStart, 1);
+				}
+			});
 		});
 	}
-
 
 
 			

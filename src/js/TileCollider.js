@@ -30,7 +30,7 @@ export default class TileCollider {
 
 			if (entity.velocity.x > 0) {
 				if (entity.position.x + entity.size.x > match.x1) {
-					entity.position.x > match.x1 - entity.size.x;
+					entity.position.x = match.x1 - entity.size.x;
 					entity.velocity.x = 0;
 				}
 			} else if (entity.velocity.x < 0) {
@@ -69,7 +69,7 @@ export default class TileCollider {
 
 			if (entity.velocity.y > 0) {
 				if (entity.position.y + entity.size.y > match.y1) {
-					entity.position.y > match.y1 - entity.size.y;
+					entity.position.y = match.y1 - entity.size.y;
 					entity.velocity.y = 0;
 					// console.log(match.y1, entity.position.y, entity.velocity.y, entity.velocity.x);
 				}
@@ -85,9 +85,5 @@ export default class TileCollider {
 
 	test(entity) {
 		this.checkY(entity);
-		// let match = this.tiles.matchByPosition(entity.position.x, entity.position.y);
-		// if (match) {
-		// 	console.log('--->>',  match.tile);
-		// }
 	}
 }

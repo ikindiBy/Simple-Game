@@ -4,7 +4,7 @@ export default class Go extends Feature {
 		constructor() {
 			super('go');
 			this.direction = 0;
-			this.speed = 6000;
+			this.speed = 20000;
 		}
 
 		start() {

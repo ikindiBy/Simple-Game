@@ -1,9 +1,4 @@
 
-// const matrix = new Matrix();
-
-// matrix.set(5, 4, {name: 'ground'}); //box-g.png
-
-// const tile = matrix.get(hero.position.x*TILE_SIZE, hero.position.y*TILE_SIZE)
 
 export class Matrix {
 	constructor() {
@@ -14,7 +9,6 @@ export class Matrix {
 		this.grid.forEach((column, x) => {
 			column.forEach((value, y) => {
 				callback(value, x, y);
-				// console.log('-forEach(callback-->>', x, y, value );
 			});
 		});
 	}	
@@ -37,7 +31,6 @@ export class Matrix {
 	}
 }
 
-// window.Matrix = Matrix;
 export class Vector {
 		constructor(x, y) {
 			this.set(x, y);

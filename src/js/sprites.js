@@ -25,7 +25,7 @@ export function loadHeroSprites() {
 	})
 	.then(sprites => {
 		return loadDataFromJSON('sprites')
-		.then( spritesDataFromJSON => {
+		.then(spritesDataFromJSON => {
 			sprites.defineTilePerJSON(spritesDataFromJSON, 'boy3.png');
 			return sprites ;
 		});

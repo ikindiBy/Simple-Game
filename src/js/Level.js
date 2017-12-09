@@ -4,7 +4,7 @@ import {Matrix} from './mathematics.js';
 
 export default class Level {
 	constructor() {
-		this.gravity = 250;  // for example   1000
+		this.gravity = 220;  // for example   1000
 				
 		this.compos = new Compositor();
 		this.entities = new Set();

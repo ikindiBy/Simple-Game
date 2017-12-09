@@ -18,7 +18,8 @@ import Go  from './features/Go.js';
 			// hero.addFeature(new Velocity());
 			
 			hero.draw = function drawHero(context) {
-				sprite.drawTile('boy3.png', context, this.position.x, this.position.y);
+				sprite.drawTile('boy3.png', context, 0, 0);
+				// sprite.drawTile('boy3.png', context, this.position.x, this.position.y);
 			}
 
 			return hero;
