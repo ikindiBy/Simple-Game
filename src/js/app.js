@@ -26,7 +26,7 @@ import {debugging} from './debuging.js';
 			level.entities.add(hero);
 
 			level.compos.layers.push(
-				createCollisionLayer(level),
+				// createCollisionLayer(level),
 				createCmeralayer(camera));
 
 			let input = setupKeyboard(hero);

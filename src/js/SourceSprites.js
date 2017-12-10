@@ -12,11 +12,19 @@ export default class SourceSprites {
 	}
 
 	defineTilePerJSON(fileJSON, nameTile) {
+		let buffers = [false, true].map(flip => {
+
 			this.getCoordinatesOfTileFromJSON(fileJSON, nameTile);
 			const bufferForTile = document.createElement('canvas');
 			bufferForTile.width = this.widthOfTile;
 			bufferForTile.height = this.heightOfTile;
 			const bufferContext = bufferForTile.getContext('2d');
+
+			if (nameTile.includes('boy') && flip) {
+				bufferContext.scale(-1, 1);
+				bufferContext.translate(-this.widthOfTile, 0);
+			}
+
 			bufferContext.drawImage(
 				this.image,
 				this.startOfTileX,
@@ -27,11 +35,15 @@ export default class SourceSprites {
 				0,
 				this.widthOfTile,
 				this.heightOfTile);
-			this.tilesMap.set(nameTile, bufferForTile);
+
+			return bufferForTile;
+		});
+
+			this.tilesMap.set(nameTile, buffers);
 	}
 
-	drawTile(nameTile, context, x, y) {
-			const buffer = this.tilesMap.get(nameTile);
+	drawTile(nameTile, context, x, y, flip = false) {
+			const buffer = this.tilesMap.get(nameTile)[flip ? 0 : 1];
 			context.drawImage(buffer, x, y);	
 	}
 

@@ -59,7 +59,7 @@ import {loadBacgroundSprites} from './sprites.js';
 			}
 		}
 
-		console.log('createTiles');
+		// console.log('createTiles');
 		backgrounds.forEach(background => {
 			background.ranges.forEach(range => {
 				if (range.length === 4) {

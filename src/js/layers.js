@@ -5,7 +5,7 @@
 		let resolver = level.tileCollider.tiles;
 
 		let bgcBuffer = document.createElement('canvas');
-		bgcBuffer.width = 962;
+		bgcBuffer.width = 1924;
 		bgcBuffer.height = 629;
 		let context = bgcBuffer.getContext('2d');
 
@@ -34,7 +34,6 @@
 			let drawWidth = resolver.toIndexInMatrix(camera.size.x);
 			let drawFrom = resolver.toIndexInMatrix(camera.position.x);
 			let drawTo = drawFrom + drawWidth;
-			// console.log('drawBgcLayer', drawFrom, drawTo);
 
 			redraw(drawFrom, drawTo);
 
@@ -42,25 +41,6 @@
 		}
 	}
 
-
-/*
-	export function createBackgroundLayer(level, sprites) {
-		let bgcBuffer = document.createElement('canvas');
-		bgcBuffer.width = 962;
-		bgcBuffer.height = 629;
-		let context = bgcBuffer.getContext('2d');
-
-		level.tiles.forEach((tile, x, y) => {
-				sprites.drawTile(tile.name, context, x, y);
-		});
-		return function drawBgcLayer(context, camera) {
-			console.log('drawBgcLayer', camera.position.x, camera.size.x);
-			context.drawImage(bgcBuffer, - camera.position.x, -camera.position.y);
-		}
-	}
-*/
-
-	
 	export 	function createSpriteLayer(entities, width = 64, height = 64) {
 		let spriteBeffer = document.createElement('canvas');
 		spriteBeffer.width = width;
@@ -80,7 +60,7 @@
 			});
 		}
 	}
-
+/*
 	export function createCollisionLayer(level) {
 		let resolvedTiles = [];
 
@@ -89,17 +69,14 @@
 
 		let getByIndexOriginal = tileResolver.getByIndex;
 		tileResolver.getByIndex = function getByIndexFake(x, y) {
-			// console.log('====>>',x,y);
 			resolvedTiles.push({x, y});
 			return getByIndexOriginal.call(tileResolver, x, y);
 		}
 
 		return function drawCollision(context, camera) {
-			// console.log('d-r-w-w-w-w', resolvedTiles);
 			context.lineWidth="3";
 			context.strokeStyle = 'blue';
 			resolvedTiles.forEach(({x, y}) => {
-				// console.log('drwwww',x,y);
 				context.beginPath();
 				context.rect(
 					x - camera.position.x,
@@ -123,7 +100,7 @@
 			resolvedTiles.length = 0;
 		};
 	}
-
+*/
 	export function createCmeralayer (cameraToDraw) {
 		return function drawCameraRect (context, fromCamera) {
 			context.strokeStyle = 'green';
