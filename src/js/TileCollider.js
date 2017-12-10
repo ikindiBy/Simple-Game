@@ -1,4 +1,6 @@
 import TileResolver from './TileResolver.js';
+import {Sides} from './Entity.js';
+
 
 
 
@@ -27,7 +29,6 @@ export default class TileCollider {
 			if (match.tile.description !== 'ground') {
 				return;
 			}
-
 			if (entity.velocity.x > 0) {
 				if (entity.position.x + entity.size.x > match.x1) {
 					entity.position.x = match.x1 - entity.size.x;
@@ -53,15 +54,11 @@ export default class TileCollider {
 			return;
 		}
 
-		// let match = this.tiles.searchByPosition(entity.position.x, entity.position.y);
 		let matches = this.tiles.searchByRange(
 			entity.position.x, entity.position.x + entity.size.x,
 			y, y);
 		
 		matches.forEach(match => {
-			// if (!match) {
-			// return; 
-			// }
 
 			if (match.tile.description !== 'ground') {
 				return;
@@ -71,13 +68,16 @@ export default class TileCollider {
 				if (entity.position.y + entity.size.y > match.y1) {
 					entity.position.y = match.y1 - entity.size.y;
 					entity.velocity.y = 0;
-					// console.log(match.y1, entity.position.y, entity.velocity.y, entity.velocity.x);
+
+					entity.obstruct(Sides.BOTTOM);
 				}
 			} else if (entity.velocity.y < 0) {
 				if (entity.position.y < match.y2) {
 					entity.position.y = match.y2;
 					entity.velocity.y = 0;
-					// console.log(match.y1, entity.position.y, entity.velocity.y, entity.velocity.x);
+
+					entity.obstruct(Sides.TOP	);
+					
 				}
 			}
 		});

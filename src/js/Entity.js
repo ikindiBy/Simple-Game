@@ -1,8 +1,17 @@
 import {Vector} from './mathematics.js';
+
+	export let Sides = {
+		TOP: Symbol('top'),
+		BOTTOM: Symbol('bottom'),
+	}
 	
 	export class Feature {
 		constructor(name) {
 			this.NAME = name;
+		}
+
+		obstruct() {
+
 		}
 
 		update() {
@@ -22,6 +31,12 @@ import {Vector} from './mathematics.js';
 		addFeature(feature) {
 			this.features.push(feature);
 			this[feature.NAME] = feature; 
+		}
+
+		obstruct(side) {
+			this.features.forEach(feature => {
+				feature.obstruct(this, side);
+			});
 		}
 
 		update(deltaTime) {

@@ -12,7 +12,7 @@ export function loadBacgroundSprites() {
 		.then( spritesDataFromJSON => {
 			sprites.defineTilePerJSON(spritesDataFromJSON, 'box-g.png');
 			sprites.defineTilePerJSON(spritesDataFromJSON, 'box-b1.png');
-			return sprites ;
+			return sprites;
 		});
 	});
 }

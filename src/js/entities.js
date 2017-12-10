@@ -22,7 +22,11 @@ import {createAnimation} from './animation.js';
 			let runAnim = createAnimation(frames, 5);
 
 			function routeFrame (hero) {
-				if (hero.go.direction !== 0) {
+				if (!hero.jump.readyToJump) {
+					return 'boy3.png';
+				}
+				// if (hero.go.direction !== 0) {
+				if (hero.go.distance > 0) {
 					return runAnim(hero.go.distance);
 				}
 

@@ -15,10 +15,10 @@ import KeyboardListener from './KeyboardListener.js';
 			}
 		});
 		keyInput.addMapping('ArrowRight', keyState => {      
-			entity.go.direction = keyState;
+			entity.go.direction += keyState ? 1 : -1;
 		});
 		keyInput.addMapping('ArrowLeft', keyState => {
-			entity.go.direction = -keyState;
+			entity.go.direction += keyState ? -1 : 1;
 		});
 
 		return keyInput;
