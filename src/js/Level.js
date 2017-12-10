@@ -24,8 +24,6 @@ export default class Level {
 			this.tileCollider.checkY(entity);
 
 			entity.velocity.y += this.gravity * deltaTime;
-
-			// this.tileCollider.test(entity);
 		});	
 	}
 }

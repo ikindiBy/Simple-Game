@@ -11,11 +11,9 @@ import {Vector} from './mathematics.js';
 		}
 
 		obstruct() {
-
 		}
 
-		update() {
-			
+		update() {			
 		}
 	}
 	
