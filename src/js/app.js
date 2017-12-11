@@ -43,9 +43,9 @@ import Camera from './Camera.js';
 				// createCollisionLayer(level),
 				// createCmeralayer(camera));
 
-				level.compos.layers.push(
-				 createCollisionLayer(level)
-				);
+				// level.compos.layers.push(
+				//  createCollisionLayer(level)
+				// );
 
 			let input = setupKeyboard(hero);
 			input.listenTo(window);
