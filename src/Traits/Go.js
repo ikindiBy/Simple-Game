@@ -7,6 +7,7 @@ export default class Go extends Trait {
         this.speed = 12000;
 
         this.acceleration = 500;
+        this.dragFactor = 0;
     }
 
     update(entity, deltaTime) {
@@ -19,5 +20,8 @@ export default class Go extends Trait {
         } else {
             entity.vel.x = maxSpeed;
         }
+
+        const drag = this.dragFactor * entity.vel.x * Math.abs(entity.vel.x);
+        entity.vel.x -= drag;
     }
 }
