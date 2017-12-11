@@ -5,7 +5,7 @@
 		let resolver = level.tileCollider.tiles;
 
 		let bgcBuffer = document.createElement('canvas');
-		bgcBuffer.width = 1924;
+		bgcBuffer.width = 2368;
 		bgcBuffer.height = 629;
 		let context = bgcBuffer.getContext('2d');
 
