@@ -8,7 +8,6 @@ import {createAnimation} from '../animation.js';
 	}
 
 	function createPinkFeactory(sprite) {
-		console.log(sprite);
 
 		let frames = ['enemy-purple1.png', 'enemy-purple2.png'];
 		let runAnim = createAnimation(frames, 5);

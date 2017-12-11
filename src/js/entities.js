@@ -1,3 +1,5 @@
+
+/*
 import Entity from './Entity.js';
 import {loadHeroSprites} from './sprites.js';
 import Jump  from './features/Jump.js';
@@ -39,6 +41,26 @@ import {createAnimation} from './animation.js';
 
 			return hero;
 		});	
+	}
+
+*/
+
+import {loadHero} from './entities/Hero.js';
+import {loadPink} from './entities/PinkHorror.js';
+
+	export function loadEntities() {
+		let entityFactories = {};
+
+		function addFactoryAs (name) {
+			return factory => entityFactories[name] = factory
+		}
+
+		return Promise.all([
+			loadHero().then(addFactoryAs('hero')),
+			loadPink().then(addFactoryAs('pink')),
+		])
+		.then(() => entityFactories);
+
 	}
 
 	

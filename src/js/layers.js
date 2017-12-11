@@ -75,7 +75,7 @@
 		};
 	}
 
-	/*
+	
 	export function createCollisionLayer(level) {
 		let resolvedTiles = [];
 
@@ -115,4 +115,5 @@
 			resolvedTiles.length = 0;
 		};
 	}
-*/
+
+ 
