@@ -6,7 +6,7 @@ import {createCosmo} from './entities';
 
 import Timer from './timer';
 
-import {createCollisionLayer, drawBackground} from './layers';
+import {createCollisionLayer, drawBackground, createCameraLayer} from './layers';
 
 import setupKeyboard from './input';
 import {setupMouseControl} from './debug';
@@ -32,9 +32,10 @@ export default function drawField(context, canvas) {
         cosmo.vel.set(0, -600);
         sprites.entities.add(cosmo);
 
-        const bg = drawBackground(sprites);
+        const drawBackgroundLayer = drawBackground(sprites);
 
         const drawCollisions = createCollisionLayer(sprites);
+        const drawCameraDimension = createCameraLayer(sprites.camera);
 
         const input = setupKeyboard(cosmo);
         setupMouseControl(canvas, cosmo, sprites.camera);
@@ -45,10 +46,12 @@ export default function drawField(context, canvas) {
         timer.update = function update(deltaTime) {
                 sprites.update(deltaTime);
 
-                context.drawImage(bg, 0 - sprites.camera.pos.x, 0 - sprites.camera.pos.y);
+                drawBackgroundLayer(context);
+
                 sprites.draw('boy1', context, cosmo.pos.x, cosmo.pos.y);
 
                 drawCollisions(context, sprites.camera);
+                drawCameraDimension(context, sprites.camera);
         }
         timer.start();
 

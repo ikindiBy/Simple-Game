@@ -68,12 +68,27 @@ export function drawBackground(sprites) {
             }
         });
 
-            // tile.pos.forEach(([x1, x2, y1, y2]) => {
-            //     sprites.drawTiles(name, bufferContext, x1, x2, y1, y2);
-            // });
-
-
     });
 
-    return buffer;
+    return function drawBackgroundLayer(context) {
+        context.drawImage(buffer, 0 + sprites.camera.pos.x,
+                                  0 + sprites.camera.pos.y,
+                                  960, 629,
+                                  0,
+                                  0,
+                                  960, 629);
+        // context.drawImage(buffer, 0 - sprites.camera.pos.x,
+        //                           0 - sprites.camera.pos.y);
+    };
+}
+
+export function createCameraLayer(cameraToDraw) {
+    return function drawCameraRect(context, fromCamera) {
+        context.strokeStyle = 'purple';
+        context.beginPath();
+        context.rect(cameraToDraw.pos.x - fromCamera.pos.x,
+                     cameraToDraw.pos.y - fromCamera.pos.y,
+                     cameraToDraw.size.x, cameraToDraw.size.y);
+        context.stroke();
+    }
 }
