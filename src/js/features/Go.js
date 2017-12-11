@@ -24,8 +24,7 @@ export default class Go extends Feature {
 				
 			} else if (entity.velocity.x !== 0) {
 				let decel = Math.min(absX, this.deceleration * dT);
-				entity.velocity.x += entity.velocity.x > 0 ? -decel : decel;
-					
+				entity.velocity.x += entity.velocity.x > 0 ? -decel : decel;			
 			} else {
 				this.distance = 0;
 			}

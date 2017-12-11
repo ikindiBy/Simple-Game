@@ -30,6 +30,9 @@ export function loadHeroSprites() {
 			sprites.defineTilePerJSON(spritesDataFromJSON, 'boy4.png');
 			sprites.defineTilePerJSON(spritesDataFromJSON, 'boy1.png');
 			sprites.defineTilePerJSON(spritesDataFromJSON, 'boy2.png');
+
+			sprites.defineTilePerJSON(spritesDataFromJSON, 'enemy-purple1.png');
+			sprites.defineTilePerJSON(spritesDataFromJSON, 'enemy-purple2.png');
 			return sprites ;
 		});
 	});

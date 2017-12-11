@@ -1,6 +1,8 @@
 import TimeHandler from './TimeHandler.js';
 import {loadLevel} from './loaders.js';
-import {createHero} from './entities.js';
+import {loadHero} from './entities/Hero.js';
+import {loadPink} from './entities/PinkHorror.js';
+// import {createHero} from './entities.js';
 import KeyboardListener from './KeyboardListener.js';
 // import {createCollisionLayer, createCmeralayer} from './layers.js';
 import {setupKeyboard} from './Input.js';
@@ -14,16 +16,55 @@ import Camera from './Camera.js';
 	const context = canvas.getContext('2d');
 
 	Promise.all([
-		createHero(),
+		loadHero(),
+		loadPink(),
 		loadLevel('level-1')
 		])
-		.then(([hero, level]) => {
+		.then(([createHero, createPink, level]) => {
 
 			let camera = new Camera();
 			window.camera = camera;
 
+			let hero = createHero();
 			hero.position.set(60, 100);
+
+			let pink = createPink();
+			pink.position.set(300, 100);
+
+
+
+			// hero.addFeature({
+			// 	NAME: 'hacktrait',
+			// 	obstruct() {
+
+			// 	},
+			// 	update(hero, deltaTime) {
+			// 		if (hero.velocity.y < 0 ) {
+			// 			console.log(hero.velocity.y, this.spawnTimeout );
+			// 			let spawn = createHero();
+			// 			spawn.position.x = hero.position.x;
+			// 			spawn.position.y = hero.position.y;
+			// 			spawn.velocity.y = hero.velocity.y - 200;
+			// 			level.entities.add(spawn);
+			// 			this.spawnTimeout = 0;
+			// 		}
+			// 		this.spawnTimeout += deltaTime;
+			// 	}
+			// })
+/*
+			hero.addFeature({
+				update(hero, deltaTime) {
+					if (hero.velocity.x < 0) {
+						createHero()
+						.then(() => {
+							level.entities.add();
+						})
+					}
+				}
+			})
+*/
 			level.entities.add(hero);
+			level.entities.add(pink);
 
 			// level.compos.layers.push(
 				// createCollisionLayer(level),

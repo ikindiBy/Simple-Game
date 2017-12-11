@@ -25,6 +25,11 @@ export default class SourceSprites {
 				bufferContext.translate(-this.widthOfTile, 0);
 			}
 
+			if (nameTile.includes('enemy') && flip) {
+				bufferContext.scale(-1, 1);
+				bufferContext.translate(-this.widthOfTile, 0);
+			}
+
 			bufferContext.drawImage(
 				this.image,
 				this.startOfTileX,

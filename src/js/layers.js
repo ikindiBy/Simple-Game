@@ -60,7 +60,22 @@
 			});
 		}
 	}
-/*
+
+	export function createCmeralayer (cameraToDraw) {
+		return function drawCameraRect (context, fromCamera) {
+			context.strokeStyle = 'green';
+			
+				context.beginPath();
+				context.rect(
+					cameraToDraw.position.x - fromCamera.position.x,
+					cameraToDraw.position.y - fromCamera.position.y,
+					cameraToDraw.size.x, 
+					cameraToDraw.size.y);
+				context.stroke();
+		};
+	}
+
+	/*
 	export function createCollisionLayer(level) {
 		let resolvedTiles = [];
 
@@ -101,16 +116,3 @@
 		};
 	}
 */
-	export function createCmeralayer (cameraToDraw) {
-		return function drawCameraRect (context, fromCamera) {
-			context.strokeStyle = 'green';
-			
-				context.beginPath();
-				context.rect(
-					cameraToDraw.position.x - fromCamera.position.x,
-					cameraToDraw.position.y - fromCamera.position.y,
-					cameraToDraw.size.x, 
-					cameraToDraw.size.y);
-				context.stroke();
-		};
-	}
