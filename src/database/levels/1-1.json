@@ -2,6 +2,7 @@
   "backgrounds": [
     {
       "name": "bg",
+      "type": "decoration",
       "pos": [
           [
             0, 6,
@@ -11,6 +12,7 @@
     },
     {
       "name": "box-b",
+      "type": "dec-tile",
       "pos": [
           [
             -0.5, 100,
@@ -27,6 +29,7 @@
     },
     {
       "name": "box-gb1",
+      "type": "tile",
       "pos": [
           [
             0, 100,

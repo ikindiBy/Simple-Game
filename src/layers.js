@@ -36,7 +36,7 @@ export function createCollisionLayer(sprites) {
     };
 }
 
-export function drawBackground(sprites) {
+export function drawBackground(sprites, layout) {
     const buffer = document.createElement('canvas');
     const bufferContext = buffer.getContext('2d');
 
@@ -45,24 +45,25 @@ export function drawBackground(sprites) {
     buffer.setAttribute('width', width);
     buffer.setAttribute('height', height);
 
-    sprites.tilesLayout.backgrounds.forEach( tile => {
+    layout.backgrounds.forEach( tile => {
         const name = tile.name;
+        const type = tile.type;
 
         tile.pos.forEach(range => {
             switch(range.length) {
                 case 4: {
-                    sprites.drawTiles(name, bufferContext, ...range);
+                    sprites.drawTiles(name, bufferContext, type, ...range);
                     break;
                 }
                 case 3: {
                     let [x, xLen, y] = range;
                     xLen += x;
-                    sprites.drawTiles(name, bufferContext, x, xLen, y, (y + 1));
+                    sprites.drawTiles(name, bufferContext, type, x, xLen, y, (y + 1));
                     break;
                 }
                 case 2: {
                     const [x, y] = range;
-                    sprites.drawTiles(name, bufferContext, x, (x + 1), y, (y + 1));
+                    sprites.drawTiles(name, bufferContext, type, x, (x + 1), y, (y + 1));
                     break;
                 }
             }
