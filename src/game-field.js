@@ -41,8 +41,11 @@ export default function drawField(context, canvas) {
                 sprites.update(deltaTime);
 
                 drawBackgroundLayer(context);
-
                 sprites.drawCosmo(cosmo, context);
+
+                if (cosmo.pos.x > 300) {
+                    sprites.camera.pos.x = cosmo.pos.x - 300;
+                }
 
                 drawCollisions(context, sprites.camera);
                 drawCameraView(context, sprites.camera);

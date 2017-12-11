@@ -15,7 +15,5 @@ export function createCosmo(sprites) {
     cosmo.addTrait(new Jump());
     cosmo.addTrait(new Go());
 
-    cosmo.distance = 0;
-
     return cosmo;
 }

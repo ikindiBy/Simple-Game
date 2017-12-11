@@ -69,11 +69,15 @@ export default class Spritesheet {
         let buffer;
 
         if (cosmo.go.dir) {
-            buffer = this.tiles.get(`boy2.png`)[cosmo.go.dir > 0 ? 0 : 1]
+            if (cosmo.jump.ready < 0) {
+                buffer = this.tiles.get(`boy3.png`)[cosmo.go.dir > 0 ? 0 : 1];
+            } else {
+                buffer = this.tiles.get(`boy2.png`)[cosmo.go.dir > 0 ? 0 : 1];
+            }
         } else {
             buffer = this.tiles.get(`boy1.png`)[0];
         }
-        
+
         context.drawImage(buffer, cosmo.pos.x - this.camera.pos.x,
                                   cosmo.pos.y - this.camera.pos.y);
     }

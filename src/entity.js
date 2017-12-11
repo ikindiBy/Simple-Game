@@ -5,6 +5,10 @@ export class Trait {
         this.NAME = name;
     }
 
+    obstruct() {
+
+    }
+
     update() {
         console.log('Update method is not provided');
     }
@@ -22,6 +26,12 @@ export default class Entity {
     addTrait(trait) {
         this.traits.push(trait);
         this[trait.NAME] = trait;
+    }
+
+    obstruct(side) {
+        this.traits.forEach( trait => {
+            trait.obstruct(this, side);
+        })
     }
 
     update(deltaTime) {
