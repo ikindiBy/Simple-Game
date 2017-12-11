@@ -1,5 +1,12 @@
 import {Vect} from './math';
 
+export let Sides = {
+    TOP: Symbol('top'),
+    BOTTOM: Symbol('bottom'),
+    LEFT: Symbol('left'),
+    RIGHT: Symbol('right'),
+};
+
 export class Trait {
     constructor(name) {
         this.NAME = name;
@@ -13,6 +20,7 @@ export class Trait {
         console.log('Update method is not provided');
     }
 }
+
 
 export default class Entity {
     constructor() {
