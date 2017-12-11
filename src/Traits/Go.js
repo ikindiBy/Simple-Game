@@ -7,12 +7,30 @@ export default class Go extends Trait {
         this.speed = 12000;
 
         this.acceleration = 500;
-        this.dragFactor = 0;
+        this.deceleration = 350;
+        this.dragFactor = 1/10000;
+
+        this.distance = 0;
+        this.heading = 1;
     }
 
     update(entity, deltaTime) {
+        let absX = Math.abs(entity.vel.x);
+
         const maxSpeed = this.speed * deltaTime * this.dir;
 
+        if (this.dir !== 0) {
+                entity.vel.x += this.acceleration * deltaTime * this.dir;
+                this.heading = this.dir;
+                
+            } else if (entity.vel.x !== 0) {
+                let decel = Math.min(absX, this.deceleration * deltaTime);
+                entity.vel.x += entity.vel.x > 0 ? -decel : decel;            
+            } else {
+                this.distance = 0;
+            }
+
+/*
         if (entity.go.dir > 0 && entity.vel.x < maxSpeed) {
             entity.vel.x += this.acceleration * deltaTime * this.dir;
         } else if (entity.go.dir < 0 && entity.vel.x > maxSpeed) {
@@ -20,8 +38,10 @@ export default class Go extends Trait {
         } else {
             entity.vel.x = maxSpeed;
         }
-
-        const drag = this.dragFactor * entity.vel.x * Math.abs(entity.vel.x);
+*/
+        const drag = this.dragFactor * entity.vel.x * absX;
         entity.vel.x -= drag;
+
+        this.distance += absX * deltaTime;
     }
 }

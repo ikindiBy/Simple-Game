@@ -652,10 +652,16 @@ class Go extends __WEBPACK_IMPORTED_MODULE_0__entity__["a" /* Trait */] {
         this.speed = 12000;
 
         this.acceleration = 500;
+        this.deceleration = 350;
         this.dragFactor = 0;
+
+        this.distance = 0;
+        this.heading = 1;
     }
 
     update(entity, deltaTime) {
+        let absX = Math.abs(entity.vel.x);
+
         const maxSpeed = this.speed * deltaTime * this.dir;
 
         if (entity.go.dir > 0 && entity.vel.x < maxSpeed) {
@@ -666,8 +672,10 @@ class Go extends __WEBPACK_IMPORTED_MODULE_0__entity__["a" /* Trait */] {
             entity.vel.x = maxSpeed;
         }
 
-        const drag = this.dragFactor * entity.vel.x * Math.abs(entity.vel.x);
+        const drag = this.dragFactor * entity.vel.x * absX;
         entity.vel.x -= drag;
+
+        this.distance += absX * dT;
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Go;
