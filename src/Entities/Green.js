@@ -1,6 +1,7 @@
 import Entity, {Sides} from '../Entity';
 import Jump from '../Traits/Jump';
 import Go from '../Traits/Go';
+import PendulumWalk from '../Traits/PendulumWalk';
 
 const SLOW_DRAG = 1/2000;
 const FAST_DRAG = 0;
@@ -19,21 +20,7 @@ export function createGreenFactory(sprites) {
         green.pictures = reverse ? ['green-l', 'green-s'] : ['green-s', 'green-l'];
         green.picture = null;
 
-        green.addTrait({
-            name: 'walk',
-            speed: 30,
-            obstruct(entity, side) {
-                if (side === Sides.LEFT || side === Sides.RIGHT) {
-                    this.speed = -this.speed;
-                }
-            },
-            update(green) {
-                green.vel.x = this.speed;
-
-                const sequence = Math.floor(green.lifetime % 2);
-                green.picture = green.pictures[sequence];
-            }
-        });
+        green.addTrait(new PendulumWalk());
 
         sprites.entities.add(green);
 
