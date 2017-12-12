@@ -1,4 +1,4 @@
-import {Trait} from '../entity';
+import {Trait} from '../Entity';
 
 export default class Go extends Trait {
     constructor() {

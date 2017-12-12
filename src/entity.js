@@ -1,5 +1,12 @@
 import {Vect} from './math';
 
+export const Sides = {
+    CEILING: Symbol('top'),
+    FLOOR: Symbol('bottom'),
+    LEFT: Symbol('left'),
+    RIGHT: Symbol('right'),
+};
+
 export class Trait {
     constructor(name) {
         this.NAME = name;
@@ -20,6 +27,8 @@ export default class Entity {
         this.vel = new Vect(0,0);
         this.size = new Vect(0,0);
 
+        this.lifetime = 0;
+
         this.traits = [];
     }
 
@@ -38,5 +47,7 @@ export default class Entity {
         this.traits.forEach( trait => {
             trait.update(this, deltaTime);
         })
+
+        this.lifetime += deltaTime;
     }
 }

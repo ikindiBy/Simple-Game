@@ -1,8 +1,9 @@
 import Spritesheet from './spritesheet';
 import {loadImage,loadJSON} from './loaders';
 
-import Entity from './entity';
-import {createCosmo} from './entities';
+import Entity from './Entity';
+import {createCosmoFactory} from './Entities/Cosmo';
+import {createGreenFactory} from './Entities/Green';
 
 import Timer from './timer';
 
@@ -27,7 +28,12 @@ export default function drawField(context, canvas) {
         }
 
         const drawBackgroundLayer = drawBackground(sprites, layout);
-        const cosmo = createCosmo(sprites);
+
+        const createCosmo = createCosmoFactory(sprites);
+        const cosmo = createCosmo();
+
+        const createGreen = createGreenFactory(sprites);
+        const green = createGreen();
 
         const drawCollisions = createCollisionLayer(sprites);
         const drawCameraView = createCameraLayer(sprites.camera);
@@ -36,7 +42,6 @@ export default function drawField(context, canvas) {
         setupMouseControl(canvas, cosmo, sprites.camera);
         input.listenTo(window);
 
-        console.log(sprites.tilesMatrix);
 
         const timer = new Timer(1/60);
         timer.update = function update(deltaTime) {
@@ -44,6 +49,8 @@ export default function drawField(context, canvas) {
 
                 drawBackgroundLayer(context);
                 sprites.drawCosmo(cosmo, context);
+
+                sprites.draw(green.picture, context, green.pos.x, green.pos.y);
 
                 if (cosmo.pos.x > 300) {
                     sprites.camera.pos.x = cosmo.pos.x - 300;
