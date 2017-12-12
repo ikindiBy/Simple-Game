@@ -1,4 +1,5 @@
 import {Vect} from './math';
+import BoundingBox from './BoundingBox.js';
 
 export const Sides = {
     CEILING: Symbol('top'),
@@ -26,8 +27,10 @@ export default class Entity {
         this.pos = new Vect(0,0);
         this.vel = new Vect(0,0);
         this.size = new Vect(0,0);
+        this.offset = new Vect(0,0);
 
         this.lifetime = 0;
+        this.bounds = new BoundingBox(this.pos, this.size, this.offset);
 
         this.traits = [];
     }

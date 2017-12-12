@@ -33,7 +33,8 @@ export default function drawField(context, canvas) {
         const cosmo = createCosmo();
 
         const createGreen = createGreenFactory(sprites);
-        const green = createGreen();
+        const green = createGreen(200, 479);
+        const green1 = createGreen(320, 479, 'reverse')
 
         const drawCollisions = createCollisionLayer(sprites);
         const drawCameraView = createCameraLayer(sprites.camera);
@@ -51,6 +52,7 @@ export default function drawField(context, canvas) {
                 sprites.drawCosmo(cosmo, context);
 
                 sprites.draw(green.picture, context, green.pos.x, green.pos.y);
+                sprites.draw(green1.picture, context, green1.pos.x, green1.pos.y);
 
                 if (cosmo.pos.x > 300) {
                     sprites.camera.pos.x = cosmo.pos.x - 300;

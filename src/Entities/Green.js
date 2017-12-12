@@ -7,15 +7,16 @@ const FAST_DRAG = 0;
 
 export function createGreenFactory(sprites) {
 
-    return function createGreen() {
+    return function createGreen(x, y, reverse) {
         const green = new Entity();
 
-        green.size.set(26, 74);
-
-        green.pos.set(200, 479);
+        green.size.set(26, 40);
+        //size was 76 => we are cutting 36 and move offset +36
+        green.pos.set(x, y);
         green.vel.set(0, -600);
+        green.offset.y = 33;
 
-        green.pictures = ['green-l', 'green-s'];
+        green.pictures = reverse ? ['green-l', 'green-s'] : ['green-s', 'green-l'];
         green.picture = null;
 
         green.addTrait({
