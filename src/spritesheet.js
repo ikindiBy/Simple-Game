@@ -70,7 +70,7 @@ export default class Spritesheet {
 
     drawEntity (name, context, x, y, flip = false) {
             const buffer = this.tiles.get(nameTile)[flip ? 0 : 1];
-            context.drawImage(buffer, x, y);    
+            context.drawImage(buffer, x, y);
     }
 
     drawCosmo(cosmo, context) {
@@ -118,7 +118,9 @@ export default class Spritesheet {
             } else if (entity.name !== 'cosmo') {
                 this.draw(entity.picture, context, entity.pos.x, entity.pos.y)
             }
+        });
 
+        this.entities.forEach(entity => {
             this.entityCollider.check(entity);
         });
     }

@@ -14,7 +14,12 @@ export default class Killable extends Trait {
 
     update(entity, deltaTime, sprites) {
         if (this.dead) {
-            entity.pictures = entity.deadPic;
+            if (entity.name !== 'cosmo') {
+                entity.pictures = entity.deadPic;
+            } else {
+                sprites.entities.delete(entity);
+            }
+
 
             if (entity.name === 'purple') {
                 entity.offset.y = -10;
@@ -23,7 +28,6 @@ export default class Killable extends Trait {
             this.deadTime += deltaTime;
 
             if (this.deadTime > this.removeAfter) {
-                console.log('lol');
                 sprites.entities.delete(entity);
             }
         }
