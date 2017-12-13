@@ -1,4 +1,5 @@
 import TileResolver from './TileResolver'
+import {Sides} from './entity';
 
 export default class TileCollider {
     constructor(tileLayout) {
@@ -55,14 +56,14 @@ export default class TileCollider {
                     entity.pos.y = match.y1 - entity.size.y;
                     entity.vel.y = 0;
 
-                    entity.obstruct('floor');
+                    entity.obstruct(Sides.BOTTOM);
                 }
             } else if (entity.vel.y < 0) {
                 if (entity.pos.y < match.y2) {
                     entity.pos.y = match.y2;
                     entity.vel.y = 0;
 
-                    entity.obstruct('ceiling');
+                    entity.obstruct(Sides.TOP);
                 }
 
             }

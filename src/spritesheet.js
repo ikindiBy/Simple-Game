@@ -79,14 +79,11 @@ export default class Spritesheet {
         let runAnim = createAnimation(frames, 5);
 
         function routeFrame (cosmo) {
-            // console.log(cosmo.jump.ready, cosmo.go.distance, cosmo.go.heading);
             if (cosmo.jump.ready < 0) {
                 return 'boy3.png';
             }
             if (cosmo.go.distance > 0) {
-                console.log( runAnim(cosmo.go.distance));
                return runAnim(cosmo.go.distance);
-               console.log( runAnim(cosmo.go.distance));
             }
             return 'boy1.png';
         }
