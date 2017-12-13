@@ -1,5 +1,6 @@
 import {Matrix} from './math';
 import TileCollider from './TileCollider';
+import EntityCollider from './EntityCollider';
 import Camera from './Camera';
 
 export default class Spritesheet {
@@ -13,6 +14,7 @@ export default class Spritesheet {
         this.tilesMatrix = new Matrix();
 
         this.tileCollider = new TileCollider(this.tilesMatrix);
+        this.entityCollider = new EntityCollider(this.entities);
 
         this.gravity = 2000;
         this.camera = new Camera();
@@ -104,6 +106,8 @@ export default class Spritesheet {
             } else if (entity.name === 'green') {
                 this.draw(entity.picture, context, entity.pos.x, entity.pos.y)
             }
+
+            this.entityCollider.check(entity);
         });
     }
 }

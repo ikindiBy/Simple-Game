@@ -17,8 +17,12 @@ export class Trait {
 
     }
 
+    collides(us, them) {
+
+    }
+
     update() {
-        console.log('Update method is not provided');
+        
     }
 }
 
@@ -44,7 +48,13 @@ export default class Entity {
     obstruct(side) {
         this.traits.forEach( trait => {
             trait.obstruct(this, side);
-        })
+        });
+    }
+
+    collides(candidate) {
+        this.traits.forEach( trait => {
+            trait.collides(this, candidate);
+        });
     }
 
     update(deltaTime) {
