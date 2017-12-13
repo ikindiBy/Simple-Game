@@ -14,12 +14,14 @@ class Behavior extends Trait{
             return;
         }
 
-        if (them.vel.y > us.vel.y) {
-            us.pendulumWalk.speed = 0;
-            us.killable.kill();
-            them.stomper.bounce();
-        } else {
-            them.killable.kill();
+        if (them.stomper) {
+            if (them.vel.y > us.vel.y) {
+                us.pendulumWalk.speed = 0;
+                us.killable.kill();
+                them.stomper.bounce();
+            } else {
+                them.killable.kill();
+            }
         }
     }
 }

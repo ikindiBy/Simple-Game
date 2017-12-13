@@ -21,10 +21,10 @@ export default class Go extends Trait {
         if (this.dir !== 0) {
                 entity.vel.x += this.acceleration * deltaTime * this.dir;
                 this.heading = this.dir;
-                
+
             } else if (entity.vel.x !== 0) {
                 let decel = Math.min(absX, this.deceleration * deltaTime);
-                entity.vel.x += entity.vel.x > 0 ? -decel : decel;            
+                entity.vel.x += entity.vel.x > 0 ? -decel : decel;
             } else {
                 this.distance = 0;
             }

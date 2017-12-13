@@ -23,6 +23,8 @@ export default class Killable extends Trait {
 
             if (entity.name === 'purple') {
                 entity.offset.y = -10;
+            } else if (entity.name === 'green') {
+                entity.offset.y = -62;
             }
 
             this.deadTime += deltaTime;
