@@ -1,7 +1,9 @@
+
 import {createCosmoFactory} from './Entities/Cosmo';
 import {createGreenFactory} from './Entities/Green';
 import {createPurpleFactory} from './Entities/Purple';
 import {createBlackFactory} from './Entities/Black';
+
 
 
 import setupKeyboard from './input';
@@ -29,7 +31,15 @@ export function createEntities(sprites, layout) {
     const createCosmo = createCosmoFactory(sprites);
     const cosmo = createCosmo();
 
+
     const input = setupKeyboard(cosmo);
     setupMouseControl(canvas, cosmo, sprites.camera);
     input.listenTo(window);
+/*
+    cosmo.slowAndTurbo = function setTurtleState(turboOn) {
+      this.go.dragFactor = turboOn ? FAST_DRAG : SLOW_DRAG;
+    }    
+*/
+    return cosmo;
+
 }

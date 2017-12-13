@@ -8,6 +8,13 @@ export const Sides = {
     RIGHT: Symbol('right'),
 };
 
+export let Sides = {
+        TOP: Symbol('top'),
+        BOTTOM: Symbol('bottom'),
+        LEFT: Symbol('left'),
+        RIGHT: Symbol('right'),
+    };
+
 export class Trait {
     constructor(name) {
         this.NAME = name;

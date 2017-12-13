@@ -9,10 +9,19 @@ body {
   height: 100vh;
 }
 
-header, main, footer {
-  width: 50%;
-  // margin: 0 auto;
+header, main, footer, canvas { 
+  margin: auto;
+}
 
+
+
+main {
+   @include block_flex ($justify-content: space-between, $align-items: center, $direction: column);
+}
+
+article {
+  margin-top: 30px;
+  width: 50%;
 }
 
 

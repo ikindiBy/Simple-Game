@@ -1,5 +1,8 @@
+
 import TileResolver from './TileResolver';
 import {Sides} from './Entity';
+
+
 
 
 export default class TileCollider {
@@ -61,14 +64,17 @@ export default class TileCollider {
                     entity.bounds.bottom = match.y1;
                     entity.vel.y = 0;
 
-                    entity.obstruct(Sides.FLOOR);
+
+                    entity.obstruct(Sides.BOTTOM);
+
                 }
             } else if (entity.vel.y < 0) {
                 if (entity.bounds.top < match.y2) {
                     entity.bounds.top = match.y2;
                     entity.vel.y = 0;
 
-                    entity.obstruct(Sides.CEILING);
+                    entity.obstruct(Sides.TOP);
+
                 }
 
             }
