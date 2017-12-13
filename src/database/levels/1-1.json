@@ -125,5 +125,43 @@
           ]
       ]
     }
+  ],
+  "entities": [
+    {
+      "name": "green",
+      "data": [
+        [200, 479, 1],
+        [320, 479, 0]
+      ],
+      "pictures": [
+        "green-l",
+        "green-s"
+      ],
+      "deadPic": ["moss", "moss"]
+    },
+    {
+      "name": "purple",
+      "data": [
+        [600, 479, 1],
+        [630, 479, 0]
+      ],
+      "pictures": [
+        "enemy-purple1",
+        "enemy-purple2"
+      ],
+      "deadPic": ["enemy-purple3", "enemy-purple3"]
+    },
+    {
+      "name": "black",
+      "data": [
+        [660, 479, 1],
+        [690, 479, 0]
+      ],
+      "pictures": [
+        "enemy-black1",
+        "enemy-black2"
+      ],
+      "deadPic": ["enemy-black3", "enemy-black3"]
+    }
   ]
 }

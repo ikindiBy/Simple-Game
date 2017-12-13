@@ -1,4 +1,6 @@
-import {Trait, Sides} from '../entity';
+
+import {Trait, Sides} from '../Entity';
+
 
 export default class Jump extends Trait {
     constructor() {
@@ -25,9 +27,11 @@ export default class Jump extends Trait {
     }
 
     obstruct(entity, side) {
+
         if (side === Sides.BOTTOM) {
             this.ready = 1;
         } else if (side === Sides.TOP) {
+
             this.cancel();
         }
     }

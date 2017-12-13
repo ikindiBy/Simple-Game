@@ -1,4 +1,12 @@
 import {Vect} from './math';
+import BoundingBox from './BoundingBox.js';
+
+export const Sides = {
+    CEILING: Symbol('top'),
+    FLOOR: Symbol('bottom'),
+    LEFT: Symbol('left'),
+    RIGHT: Symbol('right'),
+};
 
 export let Sides = {
         TOP: Symbol('top'),
@@ -16,16 +24,25 @@ export class Trait {
 
     }
 
+    collides(us, them) {
+
+    }
+
     update() {
-        console.log('Update method is not provided');
+
     }
 }
 
 export default class Entity {
-    constructor() {
+    constructor(name) {
+        this.name = name;
         this.pos = new Vect(0,0);
         this.vel = new Vect(0,0);
         this.size = new Vect(0,0);
+        this.offset = new Vect(0,0);
+
+        this.lifetime = 0;
+        this.bounds = new BoundingBox(this.pos, this.size, this.offset);
 
         this.traits = [];
     }
@@ -38,12 +55,20 @@ export default class Entity {
     obstruct(side) {
         this.traits.forEach( trait => {
             trait.obstruct(this, side);
-        })
+        });
     }
 
-    update(deltaTime) {
+    collides(candidate) {
         this.traits.forEach( trait => {
-            trait.update(this, deltaTime);
+            trait.collides(this, candidate);
+        });
+    }
+
+    update(deltaTime, sprites) {
+        this.traits.forEach( trait => {
+            trait.update(this, deltaTime, sprites);
         })
+
+        this.lifetime += deltaTime;
     }
 }

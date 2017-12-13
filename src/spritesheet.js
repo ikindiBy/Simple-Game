@@ -1,5 +1,6 @@
 import {Matrix} from './math';
 import TileCollider from './TileCollider';
+import EntityCollider from './EntityCollider';
 import Camera from './Camera';
 import {createAnimation} from './animations';
 
@@ -14,6 +15,7 @@ export default class Spritesheet {
         this.tilesMatrix = new Matrix();
 
         this.tileCollider = new TileCollider(this.tilesMatrix);
+        this.entityCollider = new EntityCollider(this.entities);
 
         this.gravity = 2000;
         this.camera = new Camera();
@@ -94,9 +96,9 @@ export default class Spritesheet {
                                   cosmo.pos.y - this.camera.pos.y);
     }
 
-    update(deltaTime) {
+    update(deltaTime, context) {
         this.entities.forEach(entity => {
-            entity.update(deltaTime);
+            entity.update(deltaTime, this);
 
             entity.pos.x += entity.vel.x * deltaTime;
             this.tileCollider.checkX(entity, this.camera);
@@ -105,6 +107,19 @@ export default class Spritesheet {
             this.tileCollider.checkY(entity, this.camera);
 
             entity.vel.y += this.gravity * deltaTime;
+
+            if (entity.name === 'cosmo') {
+                this.drawCosmo(entity, context);
+
+                if (entity.pos.x > 300) {
+                    this.camera.pos.x = entity.pos.x - 300;
+                }
+
+            } else if (entity.name !== 'cosmo') {
+                this.draw(entity.picture, context, entity.pos.x, entity.pos.y)
+            }
+
+            this.entityCollider.check(entity);
         });
     }
 }

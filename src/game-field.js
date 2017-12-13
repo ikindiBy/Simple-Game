@@ -1,15 +1,8 @@
 import Spritesheet from './spritesheet';
 import {loadImage,loadJSON} from './loaders';
-
-import Entity from './entity';
-import {createCosmo} from './entities';
-
+import {createEntities} from './entities';
 import Timer from './timer';
-
 import {createCollisionLayer, drawBackground, createCameraLayer} from './layers';
-
-import setupKeyboard from './input';
-import {setupMouseControl} from './debug';
 
 
 export default function drawField(context, canvas) {
@@ -27,26 +20,23 @@ export default function drawField(context, canvas) {
         }
 
         const drawBackgroundLayer = drawBackground(sprites, layout);
-        const cosmo = createCosmo(sprites);
+        createEntities(sprites, layout);
 
         const drawCollisions = createCollisionLayer(sprites);
         const drawCameraView = createCameraLayer(sprites.camera);
 
+/*
         const input = setupKeyboard(cosmo);
         setupMouseControl(canvas, cosmo, sprites.camera);
         input.listenTo(window);
 
+*/
         const timer = new Timer(1/60);
         timer.update = function update(deltaTime) {
-                sprites.update(deltaTime);
 
                 drawBackgroundLayer(context);
-                sprites.drawCosmo(cosmo, context);
-
-                if (cosmo.pos.x > 300) {
-                    sprites.camera.pos.x = cosmo.pos.x - 300;
-                }
-
+                sprites.update(deltaTime, context);
+                
                 drawCollisions(context, sprites.camera);
                 drawCameraView(context, sprites.camera);
         }
