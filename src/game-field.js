@@ -25,18 +25,21 @@ export default function drawField(context, canvas) {
         const drawCollisions = createCollisionLayer(sprites);
         const drawCameraView = createCameraLayer(sprites.camera);
 
+
 /*
         const input = setupKeyboard(cosmo);
         setupMouseControl(canvas, cosmo, sprites.camera);
         input.listenTo(window);
 
 */
-        const timer = new Timer(1/60);
+        const timer = new Timer(1/30);
         timer.update = function update(deltaTime) {
 
                 drawBackgroundLayer(context);
                 sprites.update(deltaTime, context);
-                
+
+                // console.log(sprites.camera);
+
                 drawCollisions(context, sprites.camera);
                 drawCameraView(context, sprites.camera);
         }

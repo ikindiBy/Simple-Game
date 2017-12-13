@@ -11,6 +11,13 @@ export default class TileCollider {
     }
 
     checkX(entity, camera) {
+        // if (entity.pos.x < 20 && entity.go.dir < 0) {
+        //     console.log('in checkX ', entity.go.dir);
+        //     entity.vel.x = 0;
+        //     entity.go.speed = 0;
+        //     entity.go.acceleration = 0;
+        // }
+
         let x;
         if (entity.vel.x > 0) {
             x = entity.bounds.right;
