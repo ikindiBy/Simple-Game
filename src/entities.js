@@ -1,5 +1,7 @@
 import {createCosmoFactory} from './Entities/Cosmo';
 import {createGreenFactory} from './Entities/Green';
+import {createPurpleFactory} from './Entities/Purple';
+import {createBlackFactory} from './Entities/Black';
 
 
 import setupKeyboard from './input';
@@ -8,12 +10,19 @@ import {setupMouseControl} from './debug';
 export function createEntities(sprites, layout) {
 
     const createGreen = createGreenFactory(sprites);
-    // const green = createGreen(200, 479);
-    // const green1 = createGreen(320, 479, 'reverse');
+    const createPurple = createPurpleFactory(sprites);
+    const createBlack = createBlackFactory(sprites);
+
 
     layout.entities.forEach(entity => {
         entity.data.forEach(([x, y, reverse]) => {
-            createGreen(x, y, reverse, entity.pictures);
+          if (entity.name === 'green') {
+            createGreen(x, y, reverse, entity.pictures, entity.deadPic);
+          } else if (entity.name === 'purple') {
+            createPurple(x, y, reverse, entity.pictures, entity.deadPic)
+          } else if (entity.name === 'black') {
+            createBlack(x, y, reverse, entity.pictures, entity.deadPic)
+          }
         })
     });
 

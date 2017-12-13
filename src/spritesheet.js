@@ -86,7 +86,7 @@ export default class Spritesheet {
 
     update(deltaTime, context) {
         this.entities.forEach(entity => {
-            entity.update(deltaTime);
+            entity.update(deltaTime, this);
 
             entity.pos.x += entity.vel.x * deltaTime;
             this.tileCollider.checkX(entity, this.camera);
@@ -103,7 +103,7 @@ export default class Spritesheet {
                     this.camera.pos.x = entity.pos.x - 300;
                 }
 
-            } else if (entity.name === 'green') {
+            } else if (entity.name !== 'cosmo') {
                 this.draw(entity.picture, context, entity.pos.x, entity.pos.y)
             }
 

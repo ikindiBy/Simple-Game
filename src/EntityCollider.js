@@ -1,4 +1,4 @@
-export default class TileCollider {
+export default class EntityCollider {
     constructor(entities) {
         this.entities = entities;
     }
