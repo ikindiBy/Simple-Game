@@ -23,7 +23,8 @@ export class Trait {
 }
 
 export default class Entity {
-    constructor() {
+    constructor(name) {
+        this.name = name;
         this.pos = new Vect(0,0);
         this.vel = new Vect(0,0);
         this.size = new Vect(0,0);

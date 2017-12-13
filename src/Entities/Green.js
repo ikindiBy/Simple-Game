@@ -8,8 +8,8 @@ const FAST_DRAG = 0;
 
 export function createGreenFactory(sprites) {
 
-    return function createGreen(x, y, reverse) {
-        const green = new Entity();
+    return function createGreen(x, y, reverse, pictures) {
+        const green = new Entity('green');
 
         green.size.set(26, 40);
         //size was 76 => we are cutting 36 and move offset +36
@@ -17,13 +17,11 @@ export function createGreenFactory(sprites) {
         green.vel.set(0, -600);
         green.offset.y = 33;
 
-        green.pictures = reverse ? ['green-l', 'green-s'] : ['green-s', 'green-l'];
+        green.pictures = reverse ? pictures : pictures.reverse();
         green.picture = null;
 
         green.addTrait(new PendulumWalk());
 
         sprites.entities.add(green);
-
-        return green;
     };
 }

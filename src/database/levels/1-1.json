@@ -125,5 +125,18 @@
           ]
       ]
     }
+  ],
+  "entities": [
+    {
+      "name": "green",
+      "data": [
+        [200, 479, 1],
+        [320, 479]
+      ],
+      "pictures": [
+        "green-l",
+        "green-s"
+      ]
+    }
   ]
 }

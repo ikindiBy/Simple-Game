@@ -16,7 +16,7 @@ export function createCosmoFactory(sprites) {
     }
 
     return function createCosmo() {
-        const cosmo = new Entity();
+        const cosmo = new Entity('cosmo');
 
         cosmo.size.set(37, 50);
 

@@ -82,7 +82,7 @@ export default class Spritesheet {
                                   cosmo.pos.y - this.camera.pos.y);
     }
 
-    update(deltaTime) {
+    update(deltaTime, context) {
         this.entities.forEach(entity => {
             entity.update(deltaTime);
 
@@ -93,6 +93,17 @@ export default class Spritesheet {
             this.tileCollider.checkY(entity, this.camera);
 
             entity.vel.y += this.gravity * deltaTime;
+
+            if (entity.name === 'cosmo') {
+                this.drawCosmo(entity, context);
+
+                if (entity.pos.x > 300) {
+                    this.camera.pos.x = entity.pos.x - 300;
+                }
+
+            } else if (entity.name === 'green') {
+                this.draw(entity.picture, context, entity.pos.x, entity.pos.y)
+            }
         });
     }
 }
