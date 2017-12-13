@@ -2,13 +2,6 @@ import {Vect} from './math';
 import BoundingBox from './BoundingBox.js';
 
 export const Sides = {
-    CEILING: Symbol('top'),
-    FLOOR: Symbol('bottom'),
-    LEFT: Symbol('left'),
-    RIGHT: Symbol('right'),
-};
-
-export let Sides = {
         TOP: Symbol('top'),
         BOTTOM: Symbol('bottom'),
         LEFT: Symbol('left'),
