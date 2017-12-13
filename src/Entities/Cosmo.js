@@ -2,8 +2,13 @@ import Entity from '../Entity';
 import Jump from '../Traits/Jump';
 import Go from '../Traits/Go';
 import Stomper from '../Traits/Stomper';
+
 import Killable from '../Traits/Killable'
 import ReachEdge from '../Traits/ReachEdge';
+
+import Falling from '../Traits/Falling';
+import StateCosmo from '../Traits/StateCosmo';
+
 
 
 const SLOW_DRAG = 1/2000;
@@ -31,9 +36,14 @@ export function createCosmoFactory(sprites) {
 
         cosmo.addTrait(new Jump());
         cosmo.addTrait(new Go());
-        cosmo.addTrait(new ReachEdge());
         cosmo.addTrait(new Stomper());
+
         cosmo.addTrait(new Killable());
+
+
+        cosmo.addTrait(new Falling());
+        cosmo.addTrait(new StateCosmo());
+        
 
 
         cosmo.turboAndSlow = setTurboState;

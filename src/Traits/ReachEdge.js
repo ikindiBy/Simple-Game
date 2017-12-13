@@ -7,7 +7,7 @@ export default class ReachEdge extends Trait {
 
     update(entity) {
         if (entity.pos.x < 0) {
-                entity.pos.x = 1;
+                // entity.pos.x = 1;
         }
     }
 }
