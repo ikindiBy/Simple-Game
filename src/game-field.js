@@ -36,8 +36,6 @@ export default function drawField(context, canvas) {
         setupMouseControl(canvas, cosmo, sprites.camera);
         input.listenTo(window);
 
-        console.log(sprites.tilesMatrix);
-
         const timer = new Timer(1/60);
         timer.update = function update(deltaTime) {
                 sprites.update(deltaTime);

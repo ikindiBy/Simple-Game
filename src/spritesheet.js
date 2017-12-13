@@ -1,6 +1,7 @@
 import {Matrix} from './math';
 import TileCollider from './TileCollider';
 import Camera from './Camera';
+import {createAnimation} from './animations';
 
 export default class Spritesheet {
     constructor(image, data, canvas) {
@@ -65,18 +66,32 @@ export default class Spritesheet {
         }
     }
 
+    drawEntity (name, context, x, y, flip = false) {
+            const buffer = this.tiles.get(nameTile)[flip ? 0 : 1];
+            context.drawImage(buffer, x, y);    
+    }
+
     drawCosmo(cosmo, context) {
         let buffer;
 
-        if (cosmo.go.dir) {
+        let frames = ['boy4.png', 'boy3.png', 'boy2.png', 'boy1.png'];
+
+        let runAnim = createAnimation(frames, 5);
+
+        function routeFrame (cosmo) {
+            // console.log(cosmo.jump.ready, cosmo.go.distance, cosmo.go.heading);
             if (cosmo.jump.ready < 0) {
-                buffer = this.tiles.get(`boy3.png`)[cosmo.go.dir > 0 ? 0 : 1];
-            } else {
-                buffer = this.tiles.get(`boy2.png`)[cosmo.go.dir > 0 ? 0 : 1];
+                return 'boy3.png';
             }
-        } else {
-            buffer = this.tiles.get(`boy1.png`)[0];
+            if (cosmo.go.distance > 0) {
+                console.log( runAnim(cosmo.go.distance));
+               return runAnim(cosmo.go.distance);
+               console.log( runAnim(cosmo.go.distance));
+            }
+            return 'boy1.png';
         }
+
+        buffer = this.tiles.get(routeFrame (cosmo))[cosmo.go.heading > 0 ? 0 : 1];
 
         context.drawImage(buffer, cosmo.pos.x - this.camera.pos.x,
                                   cosmo.pos.y - this.camera.pos.y);

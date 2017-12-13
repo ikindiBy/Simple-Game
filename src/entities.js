@@ -1,6 +1,7 @@
 import Entity from './entity';
 import Jump from './Traits/Jump';
 import Go from './Traits/Go';
+import {createAnimation} from './animations';
 
 const SLOW_DRAG = 1/2000;
 const FAST_DRAG = 0;
@@ -24,7 +25,7 @@ export function createCosmo(sprites) {
 
     cosmo.slowAndTurbo = function setTurtleState(turboOn) {
       this.go.dragFactor = turboOn ? FAST_DRAG : SLOW_DRAG;
-    }
+    }    
 
     return cosmo;
 }
