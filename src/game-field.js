@@ -6,6 +6,7 @@ import Timer from './timer';
 import createCollisionLayer from './layers/collision';
 import drawBackground from './layers/background';
 import createCameraLayer from './layers/camera';
+import createDashboardLayer from './layers/dashboard';
 
 export default function drawField(context, canvas) {
     Promise.all([
@@ -24,10 +25,19 @@ export default function drawField(context, canvas) {
         const drawBackgroundLayer = drawBackground(sprites, layout);
         createEntities(sprites, layout);
 
-        console.log(sprites.entities);
+        // console.log(sprites.entities);
 
         const drawCollisions = createCollisionLayer(sprites);
         const drawCameraView = createCameraLayer(sprites.camera);
+
+        const cosmo = sprites.getEntityByName('cosmo');
+
+        sprites.entities.forEach(value => {
+            // console.log(value.name == 'cosmo')
+        });
+
+        // console.log(cosmo);
+        const dashboard = createDashboardLayer(cosmo);
 
 /*
         const input = setupKeyboard(cosmo);
@@ -43,9 +53,16 @@ export default function drawField(context, canvas) {
 
                 drawCollisions(context, sprites.camera);
                 drawCameraView(context, sprites.camera);
+
+                dashboard(context);
         }
         timer.start();
 
         // window.sprites = sprites;
     });
+}
+
+
+function getByName(name) {
+
 }

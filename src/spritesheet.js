@@ -96,6 +96,16 @@ export default class Spritesheet {
                                   cosmo.pos.y - this.camera.pos.y);
     }
 
+    getEntityByName(name) {
+        let searchigEntity;
+        this.entities.forEach(value => {
+            if (value.name == name) {
+                searchigEntity = value;
+            }
+        });
+        return searchigEntity;
+    }
+
     update(deltaTime, context) {
         this.entities.forEach(entity => {
             entity.update(deltaTime, this);
