@@ -2,7 +2,10 @@ import Spritesheet from './spritesheet';
 import {loadImage,loadJSON} from './loaders';
 import {createEntities} from './entities';
 import Timer from './timer';
-import {createCollisionLayer, drawBackground, createCameraLayer} from './layers';
+
+import createCollisionLayer from './layers/collision';
+import drawBackground from './layers/background';
+import createCameraLayer from './layers/camera';
 
 export default function drawField(context, canvas) {
     Promise.all([
