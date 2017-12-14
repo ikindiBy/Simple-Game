@@ -11,12 +11,17 @@ class Behavior extends Trait{
 
     collides(us, them) {
         if (us.killable.dead) {
-              return;
-          }
+            return;
+        }
 
         if (them.stomper) {
-            us.pendulumWalk.speed = 0;
-            them.stomper.bounce();
+            if (them.vel.y > us.vel.y) {
+                us.pendulumWalk.speed = 0;
+                us.killable.kill();
+                them.stomper.bounce();
+            } else {
+                them.killable.kill();
+            }
         }
     }
 }
@@ -27,7 +32,6 @@ export function createGreenFactory(sprites) {
         const green = new Entity('green');
 
         green.size.set(26, 74);
-        //size was 76 => we are cutting 36 and move offset +36
         green.pos.set(x, y);
         green.vel.set(0, -600);
         green.offset.y = 0;

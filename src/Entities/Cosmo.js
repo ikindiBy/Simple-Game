@@ -2,6 +2,7 @@ import Entity from '../Entity';
 import Jump from '../Traits/Jump';
 import Go from '../Traits/Go';
 import Stomper from '../Traits/Stomper';
+import Killable from '../Traits/Killable'
 
 const SLOW_DRAG = 1/2000;
 const FAST_DRAG = 0;
@@ -29,6 +30,7 @@ export function createCosmoFactory(sprites) {
         cosmo.addTrait(new Jump());
         cosmo.addTrait(new Go());
         cosmo.addTrait(new Stomper());
+        cosmo.addTrait(new Killable());
 
         cosmo.turboAndSlow = setTurboState;
         cosmo.slowAndTurbo = setTurtleState;
