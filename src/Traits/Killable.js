@@ -1,4 +1,4 @@
-import {Sides, Trait} from '../entity.js';
+import {Sides, Trait} from '../Entity';
 
 export default class Killable extends Trait {
     constructor() {
@@ -40,5 +40,3 @@ export default class Killable extends Trait {
         }
     }
 }
-
-
