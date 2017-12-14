@@ -137,40 +137,74 @@
   "entities": [
     {
       "name": "green",
-      "data": [
-        [200, 479, 1],
-        [320, 479, 0],
-        [750, 479, 0]
-      ],
-      "pictures": [
-        "green-l",
-        "green-s"
-      ],
-      "deadPic": ["moss", "moss"]
+      "data": {
+        "size": [26, 74],
+        "pictures": [
+          "green-l",
+          "green-s"
+        ],
+        "deadPic": ["moss", "moss"],
+        "velocity": [0, -600]
+      },
+      "positions": [
+        {
+          "pos": [200, 479, 1],
+          "offset": [0, 0]
+        },
+        {
+          "pos": [320, 479, 0],
+          "offset": [0, 0]
+        },
+        {
+          "pos": [750, 479, 0],
+          "offset": [0, 0]
+        }
+      ]
     },
     {
       "name": "purple",
-      "data": [
-        [600, 479, 1],
-        [630, 479, 0]
-      ],
-      "pictures": [
-        "enemy-purple1",
-        "enemy-purple2"
-      ],
-      "deadPic": ["enemy-purple3", "enemy-purple3"]
+      "data": {
+        "size": [25, 15],
+        "pictures": [
+          "enemy-purple1",
+          "enemy-purple2"
+        ],
+        "deadPic": ["enemy-purple3", "enemy-purple3"],
+        "velocity": [0, -600]
+      },
+      "positions": [
+        {
+          "pos": [600, 479, 1],
+          "offset": [0, 0]
+        },
+        {
+          "pos": [630, 479, 0],
+          "offset": [0, 0]
+        }
+      ]
     },
     {
       "name": "black",
-      "data": [
-        [660, 479, 1],
-        [690, 479, 0]
-      ],
-      "pictures": [
-        "enemy-black1",
-        "enemy-black2"
-      ],
-      "deadPic": ["enemy-black3", "enemy-black3"]
+      "data":
+        {
+          "size": [25, 15],
+          "pictures": [
+            "enemy-black1",
+            "enemy-black2"
+          ],
+          "deadPic": ["enemy-black3", "enemy-black3"],
+          "velocity": [0, -600]
+        },
+      "positions": [
+        {
+          "pos": [660, 479, 1],
+          "offset": [0, 0]
+        },
+        {
+          "pos": [690, 479, 0],
+          "offset": [0, 0]
+        }
+      ]
     }
   ]
 }

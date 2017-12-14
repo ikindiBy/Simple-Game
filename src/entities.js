@@ -1,8 +1,5 @@
-
 import {createCosmoFactory} from './Entities/Cosmo';
-import {createGreenFactory} from './Entities/Green';
-import {createPurpleFactory} from './Entities/Purple';
-import {createBlackFactory} from './Entities/Black';
+import {createEnemiesFactory} from './Entities/Enemies'
 
 import PlayerController from './Traits/PlayerController';
 
@@ -11,21 +8,25 @@ import {setupMouseControl} from './debug';
 
 export function createEntities(sprites, layout) {
 
-    const createGreen = createGreenFactory(sprites);
-    const createPurple = createPurpleFactory(sprites);
-    const createBlack = createBlackFactory(sprites);
+    const createEnemy = createEnemiesFactory(sprites);
 
+    layout.entities.forEach(species => {
+        const name = species.name;
+        const [sizeX, sizeY] = species.data.size;
+        const pictures = species.data.pictures;
+        const deadPic = species.data.deadPic;
+        const [velX, velY] = species.data.velocity;
 
-    layout.entities.forEach(entity => {
-        entity.data.forEach(([x, y, reverse]) => {
-          if (entity.name === 'green') {
-            createGreen(x, y, reverse, entity.pictures, entity.deadPic);
-          } else if (entity.name === 'purple') {
-            createPurple(x, y, reverse, entity.pictures, entity.deadPic)
-          } else if (entity.name === 'black') {
-            createBlack(x, y, reverse, entity.pictures, entity.deadPic)
-          }
-        })
+        species.positions.forEach(entity => {
+            const [posX, posY, reverse] = entity.pos;
+            const [offsetX, offsetY] = entity.offset;
+
+            createEnemy(name, posX, posY,
+                              offsetX, offsetY,
+                              sizeX, sizeY,
+                              velX, velY,
+                              reverse, pictures, deadPic);
+        });
     });
 
     const createCosmo = createCosmoFactory(sprites);
@@ -36,17 +37,9 @@ export function createEntities(sprites, layout) {
     const input = setupKeyboard(cosmo);
     setupMouseControl(canvas, cosmo, sprites.camera);
     input.listenTo(window);
-/*
-    cosmo.slowAndTurbo = function setTurtleState(turboOn) {
-      this.go.dragFactor = turboOn ? FAST_DRAG : SLOW_DRAG;
-    }    
-*/
-    // return cosmo;
-
 }
 
 function createPlayerEnv (playerEntity) {
-    
     const playerControl = new PlayerController();
     playerControl.checkPoint.set(42, 42);
     playerEntity.addTrait(playerControl);
