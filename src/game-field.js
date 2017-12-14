@@ -24,9 +24,9 @@ export default function drawField(context, canvas) {
             sprites.define(sprite);
         }
 
-        const fonts = new Font(fontsData, fontData);
+        const font = new Font(fontsData, fontData);
         for (let letter in fontData) {
-            fonts.define(letter);
+            font.define(letter);
         }
 
         const drawBackgroundLayer = drawBackground(sprites, layout);
@@ -50,6 +50,7 @@ export default function drawField(context, canvas) {
 
                 drawBackgroundLayer(context);
                 sprites.update(deltaTime, context);
+                font.print('QWE', context, 0, 300);
 
                 drawCollisions(context, sprites.camera);
                 drawCameraView(context, sprites.camera);
