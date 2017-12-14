@@ -17,15 +17,15 @@ export default function drawField(context, canvas) {
         loadJSON('./alphabet'),
         loadImage('./images/alphabet.png')
     ])
-    .then(([image, data, layout, alphabetData, alphabetImg]) => {
+    .then(([tileImage, tileData, layout, fontData, fontsData]) => {
 
-        const sprites = new Sprite(image, data);
-        for (let sprite in data) {
+        const sprites = new Sprite(tileImage, tileData);
+        for (let sprite in tileData) {
             sprites.define(sprite);
         }
 
-        const fonts = new Font(alphabetImg, alphabetData);
-        for (let letter in alphabetData) {
+        const fonts = new Font(fontsData, fontData);
+        for (let letter in fontData) {
             fonts.define(letter);
         }
 
