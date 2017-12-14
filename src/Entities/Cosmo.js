@@ -5,7 +5,7 @@ import Stomper from '../Traits/Stomper';
 import Killable from '../Traits/Killable'
 
 const SLOW_DRAG = 1/2000;
-const FAST_DRAG = 0;
+const FAST_DRAG = 1/5000;
 
 export function createCosmoFactory(sprites) {
 
