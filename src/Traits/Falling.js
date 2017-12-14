@@ -1,4 +1,4 @@
-import {Trait} from '../entity';
+import {Trait} from '../Entity';
 
 export default class Falling extends Trait {
     constructor() {
@@ -13,6 +13,6 @@ export default class Falling extends Trait {
             entity.pos.y = 100;
             entity.pos.x = currentX - 65;
             entity.stateCosmo.lives--;
-            } 
+            }
     }
 }

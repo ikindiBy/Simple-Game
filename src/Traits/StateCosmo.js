@@ -1,4 +1,4 @@
-import {Trait} from '../entity';
+import {Trait} from '../Entity';
 
 export default class StateCosmo extends Trait {
     constructor() {
@@ -14,6 +14,6 @@ export default class StateCosmo extends Trait {
         if (this.lives == 0) {
             console.log('game over');
         }
-        
+
     }
 }
