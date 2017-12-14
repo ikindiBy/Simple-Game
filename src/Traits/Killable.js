@@ -40,3 +40,5 @@ export default class Killable extends Trait {
         }
     }
 }
+
+
