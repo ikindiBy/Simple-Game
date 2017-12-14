@@ -1,4 +1,4 @@
-import {Trait} from '../Entity';
+import {Trait} from '../entity';
 
 export default class Falling extends Trait {
     constructor() {
@@ -7,15 +7,12 @@ export default class Falling extends Trait {
     }
 
     update(entity) {
-let currentX = entity.pos.x;
-        if (entity.pos.y > 800) {
-
-            console.log('falllllliiiinnnggg')
+        let currentX = entity.pos.x;
+        if (entity.pos.y > 800 && entity.stateCosmo.lives > 0) {
 
             entity.pos.y = 100;
             entity.pos.x = currentX - 65;
             entity.stateCosmo.lives--;
-
             } 
     }
 }
