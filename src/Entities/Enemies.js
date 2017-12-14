@@ -3,6 +3,7 @@ import Jump from '../Traits/Jump';
 import Go from '../Traits/Go';
 import Killable from '../Traits/Killable';
 import PendulumWalk from '../Traits/PendulumWalk';
+import Physics from '../Traits/Physics';
 
 class Behavior extends Trait{
     constructor() {
@@ -44,6 +45,7 @@ export function createEnemiesFactory(sprites) {
         enemy.picture = null;
         enemy.deadPic = deadPic;
 
+        enemy.addTrait(new Physics());
         enemy.addTrait(new PendulumWalk());
         enemy.addTrait(new Behavior());
         enemy.addTrait(new Killable());

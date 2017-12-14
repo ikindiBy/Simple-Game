@@ -2,6 +2,7 @@ import Entity from '../Entity';
 import Jump from '../Traits/Jump';
 import Go from '../Traits/Go';
 import Stomper from '../Traits/Stomper';
+import Physics from '../Traits/Physics';
 
 import Killable from '../Traits/Killable'
 import ReachEdge from '../Traits/ReachEdge';
@@ -35,6 +36,7 @@ export function createCosmoFactory(sprites) {
 
         sprites.entities.add(cosmo);
 
+        cosmo.addTrait(new Physics());
         cosmo.addTrait(new Jump());
         cosmo.addTrait(new Go());
         cosmo.addTrait(new Stomper());
