@@ -1,4 +1,5 @@
-import Spritesheet from './spritesheet';
+import Sprite from './Sprite';
+import Font from './Font';
 import {loadImage,loadJSON} from './loaders';
 import {createEntities} from './entities';
 import Timer from './timer';
@@ -12,14 +13,20 @@ export default function drawField(context, canvas) {
     Promise.all([
         loadImage('./images/sprites.png'),
         loadJSON('./sprites'),
-        loadJSON('./levels/1-2')
+        loadJSON('./levels/1-2'),
+        loadJSON('./alphabet'),
+        loadImage('./images/alphabet.png')
     ])
-    .then(([image, data, layout]) => {
+    .then(([image, data, layout, alphabetData, alphabetImg]) => {
 
-        const sprites = new Spritesheet(image, data, canvas);
-
+        const sprites = new Sprite(image, data);
         for (let sprite in data) {
             sprites.define(sprite);
+        }
+
+        const fonts = new Font(alphabetImg, alphabetData);
+        for (let letter in alphabetData) {
+            fonts.define(letter);
         }
 
         const drawBackgroundLayer = drawBackground(sprites, layout);
