@@ -42,12 +42,12 @@ export default class Sprite extends Spritesheet {
     }
 
     drawEntity (name, context, x, y, flip = false) {
+
             const buffer = this.tiles.get(`${name}.png`)[flip ? 0 : 1];
-<<<<<<< HEAD
             context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
 =======
-            context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
->>>>>>> dev pull last changes
+
+>>>>>>> changes with alfabet
     }
 
     drawCosmo(cosmo, context) {
@@ -80,7 +80,6 @@ export default class Sprite extends Spritesheet {
             if (entity.name === 'cosmo') {
                 this.drawCosmo(entity, context);
                 this.camera.pos.x = entity.pos.x > 3040 ? 2740 : Math.max(0, entity.pos.x - 300);
-                console.log(entity.pos.x);
             } else if (entity.name !== 'cosmo') {
                 this.drawEntity(entity.picture, context, entity.pos.x, entity.pos.y, entity.pendulumWalk.speed > 0 ? 0 : 1);
             } else if (entity.name == 'key-o' || entity.name == 'coin-g') {
