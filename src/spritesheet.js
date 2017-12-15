@@ -47,8 +47,13 @@ export default class Spritesheet {
         }
     }
 
+<<<<<<< HEAD
     getEntitiesByName(name) {
         let entities = [];
+=======
+    getEntityByName(name) {
+        let searchigEntity;
+>>>>>>> changes with alfabet
         this.entities.forEach(value => {
             if (value.name == name) {
                 entities.push(value);
