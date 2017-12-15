@@ -13,7 +13,7 @@ export default function drawField(context, canvas) {
     Promise.all([
         loadImage('./images/sprites.png'),
         loadJSON('./sprites'),
-        loadJSON('./levels/1-2'),
+        loadJSON('./levels/1-1'),
         loadJSON('./alphabet'),
         loadImage('./images/alphabet.png')
     ])
