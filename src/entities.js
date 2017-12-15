@@ -37,10 +37,12 @@ export function createEntities(sprites, layout) {
     const input = setupKeyboard(cosmo);
     setupMouseControl(canvas, cosmo, sprites.camera);
     input.listenTo(window);
+
+    return cosmo;
 }
 
 function createPlayerEnv (playerEntity) {
-    const playerControl = new PlayerController();
+    const playerControl = new PlayerController(playerEntity);
     playerControl.checkPoint.set(42, 42);
     playerEntity.addTrait(playerControl);
 }

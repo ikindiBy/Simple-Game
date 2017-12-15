@@ -9,9 +9,6 @@ import ReachEdge from '../Traits/ReachEdge';
 
 import Falling from '../Traits/Falling';
 import StateCosmo from '../Traits/StateCosmo';
-import PlayerController from '../Traits/PlayerController';
-
-
 
 const SLOW_DRAG = 1/2000;
 const FAST_DRAG = 1/5000;
@@ -42,10 +39,9 @@ export function createCosmoFactory(sprites) {
         cosmo.addTrait(new Stomper());
         cosmo.addTrait(new Killable());
 
-        cosmo.addTrait(new PlayerController());
         cosmo.addTrait(new Falling());
         cosmo.addTrait(new StateCosmo());
-       
+
 
         cosmo.turboAndSlow = setTurboState;
         cosmo.slowAndTurbo = setTurtleState;
