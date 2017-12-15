@@ -18,9 +18,17 @@ export default class Sprite extends Spritesheet {
     }
 
     draw(name, context, x, y, type, flip) {
+
         const buffer = this.tiles.get(`${name}.png`)[flip ? 1 : 0];
 
-
+        if (name.includes('coin') || name.includes('key')) {
+            x = x * this.TILE_SIZE;
+            y = y * this.TILE_SIZE;
+        } else {
+            x = x * buffer.width;
+            y = y * buffer.width;
+        }
+        
         if (type === 'tile' || 'dec-tile') {
             this.tilesMatrix.set(x, y, {
                 'name': name,
