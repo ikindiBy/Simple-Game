@@ -31,7 +31,6 @@ export default function drawField(context, canvas) {
 
         const drawBackgroundLayer = drawBackground(sprites, layout);
 
-
         const drawCollisions = createCollisionLayer(sprites);
         const drawCameraView = createCameraLayer(sprites.camera);
 

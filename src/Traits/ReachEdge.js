@@ -7,7 +7,7 @@ export default class ReachEdge extends Trait {
 
     update(entity, deltaTime, sprites) {
         if (entity.pos.x < 0) {
-                entity.pos.x = 100;
+                // entity.pos.x = 1;
         }
     }
 }
