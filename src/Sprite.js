@@ -29,7 +29,7 @@ export default class Sprite extends Spritesheet {
         }
 
         x = x * buffer.width;
-        y = y * buffer.width;
+        y = y * buffer.height;
 
 
         context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
