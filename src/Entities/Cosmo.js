@@ -42,9 +42,10 @@ export function createCosmoFactory(sprites) {
         cosmo.addTrait(new Stomper());
         cosmo.addTrait(new Killable());
 
+        cosmo.addTrait(new PlayerController());
         cosmo.addTrait(new Falling());
         cosmo.addTrait(new StateCosmo());
-        cosmo.addTrait(new PlayerController());
+       
 
         cosmo.turboAndSlow = setTurboState;
         cosmo.slowAndTurbo = setTurtleState;

@@ -11,13 +11,15 @@ export default class PlayerController extends Trait {
     update(entity, deltaTime, sprites) {
         this.player = entity;
 
-        if (!sprites.entities.has(entity) && entity.stateCosmo.lives > 0) {
+        if (!sprites.entities.has(entity) && entity.stateCosmo.alive) {
 
             entity.stateCosmo.lives--;
-            this.player.killable.revive();
-            this.player.pos.set(this.checkPoint.x, this.checkPoint.y);
-            sprites.entities.add(this.player);
-       }
 
+            if (entity.stateCosmo.lives > 0) {
+                this.player.killable.revive();
+                this.player.pos.set(this.checkPoint.x, this.checkPoint.y);
+                sprites.entities.add(this.player);   
+            }   
+        }
     }
 }
