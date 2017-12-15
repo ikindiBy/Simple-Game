@@ -1,5 +1,6 @@
 import Entity, {Sides, Trait} from '../Entity';
 import Killable from '../Traits/Killable';
+// import Physics from '../Traits/Physics';
 
 class Behavior extends Trait{
     constructor() {
@@ -19,7 +20,7 @@ class Behavior extends Trait{
             } else if (us.name.includes('key')) {
                 them.stateCosmo.keys++;
             }
-            
+
         }
     }
 }
@@ -31,8 +32,8 @@ export function createArtefactsFactory(sprites) {
                                     picture) {
 
         const artefact = new Entity(name);
-        artefact.size.set(23, 23);               //!!! resolve 
-        artefact.pos.set(posX * 37, posY * 37);  //!!! resolve 
+        artefact.size.set(23, 23);               //!!! resolve
+        artefact.pos.set(posX * 37, posY * 37);  //!!! resolve
         artefact.offset.set(7, 7);
         artefact.picture = picture;
 

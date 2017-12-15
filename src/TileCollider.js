@@ -15,7 +15,7 @@ export default class TileCollider {
         }
 
         let x;
-        if (entity.vel.x > 0) {
+        if (entity.vel.x > 0) {    
             x = entity.bounds.right;
         } else if (entity.vel.x < 0) {
             x = entity.bounds.left;
@@ -66,6 +66,7 @@ export default class TileCollider {
                 if (entity.bounds.bottom > match.y1) {
                     entity.bounds.bottom = match.y1;
                     entity.vel.y = 0;
+                    // console.log('matches BOTTOM');
 
                     entity.obstruct(Sides.BOTTOM);
 

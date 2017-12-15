@@ -42,10 +42,8 @@ export default class Sprite extends Spritesheet {
     }
 
     drawEntity (name, context, x, y, flip = false) {
-
             const buffer = this.tiles.get(`${name}.png`)[flip ? 0 : 1];
             context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
-=======
 
 >>>>>>> changes with alfabet
     }
@@ -86,11 +84,20 @@ export default class Sprite extends Spritesheet {
                 this.draw(entity.name, context, entity.pos.x , entity.pos.y )
             }
 =======
->>>>>>> dev pull last changes
+
+            // } else if (entity.name !== 'cosmo') {
+                // this.draw(entity.picture, context, entity.pos.x, entity.pos.y)
+
+            } else if (entity.name == 'key-o' || entity.name == 'coin-g') {
+                this.draw(entity.name, context, entity.pos.x , entity.pos.y )
+            }
+
+>>>>>>> add coins'/keys' drawing and counter
         });
 
         this.entities.forEach(entity => {
             this.entityCollider.check(entity);
         });
+
     }
 }
