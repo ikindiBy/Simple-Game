@@ -50,7 +50,11 @@ export default function drawField(context, canvas) {
 
                 drawBackgroundLayer(context);
                 sprites.update(deltaTime, context);
-                font.print('QWE', context, 0, 300);
+                font.print('!@#$%*,', context, 0, 100, 90, 90);
+                font.print('1234567890', context, 0, 200, 90, 90);
+                font.print('QWERTYUIOP', context, 0, 300, 90, 90);
+                font.print('ASDFGHJKL', context, 0, 400, 90, 90);
+                font.print('ZXCVBNM', context, 0, 500, 90, 90);
 
                 drawCollisions(context, sprites.camera);
                 drawCameraView(context, sprites.camera);
