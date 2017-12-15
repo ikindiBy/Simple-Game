@@ -12,7 +12,7 @@ export default function drawField(context, canvas) {
     Promise.all([
         loadImage('./images/sprites.png'),
         loadJSON('./sprites'),
-        loadJSON('./levels/1-1')
+        loadJSON('./levels/1-2')
     ])
     .then(([image, data, layout]) => {
 
@@ -25,18 +25,11 @@ export default function drawField(context, canvas) {
         const drawBackgroundLayer = drawBackground(sprites, layout);
         createEntities(sprites, layout);
 
-        // console.log(sprites.entities);
-
         const drawCollisions = createCollisionLayer(sprites);
         const drawCameraView = createCameraLayer(sprites.camera);
 
         const cosmo = sprites.getEntityByName('cosmo');
 
-        sprites.entities.forEach(value => {
-            // console.log(value.name == 'cosmo')
-        });
-
-        // console.log(cosmo);
         const dashboard = createDashboardLayer(cosmo);
 
 /*
