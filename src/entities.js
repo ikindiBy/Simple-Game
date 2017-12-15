@@ -41,8 +41,8 @@ export function createEntities(sprites, layout) {
     return cosmo;
 }
 
-function createPlayerEnv (playerEntity) {
-    const playerControl = new PlayerController(playerEntity);
+function createPlayerEnv (playerEntity, camera) {
+    const playerControl = new PlayerController(playerEntity, camera);
     playerControl.checkPoint.set(42, 42);
     playerEntity.addTrait(playerControl);
 }

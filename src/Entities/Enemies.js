@@ -46,7 +46,7 @@ export function createEnemiesFactory(sprites) {
         enemy.deadPic = deadPic;
 
         enemy.addTrait(new Physics());
-        enemy.addTrait(new PendulumWalk());
+        enemy.addTrait(new PendulumWalk(reverse));
         enemy.addTrait(new Behavior());
         enemy.addTrait(new Killable());
 

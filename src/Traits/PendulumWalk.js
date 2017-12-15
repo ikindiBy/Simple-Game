@@ -1,10 +1,10 @@
 import {Sides, Trait} from '../Entity.js';
 
 export default class PendulumWalk extends Trait {
-    constructor() {
+    constructor(reverse) {
         super('pendulumWalk');
 
-        this.speed = -30;
+        this.speed = reverse ? 30 : -30;
         this.picture = null;
         this.pictures = [];
     }

@@ -5,9 +5,9 @@ export default class ReachEdge extends Trait {
         super('reachEdge');
     }
 
-    update(entity) {
+    update(entity, deltaTime, sprites) {
         if (entity.pos.x < 0) {
-                // entity.pos.x = 1;
+                entity.pos.x = 100;
         }
     }
 }

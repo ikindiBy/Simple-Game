@@ -4,8 +4,10 @@ import {Vect} from '../math';
 export default class PlayerController extends Trait {
     constructor(entity) {
         super('playerController');
+
         this.player = entity;
-        this.checkPoint = new Vect(42, 42);
+        this.checkPoint = new Vect(0, 0);
+
         this.time = 60;
         this.stopTime = false;
     }
