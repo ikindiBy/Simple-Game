@@ -3,10 +3,7 @@ import {Sides, Trait} from '../Entity.js';
 export default class PendulumWalk extends Trait {
     constructor(reverse) {
         super('pendulumWalk');
-
         this.speed = reverse ? 30 : -30;
-        this.picture = null;
-        this.pictures = [];
     }
 
     obstruct(entity, side) {
@@ -17,8 +14,5 @@ export default class PendulumWalk extends Trait {
 
     update(entity, deltaTime) {
         entity.vel.x = this.speed;
-
-        const sequence = Math.floor(entity.lifetime % 2);
-        entity.picture = entity.pictures[sequence];
     }
 }

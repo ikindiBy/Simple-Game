@@ -25,6 +25,11 @@ class Behavior extends Trait{
             }
         }
     }
+
+    update(entity, deltaTime, sprites) {
+        const sequence = Math.floor(entity.lifetime % entity.pictures.length);
+        entity.picture = entity.pictures[sequence];
+    }
 }
 
 export function createEnemiesFactory(sprites) {
