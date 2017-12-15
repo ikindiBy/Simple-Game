@@ -47,6 +47,16 @@ export default class Spritesheet {
         }
     }
 
+    getEntityByName(name) {
+        let searchigEntity;
+        this.entities.forEach(value => {
+            if (value.name == name) {
+                searchigEntity = value;
+            }
+        });
+        return searchigEntity;
+    }
+
     update(deltaTime, context) {
 
     }
