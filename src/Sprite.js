@@ -20,24 +20,24 @@ export default class Sprite extends Spritesheet {
     draw(name, context, x, y, type, flip) {
         const buffer = this.tiles.get(`${name}.png`)[flip ? 1 : 0];
 
-        if (type) {
-            if (type === 'tile' || 'dec-tile') {
-                this.tilesMatrix.set(x, y, {
-                    'name': name,
-                    'type': type
-                });
-            }
 
-            x = x * buffer.width;
-            y = y * buffer.width;
+        if (type === 'tile' || 'dec-tile') {
+            this.tilesMatrix.set(x, y, {
+                'name': name,
+                'type': type
+            });
         }
+
+        x = x * buffer.width;
+        y = y * buffer.height;
+
 
         context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
     }
 
     drawEntity (name, context, x, y, flip = false) {
-            const buffer = this.tiles.get(nameTile)[flip ? 0 : 1];
-            context.drawImage(buffer, x, y);
+            const buffer = this.tiles.get(`${name}.png`)[flip ? 0 : 1];
+            context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
     }
 
     drawCosmo(cosmo, context) {
@@ -69,9 +69,10 @@ export default class Sprite extends Spritesheet {
 
             if (entity.name === 'cosmo') {
                 this.drawCosmo(entity, context);
-                this.camera.pos.x = Math.max(0, entity.pos.x - 300);
+                this.camera.pos.x = entity.pos.x > 3040 ? 2740 : Math.max(0, entity.pos.x - 300);
+                console.log(entity.pos.x);
             } else if (entity.name !== 'cosmo') {
-                this.draw(entity.picture, context, entity.pos.x, entity.pos.y)
+                this.drawEntity(entity.picture, context, entity.pos.x, entity.pos.y, entity.pendulumWalk.speed > 0 ? 0 : 1);
             }
         });
 

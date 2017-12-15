@@ -26,10 +26,11 @@ export function createCosmoFactory(sprites) {
     return function createCosmo() {
         const cosmo = new Entity('cosmo');
 
-        cosmo.size.set(37, 50);
+        cosmo.size.set(20, 50);
 
         cosmo.pos.set(185, 420);
         cosmo.vel.set(0, -600);
+        cosmo.offset.set(9, 0);
 
         sprites.entities.add(cosmo);
 

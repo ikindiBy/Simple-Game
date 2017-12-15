@@ -25,6 +25,11 @@ class Behavior extends Trait{
             }
         }
     }
+
+    update(entity, deltaTime, sprites) {
+        const sequence = Math.floor(entity.lifetime % entity.pictures.length);
+        entity.picture = entity.pictures[sequence];
+    }
 }
 
 export function createEnemiesFactory(sprites) {
@@ -46,7 +51,7 @@ export function createEnemiesFactory(sprites) {
         enemy.deadPic = deadPic;
 
         enemy.addTrait(new Physics());
-        enemy.addTrait(new PendulumWalk());
+        enemy.addTrait(new PendulumWalk(reverse));
         enemy.addTrait(new Behavior());
         enemy.addTrait(new Killable());
 
