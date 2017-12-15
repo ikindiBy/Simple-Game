@@ -50,7 +50,6 @@ export default class Spritesheet {
     }
 
     drawTiles(name, context, type, x1, x2, y1, y2) {
-
         for (let x = x1; x < x2; ++x) {
             for (let y = y1; y < y2; ++y) {
                 this.draw(name, context, x, y, type);
