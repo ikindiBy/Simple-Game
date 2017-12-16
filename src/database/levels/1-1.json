@@ -420,5 +420,36 @@
         }
       ]
     }
+  ],
+  "artefacts": [
+    {
+      "name": "coin-g",
+      "data": {
+        "size": [26, 24],
+        "pictures": [
+          "coin-g", "coin-g"
+        ]
+      },
+      "positions": [
+        { "pos" : [3, 11 ] },
+        { "pos" : [7, 11 ] },
+        { "pos" : [10,  14 ] },
+        { "pos" : [14,  14 ] }
+      ]
+    },
+    {
+      "name": "key-o",
+      "data": {
+        "size": [26, 24],
+        "pictures": [
+          "key-o", "key-o"
+        ]
+      },
+      "positions": [
+        {
+          "pos": [31, 14]
+        }
+      ]
+    }
   ]
 }
