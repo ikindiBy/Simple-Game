@@ -112,7 +112,6 @@
       ]
     },
     {
-<<<<<<< HEAD
       "name": "key-b",
       "type": "extra",
       "pos": [
@@ -120,8 +119,6 @@
       ]
     },
     {
-=======
->>>>>>> extra-elements: refactoring - deleting extra code
       "name": "sky1",
       "type": "decoration",
       "pos": [
@@ -292,11 +289,8 @@
       },
       "positions": [
         {
-=======   "pos": [1, 12]
->>>>>>> add coins'/keys' drawing and counter
-=======
+          "pos": [1, 12],
           "pos": [25, 14]
->>>>>>> extra-elements: refactoring - deleting extra code
         }
 
       ]

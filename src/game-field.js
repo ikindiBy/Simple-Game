@@ -1,24 +1,22 @@
 import Sprite from './Sprite';
 import Font from './Font';
 import {loadImage,loadJSON} from './loaders';
-import {createEntities} from './entities';
 import Timer from './timer';
 
 import createCollisionLayer from './layers/collision';
-import drawBackground from './layers/background';
 import createCameraLayer from './layers/camera';
-import createDashboardLayer from './layers/dashboard';
+
+import drawLevel from './drawLevel';
+import createPlayer from './createPlayerEnvironment';
 
 export default function drawField(context, canvas) {
     Promise.all([
         loadImage('./images/sprites.png'),
         loadJSON('./sprites'),
-        loadJSON('./levels/1-1'),
-
         loadJSON('./alphabet'),
         loadImage('./images/alphabet.png')
     ])
-    .then(([tileImage, tileData, layout, fontData, fontImage]) => {
+    .then(([tileImage, tileData, fontData, fontImage]) => {
 
         const sprites = new Sprite(tileImage, tileData);
         for (let sprite in tileData) {
@@ -30,14 +28,12 @@ export default function drawField(context, canvas) {
             font.define(letter);
         }
 
-        const drawBackgroundLayer = drawBackground(sprites, layout);
-
         const drawCollisions = createCollisionLayer(sprites);
         const drawCameraView = createCameraLayer(sprites.camera);
 
-        const cosmo = createEntities(sprites, layout);
-        const dashboard = createDashboardLayer(cosmo);
+        const dashboard = createPlayer(sprites);
 
+        const drawBackgoundLayer = drawLevel(sprites, 1);
 
         const timer = new Timer(1/60);
         timer.update = function update(deltaTime) {
