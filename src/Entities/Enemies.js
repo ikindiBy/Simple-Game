@@ -48,7 +48,7 @@ export function createEnemiesFactory(sprites) {
 
         const enemy = new Entity(name);
         enemy.size.set(sizeX, sizeY);
-        enemy.pos.set(posX, posY);
+        enemy.pos.set(posX * 37, posY * 37);
         enemy.vel.set(velX, velY);
         enemy.offset.set(offsetX, offsetY);
         enemy.pictures = reverse ? Array.from(pictures).reverse() : pictures;

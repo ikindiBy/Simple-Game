@@ -30,15 +30,13 @@ class Behavior extends Trait{
 
 export function createArtefactsFactory(sprites) {
 
-    return function createArtefact(name, posX, posY,
-                                    // sizeX, sizeY,
-                                    picture) {
+    return function createArtefact(name, posX, posY) {
 
         const artefact = new Entity(name);
         artefact.size.set(23, 23);               //!!! resolve
         artefact.pos.set(posX * 37, posY * 37);  //!!! resolve
         artefact.offset.set(7, 7);
-        artefact.picture = picture;
+        artefact.picture = name;
 
         artefact.addTrait(new Killable());
         artefact.addTrait(new Behavior());
