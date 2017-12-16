@@ -28,8 +28,7 @@ export default class Sprite extends Spritesheet {
                     'type': type
                 });
             }
-
-            if (name.includes('coin') || name.includes('key')) {
+        if (name.includes('coin') || name.includes('key')) {
                 x = x * this.TILE_SIZE;
                 y = y * this.TILE_SIZE;
             } else {
@@ -44,8 +43,6 @@ export default class Sprite extends Spritesheet {
     drawEntity (name, context, x, y, flip = false) {
             const buffer = this.tiles.get(`${name}.png`)[flip ? 0 : 1];
             context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
-
->>>>>>> changes with alfabet
     }
 
     drawCosmo(cosmo, context) {
@@ -83,16 +80,6 @@ export default class Sprite extends Spritesheet {
             } else if (entity.name == 'key-o' || entity.name == 'coin-g') {
                 this.draw(entity.name, context, entity.pos.x , entity.pos.y )
             }
-=======
-
-            // } else if (entity.name !== 'cosmo') {
-                // this.draw(entity.picture, context, entity.pos.x, entity.pos.y)
-
-            } else if (entity.name == 'key-o' || entity.name == 'coin-g') {
-                this.draw(entity.name, context, entity.pos.x , entity.pos.y )
-            }
-
->>>>>>> add coins'/keys' drawing and counter
         });
 
         this.entities.forEach(entity => {

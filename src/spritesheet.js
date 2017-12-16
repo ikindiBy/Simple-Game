@@ -41,12 +41,13 @@ export default class Spritesheet {
     }
 /* this method can be deleted? i don't know where we can use it  BUT may be it for fonts??? */
     draw(name, context, x, y, type, flip) {
-        // const buffer = this.tiles.get(`${name}.png`)[flip ? 1 : 0];
+        
+        const buffer = this.tiles.get(`${name}.png`)[flip ? 1 : 0];
 
-        // x = x * buffer.width;
-        // y = y * buffer.width;
+        x = x * buffer.width;
+        y = y * buffer.width;
 
-        // context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
+        context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
     }
 
     drawTiles(name, context, type, x1, x2, y1, y2) {

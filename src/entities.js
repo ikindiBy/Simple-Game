@@ -30,7 +30,7 @@ export function createEntities(sprites, layout) {
                               reverse, pictures, deadPic);
         });
     });
-
+    
     layout.artefacts.forEach(artef => {
         const name = artef.name;
         // const [sizeX, sizeY] = artef.data.size;
