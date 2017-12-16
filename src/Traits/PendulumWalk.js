@@ -4,6 +4,8 @@ export default class PendulumWalk extends Trait {
     constructor(reverse) {
         super('pendulumWalk');
         this.speed = reverse ? 30 : -30;
+        let randomForPatrol = Math.random() < 0.5 ? 0.5 : Math.random(); 
+        this.amplitudePatrol = randomForPatrol * 1000;
     }
 
     obstruct(entity, side) {
