@@ -3,6 +3,7 @@ export default class TileResolver {
     constructor(matrix, tileSize = 37) {
         this.matrix = matrix;
         this.tileSize = tileSize;
+        console.log('tile',this.toIndex(186),this.toIndex(593));
     }
 
     toIndex(pos) {
@@ -37,6 +38,8 @@ export default class TileResolver {
             }
         }
     }
+
+    
 
     searchByPosition(posX, posY) {
         return this.getByIndex(

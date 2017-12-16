@@ -18,6 +18,10 @@ class Behavior extends Trait{
                 them.stateCosmo.coins++;
             } else if (us.name.includes('key')) {
                 them.stateCosmo.keys++;
+            } else if (us.name.includes('lock')) {
+                if (them.stateCosmo.keys) {
+                    console.log('congratulation - next level');
+                }
             }
 
         }

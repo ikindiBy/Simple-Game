@@ -30,8 +30,8 @@ export function createEntities(sprites, layout) {
         // const [sizeX, sizeY] = artef.data.size;
         const pictures = artef.data.pictures;
 
-        artef.positions.forEach(entity => {
-            const [posX, posY] = entity.pos;
+        artef.positions.forEach(arrPositions => {
+            const [posX, posY] = arrPositions;
 
             createArtefact(name, posX, posY,
                               // sizeX, sizeY,

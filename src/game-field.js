@@ -30,7 +30,6 @@ export default function drawField(context, canvas) {
             sprites.define(sprite);
         }
 
-
         const font = new Font(fontsData, fontData);
 
         for (let letter in fontData) {

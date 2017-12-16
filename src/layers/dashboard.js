@@ -6,9 +6,12 @@ export default function createDashboardLayer(entity) {
     	context.font = "22px Verdana";
 
         context.fillStyle = "darkViolet";
-        context.fillText(`LIVES : ${entity.stateCosmo.lives}`, 300, 22);
         context.fillText(`LEVEL : 1`, 20, 22);
         context.fillText(`COINS : ${entity.stateCosmo.coins}`, 160, 22);
+        context.fillText(`LIVES : ${entity.stateCosmo.lives}`, 300, 22);
+
+        context.fillText(`KEYS : ${entity.stateCosmo.keys}`, 460, 22);
+
         context.fillText(`TIME : ${time}`, 840, 22);
 
 

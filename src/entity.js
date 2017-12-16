@@ -38,6 +38,8 @@ export default class Entity {
         this.bounds = new BoundingBox(this.pos, this.size, this.offset);
 
         this.traits = [];
+
+        this.player = false;
     }
 
     addTrait(trait) {

@@ -10,6 +10,12 @@ class Behavior extends Trait{
         super('behavior');
     }
 
+    reachEdge(enemy) {
+
+        console.log(enemy.pendulumWalk.speed);
+
+    }
+
     collides(us, them) {
         if (us.killable.dead) {
             return;

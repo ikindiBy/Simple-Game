@@ -78,7 +78,7 @@ export default class Sprite extends Spritesheet {
                 this.drawCosmo(entity, context);
                 this.camera.pos.x = entity.pos.x > 3040 ? 2740 : Math.max(0, entity.pos.x - 300);
 
-            } else if (entity.name == 'key-o' || entity.name == 'coin-g') {
+            } else if (entity.name.includes('key') || entity.name.includes('coin') || entity.name.includes('lock')) {
                 this.draw(entity.name, context, entity.pos.x , entity.pos.y )
 
             } else if (entity.name !== 'cosmo') {
