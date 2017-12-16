@@ -19,7 +19,7 @@ export default class Killable extends Trait {
 
     update(entity, deltaTime, sprites) {
         if (this.dead) {
-            if (entity.name !== 'cosmo') {
+            if (!entity.player) {
                 entity.pictures = entity.deadPic;
             } else {
                 sprites.entities.delete(entity);
