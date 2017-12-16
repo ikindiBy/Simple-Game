@@ -6,8 +6,8 @@ import Timer from './timer';
 import createCollisionLayer from './layers/collision';
 import createCameraLayer from './layers/camera';
 
-import drawLevel from './drawLevel';
-import createPlayer from './createPlayerEnvironment';
+import createLevelCompositor from './createLevelCompositor';
+import createPlayerEnvironment from './createPlayerEnvironment';
 
 export default function drawField(context, canvas) {
     Promise.all([
@@ -16,7 +16,7 @@ export default function drawField(context, canvas) {
         loadJSON('./alphabet'),
         loadImage('./images/alphabet.png')
     ])
-    .then(([tileImage, tileData, fontData, fontImage]) => {
+    .then(async ([tileImage, tileData, fontData, fontImage]) => {
 
         const sprites = new Sprite(tileImage, tileData);
         for (let sprite in tileData) {
@@ -31,35 +31,20 @@ export default function drawField(context, canvas) {
         const drawCollisions = createCollisionLayer(sprites);
         const drawCameraView = createCameraLayer(sprites.camera);
 
-        const dashboard = createPlayer(sprites);
-
-        const drawBackgoundLayer = drawLevel(sprites, 1);
+        const [drawDashboard, cosmo] = createPlayerEnvironment(sprites);
+        sprites.drawLevel = await createLevelCompositor(sprites);
 
         const timer = new Timer(1/60);
         timer.update = function update(deltaTime) {
 
-                drawBackgroundLayer(context);
+                sprites.drawLevel(context);
                 sprites.update(deltaTime, context);
-
-
-                // font.print('!@#$%*,', context, 0, 100, 90, 90);
-                // font.print('1234567890', context, 0, 200, 90, 90);
-                // font.print('QWERTYUIOP', context, 0, 300, 90, 90);
-                // font.print('ASDFGHJKL', context, 0, 400, 90, 90);
-                // font.print('ZXCVBNM', context, 0, 500, 90, 90);
-
-
 
                 drawCollisions(context, sprites.camera);
                 drawCameraView(context, sprites.camera);
 
-                dashboard(context);
+                drawDashboard(context);
         }
         timer.start();
-    });
-}
-
-
-function getByName(name) {
-
+    })
 }

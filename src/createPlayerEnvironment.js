@@ -9,13 +9,13 @@ export default function(sprites) {
     const cosmo = createCosmo();
 
     createPlayerEnv(cosmo);
-    const dashboard = createDashboardLayer(cosmo);
+    const drawDashboard = createDashboardLayer(cosmo);
 
     const input = setupKeyboard(cosmo);
     setupMouseControl(canvas, cosmo, sprites.camera);
     input.listenTo(window);
 
-    return dashboard;
+    return [drawDashboard, cosmo];
 }
 
 function createPlayerEnv (playerEntity) {
