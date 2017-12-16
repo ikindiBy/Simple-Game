@@ -75,10 +75,10 @@ export default class Sprite extends Spritesheet {
             if (entity.name === 'cosmo') {
                 this.drawCosmo(entity, context);
                 this.camera.pos.x = entity.pos.x > 3040 ? 2740 : Math.max(0, entity.pos.x - 300);
-            } else if (entity.name !== 'cosmo') {
-                this.drawEntity(entity.picture, context, entity.pos.x, entity.pos.y, entity.pendulumWalk.speed > 0 ? 0 : 1);
             } else if (entity.name == 'key-o' || entity.name == 'coin-g') {
                 this.draw(entity.name, context, entity.pos.x , entity.pos.y )
+            } else if (entity.name !== 'cosmo') {
+                this.drawEntity(entity.picture, context, entity.pos.x, entity.pos.y, entity.pendulumWalk.speed > 0 ? 0 : 1);
             }
         });
 
