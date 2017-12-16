@@ -18,19 +18,24 @@ export default class Sprite extends Spritesheet {
     }
 
     draw(name, context, x, y, type, flip) {
+
         const buffer = this.tiles.get(`${name}.png`)[flip ? 1 : 0];
 
-
-        if (type === 'tile' || 'dec-tile') {
-            this.tilesMatrix.set(x, y, {
-                'name': name,
-                'type': type
-            });
+        if (type) {
+            if (type !== 'decor') {
+                this.tilesMatrix.set(x, y, {
+                    'name': name,
+                    'type': type
+                });
+            }
+        if (name.includes('coin') || name.includes('key')) {
+                x = x * this.TILE_SIZE;
+                y = y * this.TILE_SIZE;
+            } else {
+                x = x * buffer.width;
+                y = y * buffer.height;
+            }
         }
-
-        x = x * buffer.width;
-        y = y * buffer.height;
-
 
         context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
     }
@@ -70,7 +75,8 @@ export default class Sprite extends Spritesheet {
             if (entity.name === 'cosmo') {
                 this.drawCosmo(entity, context);
                 this.camera.pos.x = entity.pos.x > 3040 ? 2740 : Math.max(0, entity.pos.x - 300);
-                console.log(entity.pos.x);
+            } else if (entity.name == 'key-o' || entity.name == 'coin-g') {
+                this.draw(entity.name, context, entity.pos.x , entity.pos.y )
             } else if (entity.name !== 'cosmo') {
                 this.drawEntity(entity.picture, context, entity.pos.x, entity.pos.y, entity.pendulumWalk.speed > 0 ? 0 : 1);
             }
@@ -79,5 +85,6 @@ export default class Sprite extends Spritesheet {
         this.entities.forEach(entity => {
             this.entityCollider.check(entity);
         });
+
     }
 }

@@ -14,17 +14,18 @@ export default function drawField(context, canvas) {
         loadImage('./images/sprites.png'),
         loadJSON('./sprites'),
         loadJSON('./levels/1-1'),
+
         loadJSON('./alphabet'),
         loadImage('./images/alphabet.png')
     ])
-    .then(([tileImage, tileData, layout, fontData, fontsData]) => {
+    .then(([tileImage, tileData, layout, fontData, fontImage]) => {
 
         const sprites = new Sprite(tileImage, tileData);
         for (let sprite in tileData) {
             sprites.define(sprite);
         }
 
-        const font = new Font(fontsData, fontData);
+        const font = new Font(fontImage, fontData);
         for (let letter in fontData) {
             font.define(letter);
         }
@@ -37,16 +38,21 @@ export default function drawField(context, canvas) {
         const cosmo = createEntities(sprites, layout);
         const dashboard = createDashboardLayer(cosmo);
 
+
         const timer = new Timer(1/60);
         timer.update = function update(deltaTime) {
 
                 drawBackgroundLayer(context);
                 sprites.update(deltaTime, context);
+
+
                 // font.print('!@#$%*,', context, 0, 100, 90, 90);
                 // font.print('1234567890', context, 0, 200, 90, 90);
                 // font.print('QWERTYUIOP', context, 0, 300, 90, 90);
                 // font.print('ASDFGHJKL', context, 0, 400, 90, 90);
                 // font.print('ZXCVBNM', context, 0, 500, 90, 90);
+
+
 
                 drawCollisions(context, sprites.camera);
                 drawCameraView(context, sprites.camera);
