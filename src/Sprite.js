@@ -46,8 +46,8 @@ export default class Sprite extends Spritesheet {
 <<<<<<< HEAD
             context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
 =======
-            context.drawImage(buffer, x, y);
->>>>>>> add coins'/keys' drawing and counter
+            context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
+>>>>>>> dev pull last changes
     }
 
     drawCosmo(cosmo, context) {
@@ -79,25 +79,19 @@ export default class Sprite extends Spritesheet {
 
             if (entity.name === 'cosmo') {
                 this.drawCosmo(entity, context);
-<<<<<<< HEAD
                 this.camera.pos.x = entity.pos.x > 3040 ? 2740 : Math.max(0, entity.pos.x - 300);
                 console.log(entity.pos.x);
             } else if (entity.name !== 'cosmo') {
                 this.drawEntity(entity.picture, context, entity.pos.x, entity.pos.y, entity.pendulumWalk.speed > 0 ? 0 : 1);
-            }
-=======
-                this.camera.pos.x = Math.max(0, entity.pos.x - 300);
             } else if (entity.name == 'key-o' || entity.name == 'coin-g') {
                 this.draw(entity.name, context, entity.pos.x , entity.pos.y )
-            } else if (entity.name !== 'cosmo') {
-                this.draw(entity.picture, context, entity.pos.x, entity.pos.y)
             }
->>>>>>> add coins'/keys' drawing and counter
+=======
+>>>>>>> dev pull last changes
         });
 
         this.entities.forEach(entity => {
             this.entityCollider.check(entity);
         });
-
     }
 }

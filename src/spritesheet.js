@@ -11,14 +11,14 @@ export default class Spritesheet {
     }
 
     define(name) {
-        
+
         const buffers = [false, true].map(flip => {
             const buffer = document.createElement('canvas');
             const context = buffer.getContext('2d');
             const png = this.data[`${name}`].frame;
             buffer.width = png['w'];
-            buffer.height = png['h']; 
-            
+            buffer.height = png['h'];
+
             if (flip) {
                 context.scale(-1, 1);
                 context.translate(-buffer.width, 0);
@@ -26,7 +26,7 @@ export default class Spritesheet {
 
             if (png['w'] < this.TILE_SIZE && png['h'] < this.TILE_SIZE && !name.includes('enemy')) {
                 buffer.width = this.TILE_SIZE;
-                buffer.height = this.TILE_SIZE; 
+                buffer.height = this.TILE_SIZE;
                 let deltaX = (this.TILE_SIZE - png['w'])/2;
                 let deltaY = (this.TILE_SIZE - png['h'])/2;
                 context.drawImage(this.image, png['x'], png['y'], png['w'], png['h'],
@@ -49,7 +49,7 @@ export default class Spritesheet {
         // context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
     }
 
-    drawTiles(name, context, type, x1, x2, y1, y2) {  
+    drawTiles(name, context, type, x1, x2, y1, y2) {
 
         for (let x = x1; x < x2; ++x) {
             for (let y = y1; y < y2; ++y) {
@@ -58,13 +58,9 @@ export default class Spritesheet {
         }
     }
 
-<<<<<<< HEAD
+
     getEntitiesByName(name) {
         let entities = [];
-=======
-    getEntityByName(name) {
-        let searchigEntity;
->>>>>>> changes with alfabet
         this.entities.forEach(value => {
             if (value.name == name) {
                 entities.push(value);
