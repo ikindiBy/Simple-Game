@@ -20,6 +20,7 @@ export default class Sprite extends Spritesheet {
 
     draw(name, context, x, y, type, flip) {
 
+
         const buffer = this.tiles.get(`${name}.png`)[flip ? 1 : 0];
 
         if (type) {
@@ -76,8 +77,10 @@ export default class Sprite extends Spritesheet {
             if (entity.name === 'cosmo') {
                 this.drawCosmo(entity, context);
                 this.camera.pos.x = entity.pos.x > 3040 ? 2740 : Math.max(0, entity.pos.x - 300);
-            } else if (entity.name == 'key-o' || entity.name == 'coin-g') {
+
+            } else if (entity.name.includes('key') || entity.name.includes('coin') || entity.name.includes('lock')) {
                 this.draw(entity.name, context, entity.pos.x , entity.pos.y )
+
             } else if (entity.name !== 'cosmo') {
                 this.drawEntity(entity.picture, context, entity.pos.x, entity.pos.y, entity.pendulumWalk.speed > 0 ? 0 : 1);
             }
@@ -86,6 +89,5 @@ export default class Sprite extends Spritesheet {
         this.entities.forEach(entity => {
             this.entityCollider.check(entity);
         });
-
     }
 }

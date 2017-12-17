@@ -6,6 +6,7 @@ export default class StateCosmo extends Trait {
         this.lives = 3;
         this.coins = 0;
         this.keys = 0;
+        this.locks = 0;
         this.opebedLocks = 0;
         this.alive = true;
     }

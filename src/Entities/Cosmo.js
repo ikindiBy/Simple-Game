@@ -26,6 +26,8 @@ export function createCosmoFactory(sprites) {
     return function createCosmo() {
         const cosmo = new Entity('cosmo');
 
+        cosmo.player = true;
+
         cosmo.size.set(20, 50);
 
         cosmo.pos.set(185, 420);

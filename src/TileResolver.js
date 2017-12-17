@@ -38,6 +38,8 @@ export default class TileResolver {
         }
     }
 
+    
+
     searchByPosition(posX, posY) {
         return this.getByIndex(
             this.toIndex(posX),

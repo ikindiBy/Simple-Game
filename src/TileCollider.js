@@ -61,37 +61,40 @@ export default class TileCollider {
                                                  entity.bounds.right,
                                                  y, y);
 
-        matches.forEach( (match, i, arr) => {
+        matches.forEach( match => {
             if (entity.vel.y > 0) {
                 if (entity.bounds.bottom > match.y1) {
+
                     entity.bounds.bottom = match.y1;
                     entity.vel.y = 0;
-                    // console.log('matches BOTTOM');
+
+                    this.reachEdge(entity, y);
 
                     entity.obstruct(Sides.BOTTOM);
 
                 }
             } else if (entity.vel.y < 0) {
                 if (entity.bounds.top < match.y2) {
-
-                    if (this.checkToExtra(match)) {
-                        entity.stateCosmo.coins++;
-                        arr.splice(0,1);
-                         console.log('matches TOP', this.tiles.matrix.grid);
-                     } else {
-                        entity.bounds.top = match.y2;
-                        entity.vel.y = 0;
-                        entity.obstruct(Sides.TOP);
-                     }
+                    entity.bounds.top = match.y2;
+                    entity.vel.y = 0;
+                    entity.obstruct(Sides.TOP);
                 }
 
             }
         });
     }
 
-    checkToExtra (match) {
-        if (match.tile.name.includes('coin') || match.tile.name.includes('key')) {
-            return true;
+    reachEdge(entity, y) {
+        if (!entity.player) {
+
+            let stepToEdge = entity.size.x * Math.abs(entity.vel.x)/entity.vel.x;    
+            stepToEdge = stepToEdge ? stepToEdge : 0;  
+            let nextTile = this.tiles.searchByRange(entity.bounds.left + stepToEdge,
+                                                    entity.bounds.right + stepToEdge,
+                                                    y, y)[0];
+            if (!nextTile) {
+                entity.pendulumWalk.speed = -entity.pendulumWalk.speed;
+            }
         }
     }
 }

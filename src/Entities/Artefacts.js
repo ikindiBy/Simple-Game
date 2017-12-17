@@ -13,11 +13,18 @@ class Behavior extends Trait{
 
         if (them.stomper) {
             us.killable.removeAfter = 0;
-            us.killable.kill();
+            
             if (us.name.includes('coin')) {
+                us.killable.kill();
                 them.stateCosmo.coins++;
             } else if (us.name.includes('key')) {
+                us.killable.kill();
                 them.stateCosmo.keys++;
+            } else if (us.name.includes('lock')) {
+                if (them.stateCosmo.keys) {
+                    us.killable.kill();
+                    console.log('congratulation - next level');
+                }
             }
 
         }
@@ -26,15 +33,13 @@ class Behavior extends Trait{
 
 export function createArtefactsFactory(sprites) {
 
-    return function createArtefact(name, posX, posY,
-                                    // sizeX, sizeY,
-                                    picture) {
+    return function createArtefact(name, posX, posY) {
 
         const artefact = new Entity(name);
         artefact.size.set(23, 23);               //!!! resolve
         artefact.pos.set(posX * 37, posY * 37);  //!!! resolve
         artefact.offset.set(7, 7);
-        artefact.picture = picture;
+        artefact.picture = name;
 
         artefact.addTrait(new Killable());
         artefact.addTrait(new Behavior());

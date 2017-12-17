@@ -27,15 +27,12 @@ export function createEntities(sprites, layout) {
 
     layout.artefacts.forEach(artef => {
         const name = artef.name;
-        // const [sizeX, sizeY] = artef.data.size;
         const pictures = artef.data.pictures;
 
-        artef.positions.forEach(entity => {
-            const [posX, posY] = entity.pos;
+        artef.positions.forEach(arrPositions => {
+            const [posX, posY] = arrPositions;
 
-            createArtefact(name, posX, posY,
-                              // sizeX, sizeY,
-                              pictures);
+            createArtefact(name, posX, posY);
         });
     });
 }

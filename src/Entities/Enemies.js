@@ -10,6 +10,12 @@ class Behavior extends Trait{
         super('behavior');
     }
 
+    reachEdge(enemy) {
+
+        console.log(enemy.pendulumWalk.speed);
+
+    }
+
     collides(us, them) {
         if (us.killable.dead) {
             return;
@@ -42,7 +48,8 @@ export function createEnemiesFactory(sprites) {
 
         const enemy = new Entity(name);
         enemy.size.set(sizeX, sizeY);
-        enemy.pos.set(posX, posY);
+        enemy.pos.set(posX * 37, posY * 37);
+        enemy.startPositin.set(posX * 37, posY * 37);
         enemy.vel.set(velX, velY);
         enemy.offset.set(offsetX, offsetY);
         enemy.pictures = reverse ? Array.from(pictures).reverse() : pictures;
