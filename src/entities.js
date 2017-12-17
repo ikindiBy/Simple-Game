@@ -29,12 +29,6 @@ export function createEntities(sprites, layout) {
         const name = artef.name;
         const pictures = artef.data.pictures;
 
-       
-
-         artef.positions.forEach(arrPositions => {
-             console.log(arrPositions)
-        });
-
         artef.positions.forEach(arrPositions => {
             const [posX, posY] = arrPositions;
 
