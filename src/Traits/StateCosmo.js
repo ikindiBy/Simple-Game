@@ -5,9 +5,9 @@ export default class StateCosmo extends Trait {
         super('stateCosmo');
         this.lives = 3;
         this.coins = 0;
-        this.keys = 2;
+        this.keys = 0;
         this.locks = 0;
-        this.opebedLocks = 0;
+        // this.opebedLocks = 0;
         this.alive = true;
     }
 
@@ -20,6 +20,7 @@ export default class StateCosmo extends Trait {
 
         if (this.locks === 1) {
             this.locks = 0;
+            sprites.level++;
             sprites.createLevelCompositor();
         }
     }

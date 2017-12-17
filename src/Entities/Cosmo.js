@@ -9,6 +9,7 @@ import ReachEdge from '../Traits/ReachEdge';
 
 import Falling from '../Traits/Falling';
 import StateCosmo from '../Traits/StateCosmo';
+import Dashboard from '../Traits/Dashboard';
 
 const SLOW_DRAG = 1/2000;
 const FAST_DRAG = 1/5000;
@@ -44,6 +45,7 @@ export function createCosmoFactory(sprites) {
 
         cosmo.addTrait(new Falling());
         cosmo.addTrait(new StateCosmo());
+        cosmo.addTrait(new Dashboard());
 
 
         cosmo.turboAndSlow = setTurboState;

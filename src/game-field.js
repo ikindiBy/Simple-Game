@@ -4,14 +4,11 @@ import createCollisionLayer from './layers/collision';
 import createCameraLayer from './layers/camera';
 
 import createPlayerEnvironment from './createPlayerEnvironment';
-import createLevelCompositor from './createLevelCompositor';
 
 export default function drawField(context, sprites) {
 
     const drawCollisions = createCollisionLayer(sprites);
     const drawCameraView = createCameraLayer(sprites.camera);
-
-    const [drawDashboard, cosmo] = createPlayerEnvironment(sprites);
 
     const timer = new Timer(1/60);
     timer.update = function update(deltaTime) {
@@ -20,4 +17,12 @@ export default function drawField(context, sprites) {
         drawCameraView(context, sprites.camera);
     }
     timer.start();
+
+    window.addEventListener('keypress', restart.bind(this, sprites));
+}
+
+const restart = async (sprites, e) => {
+    if (e.key === '-') {
+        await sprites.createLevelCompositor();
+    }
 }

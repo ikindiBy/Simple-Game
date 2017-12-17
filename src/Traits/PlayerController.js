@@ -17,6 +17,10 @@ export default class PlayerController extends Trait {
     death(entity, sprites) {
         this.player.stateCosmo.lives--;
 
+        if (this.player.stateCosmo.alive) {
+            this.player.killable.kill();
+        }
+
         if (this.player.stateCosmo.lives > 0) {
             this.player.killable.revive();
             this.player.pos.set(this.checkPoint.x, this.checkPoint.y);
@@ -28,10 +32,6 @@ export default class PlayerController extends Trait {
         }
 
         this.updateTimer();
-    }
-
-    updateTimer() {
-        this.time = TIME_LIMIT;
     }
 
     update(entity, deltaTime, sprites) {
@@ -46,7 +46,6 @@ export default class PlayerController extends Trait {
 
         if (this.time <= 0) {
             this.death(entity, sprites);
-            this.updateTimer();
         }
     }
 }

@@ -63,9 +63,9 @@ export default class Entity {
         });
     }
 
-    update(deltaTime, sprites) {
+    update(deltaTime, sprites, context) {
         this.traits.forEach( trait => {
-            trait.update(this, deltaTime, sprites);
+            trait.update(this, deltaTime, sprites, context);
         })
 
         this.lifetime += deltaTime;

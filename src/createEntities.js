@@ -1,5 +1,6 @@
 import {createEnemiesFactory} from './Entities/Enemies'
 import {createArtefactsFactory} from './Entities/Artefacts'
+import createPlayerEnvironment from './createPlayerEnvironment';
 
 export function createEntities(sprites, layout) {
 
@@ -34,4 +35,6 @@ export function createEntities(sprites, layout) {
             createArtefact(name, posX, posY);
         });
     });
+
+    createPlayerEnvironment(sprites);
 }

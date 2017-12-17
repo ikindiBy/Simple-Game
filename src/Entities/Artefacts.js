@@ -18,6 +18,7 @@ class Behavior extends Trait{
                 us.killable.kill();
                 them.stateCosmo.coins++;
                 them.sounds.playSound('getCoin');
+                them.playerController.time++;
             } else if (us.name.includes('key')) {
                 us.killable.kill();
                 them.stateCosmo.keys++;

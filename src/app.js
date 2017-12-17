@@ -2,7 +2,6 @@ import drawField from './game-field';
 import {loadImage,loadJSON} from './loaders';
 import Sprite from './Sprite';
 import Font from './Font';
-import createLevelCompositor from './createLevelCompositor';
 import drawStartMenu from './drawStartMenu';
 
 const canvas = document.getElementById('canvas');

@@ -7,7 +7,7 @@ import Sounds from './Sounds';
 
 import drawBackground from './layers/background';
 import {loadJSON} from './loaders';
-import {createEntities} from './entities';
+import {createEntities} from './createEntities';
 
 export default class Sprite extends Spritesheet {
     constructor(image, data) {
@@ -21,7 +21,7 @@ export default class Sprite extends Spritesheet {
         this.entityCollider = new EntityCollider(this.entities);
 
         this.gravity = 2000;
-        this.level = 0;
+        this.level = 1;
     }
 
     draw(name, context, x, y, type, flip) {
@@ -75,32 +75,34 @@ export default class Sprite extends Spritesheet {
     }
 
     createLevelCompositor() {
-        this.level++;
         return loadJSON(`./levels/1-${this.level}`).then((layout) => {
-            if (this.level > 1) {
-                this.entities.forEach(entity => {
-                  if (!entity.player) {
-                      this.entities.delete(entity);
-                  } else {
-                      entity.pos.set(100, 100);
-                  }
-                });
-                this.tilesMatrix.grid = [];
-                this.camera.pos.x = 0;
-            }
-
+            this.entities.forEach(entity => {
+                if (this.level > 1) {
+                    if (!entity.player) {
+                        this.entities.delete(entity);
+                    } else {
+                        entity.pos.set(100, 100);
+                    }
+                } else {
+                    this.entities.delete(entity);
+                }
+            });
+            this.tilesMatrix.grid = [];
+            this.camera.pos.x = 0;
 
             createEntities(this, layout);
 
             this.drawLevel = drawBackground(this, layout);
         }).catch(e => {
             console.log('Congratulations, no more levels');
+            console.log(e);
         });
     }
 
     update(deltaTime, context) {
+        this.drawLevel(context);
         this.entities.forEach(entity => {
-            entity.update(deltaTime, this);
+            entity.update(deltaTime, this, context);
 
             if (entity.name === 'cosmo') {
                 this.drawCosmo(entity, context);
