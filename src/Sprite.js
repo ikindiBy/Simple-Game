@@ -84,6 +84,7 @@ export default class Sprite extends Spritesheet {
               }
             });
             this.tilesMatrix.grid = [];
+            this.camera.pos.x = 0;
 
             createEntities(this, layout);
 

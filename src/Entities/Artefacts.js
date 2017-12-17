@@ -13,7 +13,7 @@ class Behavior extends Trait{
 
         if (them.stomper) {
             us.killable.removeAfter = 0;
-            
+
             if (us.name.includes('coin')) {
                 us.killable.kill();
                 them.stateCosmo.coins++;
@@ -26,6 +26,8 @@ class Behavior extends Trait{
                 if (them.stateCosmo.keys) {
                     us.killable.kill();
                     them.sounds.playSound('openLocks');
+                    them.stateCosmo.locks++;
+                    them.stateCosmo.keys--;
                     console.log('congratulation - next level');
                 }
             }
