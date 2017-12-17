@@ -18,11 +18,5 @@ export default class Dashboard extends Trait {
         context.fillText(`KEYS : ${entity.stateCosmo.keys}`, 460, 22);
 
         context.fillText(`TIME : ${time}`, 840, 22);
-
-        // if (!entity.stateCosmo.alive)  {
-        // 	context.font = "50px Verdana";
-    	// 	context.strokeStyle = "red";
-    	// 	context.strokeText(`GAME OVER`, 350, 350);
-        // }
     }
 }

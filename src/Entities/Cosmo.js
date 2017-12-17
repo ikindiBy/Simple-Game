@@ -1,12 +1,10 @@
 import Entity from '../Entity';
+
 import Jump from '../Traits/Jump';
 import Go from '../Traits/Go';
 import Stomper from '../Traits/Stomper';
 import Physics from '../Traits/Physics';
-
 import Killable from '../Traits/Killable'
-import ReachEdge from '../Traits/ReachEdge';
-
 import Falling from '../Traits/Falling';
 import StateCosmo from '../Traits/StateCosmo';
 import Dashboard from '../Traits/Dashboard';
@@ -42,7 +40,6 @@ export function createCosmoFactory(sprites) {
         cosmo.addTrait(new Go());
         cosmo.addTrait(new Stomper());
         cosmo.addTrait(new Killable());
-
         cosmo.addTrait(new Falling());
         cosmo.addTrait(new StateCosmo());
         cosmo.addTrait(new Dashboard());

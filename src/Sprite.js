@@ -10,6 +10,8 @@ import {loadJSON} from './loaders';
 import {createEntities} from './createEntities';
 import createPlayerEnvironment from './createPlayerEnvironment';
 
+import {showGameOver, showCongratulations} from './drawInfo';
+
 export default class Sprite extends Spritesheet {
     constructor(image, data) {
         super(image, data);
@@ -100,7 +102,23 @@ export default class Sprite extends Spritesheet {
         }).catch(e => {
             console.log('Congratulations, no more levels');
             console.log(e);
+            this.gameOver('done')
         });
+    }
+
+    gameOver(result) {
+        this.entities.forEach(entity => {
+            this.entities.delete(entity);
+        });
+        this.tilesMatrix.grid = [];
+        this.camera.pos.x = 0;
+
+        if (!result) {
+            this.drawLevel = showGameOver(this);
+        } else {
+            this.drawLevel = showCongratulations(this);
+        }
+
     }
 
     update(deltaTime, context) {
