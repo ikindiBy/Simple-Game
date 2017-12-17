@@ -15,9 +15,8 @@ export default class PlayerController extends Trait {
     }
 
     death(entity, sprites) {
-        console.log(56465);
         this.player.stateCosmo.lives--;
-        this.time = 60;                //  here must variable of timer
+        this.time = TIME_LIMIT;                //  here must variable of timer
         
         if (this.player.stateCosmo.lives > 0) {
             this.player.killable.revive();
