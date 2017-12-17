@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69,7 +69,7 @@
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__math__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BoundingBox_js__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BoundingBox_js__ = __webpack_require__(14);
 
 
 
@@ -103,7 +103,7 @@ class Entity {
         this.vel = new __WEBPACK_IMPORTED_MODULE_0__math__["b" /* Vect */](0, 0);
         this.size = new __WEBPACK_IMPORTED_MODULE_0__math__["b" /* Vect */](0, 0);
         this.offset = new __WEBPACK_IMPORTED_MODULE_0__math__["b" /* Vect */](0, 0);
-        this.startPositin = new __WEBPACK_IMPORTED_MODULE_0__math__["b" /* Vect */](0, 0);
+        this.startPosition = new __WEBPACK_IMPORTED_MODULE_0__math__["b" /* Vect */](0, 0);
 
         this.lifetime = 0;
         this.bounds = new __WEBPACK_IMPORTED_MODULE_1__BoundingBox_js__["a" /* default */](this.pos, this.size, this.offset);
@@ -111,6 +111,8 @@ class Entity {
         this.traits = [];
 
         this.player = false;
+
+        this.sounds;
     }
 
     addTrait(trait) {
@@ -136,6 +138,8 @@ class Entity {
         });
 
         this.lifetime += deltaTime;
+
+        this.sounds = sprites.sounds;
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["c"] = Entity;
@@ -237,7 +241,7 @@ class Killable extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Camera__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Camera__ = __webpack_require__(17);
 
 
 class Spritesheet {
@@ -316,6 +320,27 @@ class Spritesheet {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = loadImage;
+/* harmony export (immutable) */ __webpack_exports__["b"] = loadJSON;
+function loadImage(url) {
+    return new Promise(resolve => {
+        const image = new Image();
+        image.addEventListener('load', () => {
+            resolve(image);
+        });
+        image.src = url;
+    });
+}
+
+function loadJSON(name) {
+    return fetch(`./src/database/${name}.json`).then(response => response.json());
+}
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
 
 
@@ -375,7 +400,7 @@ class Jump extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -420,7 +445,7 @@ class Go extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -450,7 +475,7 @@ class Physics extends __WEBPACK_IMPORTED_MODULE_0__Entity_js__["b" /* Trait */] 
 
             if (!entity.killable.dead) {
                 entity.vel.y = 0;
-                entity.pos.y = entity.startPositin.y * positionBySinusoid;
+                entity.pos.y = entity.startPosition.y * positionBySinusoid;
             }
         }
 
@@ -467,21 +492,21 @@ class Physics extends __WEBPACK_IMPORTED_MODULE_0__Entity_js__["b" /* Trait */] 
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(8);
-__webpack_require__(37);
-module.exports = __webpack_require__(38);
+__webpack_require__(9);
+__webpack_require__(40);
+module.exports = __webpack_require__(41);
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_field__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_field__ = __webpack_require__(10);
 
 
 const canvas = document.getElementById('canvas');
@@ -497,20 +522,19 @@ canvas.setAttribute('height', 629);
 Object(__WEBPACK_IMPORTED_MODULE_0__game_field__["a" /* default */])(context, canvas);
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = drawField;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Sprite__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Font__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__loaders__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__entities__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__timer__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__layers_collision__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__layers_background__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__layers_camera__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__layers_dashboard__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Sprite__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Font__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__loaders__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__timer__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layers_collision__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__layers_camera__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__createLevelCompositor__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__createPlayerEnvironment__ = __webpack_require__(29);
 
 
 
@@ -523,59 +547,79 @@ Object(__WEBPACK_IMPORTED_MODULE_0__game_field__["a" /* default */])(context, ca
 
 
 function drawField(context, canvas) {
-        Promise.all([Object(__WEBPACK_IMPORTED_MODULE_2__loaders__["a" /* loadImage */])('./images/sprites.png'), Object(__WEBPACK_IMPORTED_MODULE_2__loaders__["b" /* loadJSON */])('./sprites'), Object(__WEBPACK_IMPORTED_MODULE_2__loaders__["b" /* loadJSON */])('./levels/1-2'), Object(__WEBPACK_IMPORTED_MODULE_2__loaders__["b" /* loadJSON */])('./alphabet'), Object(__WEBPACK_IMPORTED_MODULE_2__loaders__["a" /* loadImage */])('./images/alphabet.png')]).then(([tileImage, tileData, layout, fontData, fontsData]) => {
+        Promise.all([Object(__WEBPACK_IMPORTED_MODULE_2__loaders__["a" /* loadImage */])('./images/sprites.png'), Object(__WEBPACK_IMPORTED_MODULE_2__loaders__["b" /* loadJSON */])('./sprites'), Object(__WEBPACK_IMPORTED_MODULE_2__loaders__["b" /* loadJSON */])('./alphabet'), Object(__WEBPACK_IMPORTED_MODULE_2__loaders__["a" /* loadImage */])('./images/alphabet.png')]).then(async ([tileImage, tileData, fontData, fontImage]) => {
 
                 const sprites = new __WEBPACK_IMPORTED_MODULE_0__Sprite__["a" /* default */](tileImage, tileData);
                 for (let sprite in tileData) {
                         sprites.define(sprite);
                 }
 
-                const font = new __WEBPACK_IMPORTED_MODULE_1__Font__["a" /* default */](fontsData, fontData);
+                // const font = new Font(fontsData, fontData);
+                // 
+                // for (let letter in fontData) {
+                //     font.define(letter);
+                // }
 
-                for (let letter in fontData) {
-                        font.define(letter);
-                }
+                const drawCollisions = Object(__WEBPACK_IMPORTED_MODULE_4__layers_collision__["a" /* default */])(sprites);
+                const drawCameraView = Object(__WEBPACK_IMPORTED_MODULE_5__layers_camera__["a" /* default */])(sprites.camera);
 
-                const drawBackgroundLayer = Object(__WEBPACK_IMPORTED_MODULE_6__layers_background__["a" /* default */])(sprites, layout);
+                const [drawDashboard, cosmo] = Object(__WEBPACK_IMPORTED_MODULE_7__createPlayerEnvironment__["a" /* default */])(sprites);
+                sprites.drawLevel = await Object(__WEBPACK_IMPORTED_MODULE_6__createLevelCompositor__["a" /* default */])(sprites);
 
-                const drawCollisions = Object(__WEBPACK_IMPORTED_MODULE_5__layers_collision__["a" /* default */])(sprites);
-                const drawCameraView = Object(__WEBPACK_IMPORTED_MODULE_7__layers_camera__["a" /* default */])(sprites.camera);
+                // let loadSound = function(url, callback) {
+                //     console.log('loadSound', url)
+                //     let loaded = function () {
+                //         callback(sound);
+                //         sound.removeEventListener("canplaythrough", loaded);
+                //     }
+                //     let sound = new Audio (url);
+                //     sound.addEventListener("canplaythrough", loaded);
+                //     sound.load();
+                // }
 
-                const cosmo = Object(__WEBPACK_IMPORTED_MODULE_3__entities__["a" /* createEntities */])(sprites, layout);
-                const dashboard = Object(__WEBPACK_IMPORTED_MODULE_8__layers_dashboard__["a" /* default */])(cosmo);
+                // let self = this;
 
-                const timer = new __WEBPACK_IMPORTED_MODULE_4__timer__["a" /* default */](1 / 60);
+                // loadSound('src/sound.mp3', function(mySound) {
+                //     self.mySound = mySound;
+
+                // });
+
+                // this.mySound.load();
+                // this.mySound.play();
+
+                // let sound = new Audio ('src/sound.mp3');
+
+                // sound.load();
+                // sound.play();
+
+
+                const timer = new __WEBPACK_IMPORTED_MODULE_3__timer__["a" /* default */](1 / 60);
                 timer.update = function update(deltaTime) {
 
-                        drawBackgroundLayer(context);
+                        sprites.drawLevel(context);
                         sprites.update(deltaTime, context);
-                        // font.print('!@#$%*,', context, 0, 100, 90, 90);
-                        // font.print('1234567890', context, 0, 200, 90, 90);
-                        // font.print('QWERTYUIOP', context, 0, 300, 90, 90);
-                        // font.print('ASDFGHJKL', context, 0, 400, 90, 90);
-                        // font.print('ZXCVBNM', context, 0, 500, 90, 90);
 
                         drawCollisions(context, sprites.camera);
                         drawCameraView(context, sprites.camera);
 
-                        dashboard(context);
+                        drawDashboard(context);
                 };
                 timer.start();
         });
 }
 
-function getByName(name) {}
-
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__math__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TileCollider__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__EntityCollider__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__animations__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TileCollider__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__EntityCollider__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__animations__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__spritesheet__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Sounds__ = __webpack_require__(18);
+
 
 
 
@@ -588,11 +632,13 @@ class Sprite extends __WEBPACK_IMPORTED_MODULE_4__spritesheet__["a" /* default *
 
         this.entities = new Set();
         this.tilesMatrix = new __WEBPACK_IMPORTED_MODULE_0__math__["a" /* Matrix */]();
+        this.sounds = new __WEBPACK_IMPORTED_MODULE_5__Sounds__["a" /* default */]();
 
         this.tileCollider = new __WEBPACK_IMPORTED_MODULE_1__TileCollider__["a" /* default */](this.tilesMatrix);
         this.entityCollider = new __WEBPACK_IMPORTED_MODULE_2__EntityCollider__["a" /* default */](this.entities);
 
         this.gravity = 2000;
+        this.level = 1;
     }
 
     draw(name, context, x, y, type, flip) {
@@ -668,11 +714,11 @@ class Sprite extends __WEBPACK_IMPORTED_MODULE_4__spritesheet__["a" /* default *
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TileResolver__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TileResolver__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Entity__ = __webpack_require__(0);
 
 
@@ -769,7 +815,7 @@ class TileCollider {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -836,7 +882,7 @@ class TileResolver {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -887,7 +933,7 @@ class BoundingBox {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -913,7 +959,7 @@ class EntityCollider {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -927,7 +973,7 @@ function createAnimation(frames, frameLen) {
 }
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -944,7 +990,38 @@ class Camera {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+class Sounds {
+	constructor() {
+		this.loadedSounds = new Map();
+		this.loas = [];
+	}
+
+	playSound(name) {
+
+		if (this.loadedSounds.has(name)) {
+
+			this.loadedSounds.get(name).play();
+		} else {
+
+			let sound = new Audio(`sounds/${name}.mp3`);
+			sound.load();
+			sound.play();
+
+			this.loadedSounds.set(name, sound);
+		}
+	}
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Sounds;
+
+
+/***/ }),
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -964,55 +1041,205 @@ class Font extends __WEBPACK_IMPORTED_MODULE_0__spritesheet__["a" /* default */]
         });
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Font;
+/* unused harmony export default */
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = loadImage;
-/* harmony export (immutable) */ __webpack_exports__["b"] = loadJSON;
-function loadImage(url) {
-    return new Promise(resolve => {
-        const image = new Image();
-        image.addEventListener('load', () => {
-            resolve(image);
+class Timer {
+    constructor(deltaTime = 1 / 60) {
+        let lastTime = 0;
+        let accumulatedTime = 0;
+
+        this.updateProxy = time => {
+            accumulatedTime += (time - lastTime) / 1000;
+
+            while (accumulatedTime > deltaTime) {
+                this.update(deltaTime);
+                accumulatedTime -= deltaTime;
+            }
+
+            lastTime = time;
+            this.enqueue();
+        };
+    }
+
+    enqueue() {
+        requestAnimationFrame(this.updateProxy);
+    }
+
+    start() {
+        this.enqueue();
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Timer;
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = createCollisionLayer;
+function drawEntityBox(entities) {
+    return function drawBoundingBoxes(context, camera) {
+        context.strokeStyle = 'red';
+        entities.forEach(entity => {
+            context.beginPath();
+            context.rect(entity.bounds.left - camera.pos.x, entity.bounds.top - camera.pos.y, entity.size.x, entity.size.y);
+            context.stroke();
         });
-        image.src = url;
-    });
+    };
 }
 
-function loadJSON(name) {
-    return fetch(`./src/database/${name}.json`).then(response => response.json());
+function createTileCandidateLayer(tileCollider) {
+    const resolvedTiles = [];
+
+    const tileResolver = tileCollider.tiles;
+    const tileSize = tileResolver.tileSize;
+
+    const getByIndexOriginal = tileResolver.getByIndex;
+
+    tileResolver.getByIndex = function getByIndexFake(x, y) {
+        resolvedTiles.push({ x, y });
+        return getByIndexOriginal.call(tileResolver, x, y);
+    };
+
+    return function drawTileCandidates(context, camera) {
+        context.strokeStyle = 'blue';
+        resolvedTiles.forEach(({ x, y }) => {
+            context.beginPath();
+            context.rect(x * tileSize - camera.pos.x, y * tileSize - camera.pos.y, tileSize, tileSize);
+            context.stroke();
+        });
+
+        resolvedTiles.length = 0;
+    };
+}
+
+function createCollisionLayer(sprites) {
+
+    const drawTileCandidates = createTileCandidateLayer(sprites.tileCollider);
+    const drawBoundingBoxes = drawEntityBox(sprites.entities);
+
+    return function drawCollisions(context, camera) {
+        drawTileCandidates(context, camera);
+        drawBoundingBoxes(context, camera);
+    };
 }
 
 /***/ }),
-/* 19 */
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = createCameraLayer;
+function createCameraLayer(cameraToDraw) {
+    return function drawCameraRect(context, fromCamera) {
+        context.strokeStyle = 'purple';
+        context.beginPath();
+        context.rect(cameraToDraw.pos.x - fromCamera.pos.x, cameraToDraw.pos.y - fromCamera.pos.y, cameraToDraw.size.x, cameraToDraw.size.y);
+        context.stroke();
+    };
+}
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layers_background__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__loaders__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__entities__ = __webpack_require__(25);
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (function (sprites) {
+    // return loadJSON(`./levels/1-${sprites.level}`).then((layout) => {
+    return Object(__WEBPACK_IMPORTED_MODULE_1__loaders__["b" /* loadJSON */])(`./levels/1-2`).then(layout => {
+        sprites.entities.forEach(entity => {
+            if (!entity.player) {
+                sprites.entities.delete(entity);
+            } else {
+                entity.pos.set(100, 100);
+            }
+        });
+        sprites.tilesMatrix.grid = [];
+
+        Object(__WEBPACK_IMPORTED_MODULE_2__entities__["a" /* createEntities */])(sprites, layout);
+
+        const drawBackgroundLayer = Object(__WEBPACK_IMPORTED_MODULE_0__layers_background__["a" /* default */])(sprites, layout);
+        return drawBackgroundLayer;
+    });
+});
+
+/***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = drawBackground;
+function drawBackground(sprites, layout) {
+    const buffer = document.createElement('canvas');
+    const bufferContext = buffer.getContext('2d');
+
+    const width = 37 * 100;
+    const height = 37 * 17;
+    buffer.setAttribute('width', width);
+    buffer.setAttribute('height', height);
+
+    layout.backgrounds.forEach(tile => {
+        const name = tile.name;
+        const type = tile.type;
+
+        tile.pos.forEach(range => {
+            switch (range.length) {
+                case 4:
+                    {
+                        sprites.drawTiles(name, bufferContext, type, ...range);
+                        break;
+                    }
+                case 3:
+                    {
+                        let [x, xLen, y] = range;
+                        xLen += x;
+                        sprites.drawTiles(name, bufferContext, type, x, xLen, y, y + 1);
+                        break;
+                    }
+                case 2:
+                    {
+                        const [x, y] = range;
+                        sprites.drawTiles(name, bufferContext, type, x, x + 1, y, y + 1);
+                        break;
+                    }
+            }
+        });
+    });
+
+    return function drawBackgroundLayer(context) {
+        context.drawImage(buffer, 0 - sprites.camera.pos.x, 0 - sprites.camera.pos.y);
+    };
+}
+
+/***/ }),
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = createEntities;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entities_Cosmo__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Entities_Enemies__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Entities_Artefacts__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Traits_PlayerController__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__input__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__debug__ = __webpack_require__(31);
-
-
-
-
-
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entities_Enemies__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Entities_Artefacts__ = __webpack_require__(28);
 
 
 
 function createEntities(sprites, layout) {
 
-    const createEnemy = Object(__WEBPACK_IMPORTED_MODULE_1__Entities_Enemies__["a" /* createEnemiesFactory */])(sprites);
-    const createArtefact = Object(__WEBPACK_IMPORTED_MODULE_2__Entities_Artefacts__["a" /* createArtefactsFactory */])(sprites);
+    const createEnemy = Object(__WEBPACK_IMPORTED_MODULE_0__Entities_Enemies__["a" /* createEnemiesFactory */])(sprites);
+    const createArtefact = Object(__WEBPACK_IMPORTED_MODULE_1__Entities_Artefacts__["a" /* createArtefactsFactory */])(sprites);
 
     layout.entities.forEach(species => {
         const name = species.name;
@@ -1031,7 +1258,6 @@ function createEntities(sprites, layout) {
 
     layout.artefacts.forEach(artef => {
         const name = artef.name;
-        const pictures = artef.data.pictures;
 
         artef.positions.forEach(arrPositions => {
             const [posX, posY] = arrPositions;
@@ -1039,40 +1265,220 @@ function createEntities(sprites, layout) {
             createArtefact(name, posX, posY);
         });
     });
+}
 
+/***/ }),
+/* 26 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = createEnemiesFactory;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Traits_Jump__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Traits_Go__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Traits_Killable__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Traits_PendulumWalk__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Traits_Physics__ = __webpack_require__(7);
+
+
+
+
+
+
+
+class Behavior extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
+    constructor() {
+        super('behavior');
+    }
+
+    reachEdge(enemy) {}
+
+    collides(us, them) {
+        if (us.killable.dead) {
+            return;
+        }
+
+        if (them.stomper) {
+            if (them.vel.y > us.vel.y) {
+                us.pendulumWalk.speed = 0;
+                us.killable.kill();
+                them.stomper.bounce();
+                us.sounds.playSound('killEnemy');
+            } else {
+                them.killable.kill();
+                them.sounds.playSound('killHero');
+            }
+        }
+    }
+
+    update(entity, deltaTime, sprites) {
+        const sequence = Math.floor(entity.lifetime % entity.pictures.length);
+        entity.picture = entity.pictures[sequence];
+    }
+}
+
+function createEnemiesFactory(sprites) {
+
+    return function createEnemy(name, posX, posY, offsetX, offsetY, sizeX, sizeY, velX, velY, reverse, pictures, deadPic) {
+
+        const enemy = new __WEBPACK_IMPORTED_MODULE_0__Entity__["c" /* default */](name);
+        enemy.size.set(sizeX, sizeY);
+        enemy.pos.set(posX * 37, posY * 37);
+        enemy.startPosition.set(posX * 37, posY * 37);
+        enemy.vel.set(velX, velY);
+        enemy.offset.set(offsetX, offsetY);
+        enemy.pictures = reverse ? Array.from(pictures).reverse() : pictures;
+        enemy.picture = null;
+        enemy.deadPic = deadPic;
+
+        enemy.addTrait(new __WEBPACK_IMPORTED_MODULE_5__Traits_Physics__["a" /* default */]());
+        enemy.addTrait(new __WEBPACK_IMPORTED_MODULE_4__Traits_PendulumWalk__["a" /* default */](reverse));
+        enemy.addTrait(new Behavior());
+        enemy.addTrait(new __WEBPACK_IMPORTED_MODULE_3__Traits_Killable__["a" /* default */]());
+
+        sprites.entities.add(enemy);
+    };
+}
+
+/***/ }),
+/* 27 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity_js__ = __webpack_require__(0);
+
+
+class PendulumWalk extends __WEBPACK_IMPORTED_MODULE_0__Entity_js__["b" /* Trait */] {
+    constructor(reverse) {
+        super('pendulumWalk');
+        this.speed = reverse ? 30 : -30;
+        let randomForPatrol = Math.random() < 0.5 ? 0.5 : Math.random();
+        this.amplitudePatrol = randomForPatrol * 1000;
+    }
+
+    obstruct(entity, side) {
+        if (side === __WEBPACK_IMPORTED_MODULE_0__Entity_js__["a" /* Sides */].LEFT || side === __WEBPACK_IMPORTED_MODULE_0__Entity_js__["a" /* Sides */].RIGHT) {
+            this.speed = -this.speed;
+        }
+    }
+
+    update(entity, deltaTime) {
+        entity.vel.x = this.speed;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = PendulumWalk;
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = createArtefactsFactory;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Traits_Killable__ = __webpack_require__(2);
+
+
+
+class Behavior extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
+    constructor() {
+        super('behavior');
+    }
+
+    collides(us, them) {
+        if (us.killable.dead) {
+            return;
+        }
+
+        if (them.stomper) {
+            us.killable.removeAfter = 0;
+
+            if (us.name.includes('coin')) {
+                us.killable.kill();
+                them.stateCosmo.coins++;
+                them.sounds.playSound('getCoin');
+            } else if (us.name.includes('key')) {
+                us.killable.kill();
+                them.stateCosmo.keys++;
+                them.sounds.playSound('getCoin');
+            } else if (us.name.includes('lock')) {
+                if (them.stateCosmo.keys) {
+                    us.killable.kill();
+                    them.sounds.playSound('openLocks');
+                    console.log('congratulation - next level');
+                }
+            }
+        }
+    }
+}
+
+function createArtefactsFactory(sprites) {
+
+    return function createArtefact(name, posX, posY) {
+
+        const artefact = new __WEBPACK_IMPORTED_MODULE_0__Entity__["c" /* default */](name);
+        artefact.size.set(23, 23); //!!! resolve
+        artefact.pos.set(posX * 37, posY * 37); //!!! resolve
+        artefact.offset.set(7, 7);
+        artefact.picture = name;
+
+        artefact.addTrait(new __WEBPACK_IMPORTED_MODULE_1__Traits_Killable__["a" /* default */]());
+        artefact.addTrait(new Behavior());
+        sprites.entities.add(artefact);
+    };
+}
+
+/***/ }),
+/* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entities_Cosmo__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Traits_PlayerController__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__input__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__debug__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layers_dashboard__ = __webpack_require__(39);
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (function (sprites) {
     const createCosmo = Object(__WEBPACK_IMPORTED_MODULE_0__Entities_Cosmo__["a" /* createCosmoFactory */])(sprites);
     const cosmo = createCosmo();
 
     createPlayerEnv(cosmo);
+    const drawDashboard = Object(__WEBPACK_IMPORTED_MODULE_4__layers_dashboard__["a" /* default */])(cosmo);
 
-    const input = Object(__WEBPACK_IMPORTED_MODULE_4__input__["a" /* default */])(cosmo);
-    Object(__WEBPACK_IMPORTED_MODULE_5__debug__["a" /* setupMouseControl */])(canvas, cosmo, sprites.camera);
+    const input = Object(__WEBPACK_IMPORTED_MODULE_2__input__["a" /* default */])(cosmo);
+    Object(__WEBPACK_IMPORTED_MODULE_3__debug__["a" /* setupMouseControl */])(canvas, cosmo, sprites.camera);
     input.listenTo(window);
 
-    return cosmo;
-}
+    return [drawDashboard, cosmo];
+});
 
 function createPlayerEnv(playerEntity) {
-    const playerControl = new __WEBPACK_IMPORTED_MODULE_3__Traits_PlayerController__["a" /* default */](playerEntity);
+    const playerControl = new __WEBPACK_IMPORTED_MODULE_1__Traits_PlayerController__["a" /* default */](playerEntity);
     playerControl.checkPoint.set(42, 42);
     playerEntity.addTrait(playerControl);
 }
 
 /***/ }),
-/* 20 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = createCosmoFactory;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Traits_Jump__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Traits_Go__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Traits_Stomper__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Traits_Physics__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Traits_Jump__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Traits_Go__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Traits_Stomper__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Traits_Physics__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Traits_Killable__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Traits_ReachEdge__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Traits_Falling__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Traits_StateCosmo__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Traits_ReachEdge__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Traits_Falling__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Traits_StateCosmo__ = __webpack_require__(34);
 
 
 
@@ -1128,7 +1534,7 @@ function createCosmoFactory(sprites) {
 }
 
 /***/ }),
-/* 21 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1157,7 +1563,7 @@ class Stomper extends __WEBPACK_IMPORTED_MODULE_0__Entity_js__["b" /* Trait */] 
 
 
 /***/ }),
-/* 22 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1179,7 +1585,7 @@ class ReachEdge extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
 
 
 /***/ }),
-/* 23 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1194,15 +1600,11 @@ class Falling extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
     update(entity, deltaTime, sprites) {
         let currentX = entity.pos.x;
         if (entity.pos.y > 800 && entity.stateCosmo.alive) {
-            // entity.stateCosmo.lives--;
-            // if (entity.stateCosmo.lives > 0) {
-            //     entity.pos.y = 100;
-            //     entity.pos.x = currentX - 65;
-            // }
-
             entity.playerController.death(entity, sprites);
 
-            entity.playerController.time = 60; // here must be variable !!!
+            entity.sounds.playSound('fallInAbyss');
+
+            entity.playerController.updateTimer();
         }
     }
 }
@@ -1210,7 +1612,7 @@ class Falling extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
 
 
 /***/ }),
-/* 24 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1230,11 +1632,7 @@ class StateCosmo extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] 
 
     update(entity, deltaTime, sprites) {
 
-        if (this.lives === 0) {
-            this.alive = false;
-        }
-
-        if (this.coins > 100) {
+        if (this.coins > 50) {
             this.coins = 0;
             this.lives++;
         }
@@ -1244,166 +1642,7 @@ class StateCosmo extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] 
 
 
 /***/ }),
-/* 25 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = createEnemiesFactory;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Traits_Jump__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Traits_Go__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Traits_Killable__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Traits_PendulumWalk__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Traits_Physics__ = __webpack_require__(6);
-
-
-
-
-
-
-
-class Behavior extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
-    constructor() {
-        super('behavior');
-    }
-
-    reachEdge(enemy) {
-
-        console.log(enemy.pendulumWalk.speed);
-    }
-
-    collides(us, them) {
-        if (us.killable.dead) {
-            return;
-        }
-
-        if (them.stomper) {
-            if (them.vel.y > us.vel.y) {
-                us.pendulumWalk.speed = 0;
-                us.killable.kill();
-                them.stomper.bounce();
-            } else {
-                them.killable.kill();
-            }
-        }
-    }
-
-    update(entity, deltaTime, sprites) {
-        const sequence = Math.floor(entity.lifetime % entity.pictures.length);
-        entity.picture = entity.pictures[sequence];
-    }
-}
-
-function createEnemiesFactory(sprites) {
-
-    return function createEnemy(name, posX, posY, offsetX, offsetY, sizeX, sizeY, velX, velY, reverse, pictures, deadPic) {
-
-        const enemy = new __WEBPACK_IMPORTED_MODULE_0__Entity__["c" /* default */](name);
-        enemy.size.set(sizeX, sizeY);
-        enemy.pos.set(posX * 37, posY * 37);
-        enemy.startPositin.set(posX * 37, posY * 37);
-        enemy.vel.set(velX, velY);
-        enemy.offset.set(offsetX, offsetY);
-        enemy.pictures = reverse ? Array.from(pictures).reverse() : pictures;
-        enemy.picture = null;
-        enemy.deadPic = deadPic;
-
-        enemy.addTrait(new __WEBPACK_IMPORTED_MODULE_5__Traits_Physics__["a" /* default */]());
-        enemy.addTrait(new __WEBPACK_IMPORTED_MODULE_4__Traits_PendulumWalk__["a" /* default */](reverse));
-        enemy.addTrait(new Behavior());
-        enemy.addTrait(new __WEBPACK_IMPORTED_MODULE_3__Traits_Killable__["a" /* default */]());
-
-        sprites.entities.add(enemy);
-    };
-}
-
-/***/ }),
-/* 26 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity_js__ = __webpack_require__(0);
-
-
-class PendulumWalk extends __WEBPACK_IMPORTED_MODULE_0__Entity_js__["b" /* Trait */] {
-    constructor(reverse) {
-        super('pendulumWalk');
-        this.speed = reverse ? 30 : -30;
-        let randomForPatrol = Math.random() < 0.5 ? 0.5 : Math.random();
-        this.amplitudePatrol = randomForPatrol * 1000;
-    }
-
-    obstruct(entity, side) {
-        if (side === __WEBPACK_IMPORTED_MODULE_0__Entity_js__["a" /* Sides */].LEFT || side === __WEBPACK_IMPORTED_MODULE_0__Entity_js__["a" /* Sides */].RIGHT) {
-            this.speed = -this.speed;
-        }
-    }
-
-    update(entity, deltaTime) {
-        entity.vel.x = this.speed;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = PendulumWalk;
-
-
-/***/ }),
-/* 27 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = createArtefactsFactory;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Traits_Killable__ = __webpack_require__(2);
-
-
-
-class Behavior extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
-    constructor() {
-        super('behavior');
-    }
-
-    collides(us, them) {
-        if (us.killable.dead) {
-            return;
-        }
-
-        if (them.stomper) {
-            us.killable.removeAfter = 0;
-
-            if (us.name.includes('coin')) {
-                us.killable.kill();
-                them.stateCosmo.coins++;
-            } else if (us.name.includes('key')) {
-                us.killable.kill();
-                them.stateCosmo.keys++;
-            } else if (us.name.includes('lock')) {
-                if (them.stateCosmo.keys) {
-                    us.killable.kill();
-                    console.log('congratulation - next level');
-                }
-            }
-        }
-    }
-}
-
-function createArtefactsFactory(sprites) {
-
-    return function createArtefact(name, posX, posY) {
-
-        const artefact = new __WEBPACK_IMPORTED_MODULE_0__Entity__["c" /* default */](name);
-        artefact.size.set(23, 23); //!!! resolve
-        artefact.pos.set(posX * 37, posY * 37); //!!! resolve
-        artefact.offset.set(7, 7);
-        artefact.picture = name;
-
-        artefact.addTrait(new __WEBPACK_IMPORTED_MODULE_1__Traits_Killable__["a" /* default */]());
-        artefact.addTrait(new Behavior());
-        sprites.entities.add(artefact);
-    };
-}
-
-/***/ }),
-/* 28 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1412,6 +1651,8 @@ function createArtefactsFactory(sprites) {
 
 
 
+const TIME_LIMIT = 60;
+
 class PlayerController extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
     constructor(entity) {
         super('playerController');
@@ -1419,32 +1660,43 @@ class PlayerController extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trai
         this.player = entity;
         this.checkPoint = new __WEBPACK_IMPORTED_MODULE_1__math__["b" /* Vect */](0, 0);
 
-        this.time = 60;
+        this.time = TIME_LIMIT;
         this.stopTime = false;
     }
 
     death(entity, sprites) {
-        console.log(56465);
+
         this.player.stateCosmo.lives--;
-        this.time = 60; //  here must variable of timer
 
         if (this.player.stateCosmo.lives > 0) {
             this.player.killable.revive();
             this.player.pos.set(this.checkPoint.x, this.checkPoint.y);
             sprites.entities.add(this.player);
+            this.updateTimer();
+        } else {
+
+            entity.stateCosmo.alive = false;
+            entity.sounds.playSound('gameOver');
         }
+    }
+
+    updateTimer() {
+        this.time = TIME_LIMIT;
     }
 
     update(entity, deltaTime, sprites) {
         if (!sprites.entities.has(entity) && entity.stateCosmo.alive) {
+
             this.death(entity, sprites);
         } else if (!this.stopTime) {
+
             this.time -= deltaTime;
         }
 
         if (this.time <= 0) {
-            this.death(this.player, sprites);
-            // this.time = 60;
+
+            this.death(entity, sprites);
+            this.updateTimer();
         }
     }
 }
@@ -1452,12 +1704,12 @@ class PlayerController extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trai
 
 
 /***/ }),
-/* 29 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = setupKeyboard;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__keyboardState__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__keyboardState__ = __webpack_require__(37);
 
 
 function setupKeyboard(cosmo) {
@@ -1490,7 +1742,7 @@ function setupKeyboard(cosmo) {
 }
 
 /***/ }),
-/* 30 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1537,7 +1789,7 @@ class KeyboardState {
 
 
 /***/ }),
-/* 31 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1566,159 +1818,7 @@ function setupMouseControl(canvas, entity, camera) {
 }
 
 /***/ }),
-/* 32 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Timer {
-    constructor(deltaTime = 1 / 60) {
-        let lastTime = 0;
-        let accumulatedTime = 0;
-
-        this.updateProxy = time => {
-            accumulatedTime += (time - lastTime) / 1000;
-
-            while (accumulatedTime > deltaTime) {
-                this.update(deltaTime);
-                accumulatedTime -= deltaTime;
-            }
-
-            lastTime = time;
-            this.enqueue();
-        };
-    }
-
-    enqueue() {
-        requestAnimationFrame(this.updateProxy);
-    }
-
-    start() {
-        this.enqueue();
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Timer;
-
-
-/***/ }),
-/* 33 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = createCollisionLayer;
-function drawEntityBox(entities) {
-    return function drawBoundingBoxes(context, camera) {
-        context.strokeStyle = 'red';
-        entities.forEach(entity => {
-            context.beginPath();
-            context.rect(entity.bounds.left - camera.pos.x, entity.bounds.top - camera.pos.y, entity.size.x, entity.size.y);
-            context.stroke();
-        });
-    };
-}
-
-function createTileCandidateLayer(tileCollider) {
-    const resolvedTiles = [];
-
-    const tileResolver = tileCollider.tiles;
-    const tileSize = tileResolver.tileSize;
-
-    const getByIndexOriginal = tileResolver.getByIndex;
-
-    tileResolver.getByIndex = function getByIndexFake(x, y) {
-        resolvedTiles.push({ x, y });
-        return getByIndexOriginal.call(tileResolver, x, y);
-    };
-
-    return function drawTileCandidates(context, camera) {
-        context.strokeStyle = 'blue';
-        resolvedTiles.forEach(({ x, y }) => {
-            context.beginPath();
-            context.rect(x * tileSize - camera.pos.x, y * tileSize - camera.pos.y, tileSize, tileSize);
-            context.stroke();
-        });
-
-        resolvedTiles.length = 0;
-    };
-}
-
-function createCollisionLayer(sprites) {
-
-    const drawTileCandidates = createTileCandidateLayer(sprites.tileCollider);
-    const drawBoundingBoxes = drawEntityBox(sprites.entities);
-
-    return function drawCollisions(context, camera) {
-        drawTileCandidates(context, camera);
-        drawBoundingBoxes(context, camera);
-    };
-}
-
-/***/ }),
-/* 34 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = drawBackground;
-function drawBackground(sprites, layout) {
-    const buffer = document.createElement('canvas');
-    const bufferContext = buffer.getContext('2d');
-
-    const width = 37 * 100;
-    const height = 37 * 17;
-    buffer.setAttribute('width', width);
-    buffer.setAttribute('height', height);
-
-    layout.backgrounds.forEach(tile => {
-        const name = tile.name;
-        const type = tile.type;
-
-        tile.pos.forEach(range => {
-            switch (range.length) {
-                case 4:
-                    {
-                        sprites.drawTiles(name, bufferContext, type, ...range);
-                        break;
-                    }
-                case 3:
-                    {
-                        let [x, xLen, y] = range;
-                        xLen += x;
-                        sprites.drawTiles(name, bufferContext, type, x, xLen, y, y + 1);
-                        break;
-                    }
-                case 2:
-                    {
-                        const [x, y] = range;
-                        sprites.drawTiles(name, bufferContext, type, x, x + 1, y, y + 1);
-                        break;
-                    }
-            }
-        });
-    });
-
-    return function drawBackgroundLayer(context) {
-        context.drawImage(buffer, 0 + sprites.camera.pos.x, 0 + sprites.camera.pos.y, 960, 629, 0, 0, 960, 629);
-        // context.drawImage(buffer, 0 - sprites.camera.pos.x,
-        //                           0 - sprites.camera.pos.y);
-    };
-}
-
-/***/ }),
-/* 35 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = createCameraLayer;
-function createCameraLayer(cameraToDraw) {
-    return function drawCameraRect(context, fromCamera) {
-        context.strokeStyle = 'purple';
-        context.beginPath();
-        context.rect(cameraToDraw.pos.x - fromCamera.pos.x, cameraToDraw.pos.y - fromCamera.pos.y, cameraToDraw.size.x, cameraToDraw.size.y);
-        context.stroke();
-    };
-}
-
-/***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1739,25 +1839,29 @@ function createDashboardLayer(entity) {
 
                 context.fillText(`TIME : ${time}`, 840, 22);
 
+                // if (!entity.stateCosmo.alive)  {
+
                 if (!entity.stateCosmo.alive) {
+
                         context.font = "50px Verdana";
                         context.strokeStyle = "red";
                         context.strokeText(`GAME OVER`, 350, 350);
 
                         entity.playerController.time = 60;
                         entity.playerController.stopTime = true;
+                        entity.killable.kill();
                 }
         };
 }
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

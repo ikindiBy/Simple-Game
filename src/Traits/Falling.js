@@ -10,8 +10,9 @@ export default class Falling extends Trait {
         if (entity.pos.y > 800 && entity.stateCosmo.alive) {
             entity.playerController.death(entity, sprites);
 
-            entity.playerController.time = 60;// here must be variable !!!
+            entity.sounds.playSound('fallInAbyss');
 
+            entity.playerController.updateTimer();
         }
     }
 }

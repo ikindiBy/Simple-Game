@@ -1,6 +1,7 @@
 import {Vect} from './math';
 import BoundingBox from './BoundingBox.js';
 
+
 export const Sides = {
         TOP: Symbol('top'),
         BOTTOM: Symbol('bottom'),
@@ -41,6 +42,8 @@ export default class Entity {
         this.traits = [];
 
         this.player = false;
+
+        this.sounds;
     }
 
     addTrait(trait) {
@@ -66,5 +69,7 @@ export default class Entity {
         })
 
         this.lifetime += deltaTime;
+
+        this.sounds = sprites.sounds;
     }
 }

@@ -24,8 +24,11 @@ class Behavior extends Trait{
                 us.pendulumWalk.speed = 0;
                 us.killable.kill();
                 them.stomper.bounce();
+                us.sounds.playSound('killEnemy');
+
             } else {
                 them.killable.kill();
+                them.sounds.playSound('killHero'); 
             }
         }
     }

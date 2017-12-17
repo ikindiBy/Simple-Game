@@ -17,16 +17,18 @@ class Behavior extends Trait{
             if (us.name.includes('coin')) {
                 us.killable.kill();
                 them.stateCosmo.coins++;
+                them.sounds.playSound('getCoin');
             } else if (us.name.includes('key')) {
                 us.killable.kill();
                 them.stateCosmo.keys++;
+                them.sounds.playSound('getCoin');
             } else if (us.name.includes('lock')) {
                 if (them.stateCosmo.keys) {
                     us.killable.kill();
+                    them.sounds.playSound('openLocks');
                     console.log('congratulation - next level');
                 }
             }
-
         }
     }
 }

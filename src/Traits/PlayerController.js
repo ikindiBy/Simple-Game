@@ -15,29 +15,39 @@ export default class PlayerController extends Trait {
     }
 
     death(entity, sprites) {
+
         this.player.stateCosmo.lives--;
-        this.time = TIME_LIMIT;                //  here must variable of timer
         
         if (this.player.stateCosmo.lives > 0) {
             this.player.killable.revive();
             this.player.pos.set(this.checkPoint.x, this.checkPoint.y);
             sprites.entities.add(this.player);
-            this.time = TIME_LIMIT;
+            this.updateTimer();
+        } else {
+
+            entity.stateCosmo.alive = false;
+            entity.sounds.playSound('gameOver');
         }
+    }
+
+    updateTimer() {
+        this.time = TIME_LIMIT;
     }
 
     update(entity, deltaTime, sprites) {
         if (!sprites.entities.has(entity) && entity.stateCosmo.alive) {
-            this.death(entity,sprites);
+
+            this.death(entity, sprites);
+
         } else if (!this.stopTime){
+            
             this.time -= deltaTime;
         }
 
         if (this.time <= 0) {
 
-            this.death(entity,sprites);
-            this.time = TIME_LIMIT;
-
+            this.death(entity, sprites);
+            this.updateTimer();
         }
     }
 }

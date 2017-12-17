@@ -2,7 +2,8 @@ import {Matrix} from './math';
 import TileCollider from './TileCollider';
 import EntityCollider from './EntityCollider';
 import {createAnimation} from './animations';
-import Spritesheet from './spritesheet'
+import Spritesheet from './spritesheet';
+import Sounds from './Sounds';
 
 export default class Sprite extends Spritesheet {
     constructor(image, data) {
@@ -10,6 +11,7 @@ export default class Sprite extends Spritesheet {
 
         this.entities = new Set();
         this.tilesMatrix = new Matrix();
+        this.sounds = new Sounds();
 
         this.tileCollider = new TileCollider(this.tilesMatrix);
         this.entityCollider = new EntityCollider(this.entities);
