@@ -30,10 +30,10 @@ export default function drawField(context, canvas) {
             sprites.define(sprite);
         }
 
-        const font = new Font(fontsData, fontData);
+        // const font = new Font(fontsData, fontData);
 
         for (let letter in fontData) {
-            font.define(letter);
+            // font.define(letter);
         }
 
         const drawCollisions = createCollisionLayer(sprites);

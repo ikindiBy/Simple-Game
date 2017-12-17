@@ -5,7 +5,7 @@ import {createEntities} from './entities';
 export default function(sprites) {
       return loadJSON(`./levels/1-${sprites.level}`).then((layout) => {
         sprites.entities.forEach(entity => {
-            if (entity.name !== 'cosmo') {
+            if (!entity.player) {
                 sprites.entities.delete(entity);
             } else {
                 entity.pos.set(100, 100);
