@@ -36,6 +36,34 @@ export default function drawField(context, canvas) {
         const [drawDashboard, cosmo] = createPlayerEnvironment(sprites);
         sprites.drawLevel = await createLevelCompositor(sprites);
 
+        // let loadSound = function(url, callback) {
+        //     console.log('loadSound', url)
+        //     let loaded = function () {
+        //         callback(sound);
+        //         sound.removeEventListener("canplaythrough", loaded);
+        //     }
+        //     let sound = new Audio (url);
+        //     sound.addEventListener("canplaythrough", loaded);
+        //     sound.load();
+        // }
+
+        // let self = this;
+
+        // loadSound('src/sound.mp3', function(mySound) {
+        //     self.mySound = mySound;
+
+        // });
+
+        // this.mySound.load();
+        // this.mySound.play();
+
+        // let sound = new Audio ('src/sound.mp3');
+
+        // sound.load();
+        // sound.play();
+
+
+
         const timer = new Timer(1/60);
         timer.update = function update(deltaTime) {
 

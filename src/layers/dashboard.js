@@ -17,7 +17,7 @@ export default function createDashboardLayer(entity) {
 
         // if (!entity.stateCosmo.alive)  {
 
-        if (!entity.stateCosmo.alive || entity.killable.dead)  {
+        if (!entity.stateCosmo.alive)  {
 
         	context.font = "50px Verdana";
     		context.strokeStyle = "red";

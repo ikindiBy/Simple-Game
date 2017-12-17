@@ -13,15 +13,9 @@ export default class StateCosmo extends Trait {
 
     update(entity, deltaTime, sprites) {
 
-        if (this.lives === 0) {
-            this.alive = false;
-        }
-
-        if (this.coins > 100) {
+        if (this.coins > 50) {
             this.coins = 0;
             this.lives++;
         }
-
-
     }
 }
