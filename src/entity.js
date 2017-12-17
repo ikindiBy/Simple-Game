@@ -33,7 +33,7 @@ export default class Entity {
         this.vel = new Vect(0,0);
         this.size = new Vect(0,0);
         this.offset = new Vect(0,0);
-        this.startPositin = new Vect(0,0);
+        this.startPosition = new Vect(0,0);
 
         this.lifetime = 0;
         this.bounds = new BoundingBox(this.pos, this.size, this.offset);

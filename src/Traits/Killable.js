@@ -25,7 +25,6 @@ export default class Killable extends Trait {
                 sprites.entities.delete(entity);
             }
 
-
             if (entity.name === 'purple') {
                 entity.offset.y = -180;
             } else if (entity.name === 'green') {
