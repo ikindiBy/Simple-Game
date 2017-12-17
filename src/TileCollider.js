@@ -11,11 +11,12 @@ export default class TileCollider {
             entity.pos.x = 0;
         }
          if (entity.bounds.right > this.tiles.tileSize * this.tiles.matrix.grid.length) {
-            entity.pos.x = this.tiles.tileSize * this.tiles.matrix.grid.length - entity.size.x;
+            entity.pos.x = this.tiles.tileSize * this.tiles.matrix.grid.length - entity.size.x - entity.offset.x;
+            console.log(entity.pos.x);
         }
 
         let x;
-        if (entity.vel.x > 0) {    
+        if (entity.vel.x > 0) {
             x = entity.bounds.right;
         } else if (entity.vel.x < 0) {
             x = entity.bounds.left;
@@ -87,8 +88,8 @@ export default class TileCollider {
     reachEdge(entity, y) {
         if (!entity.player) {
 
-            let stepToEdge = entity.size.x * Math.abs(entity.vel.x)/entity.vel.x;    
-            stepToEdge = stepToEdge ? stepToEdge : 0;  
+            let stepToEdge = entity.size.x * Math.abs(entity.vel.x)/entity.vel.x;
+            stepToEdge = stepToEdge ? stepToEdge : 0;
             let nextTile = this.tiles.searchByRange(entity.bounds.left + stepToEdge,
                                                     entity.bounds.right + stepToEdge,
                                                     y, y)[0];

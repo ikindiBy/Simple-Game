@@ -2,7 +2,7 @@ import drawField from './game-field';
 import {loadImage,loadJSON} from './loaders';
 import Sprite from './Sprite';
 import Font from './Font';
-import drawStartMenu from './drawStartMenu';
+import {drawStartMenu} from './drawInfo';
 
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');

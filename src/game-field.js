@@ -7,14 +7,14 @@ import createPlayerEnvironment from './createPlayerEnvironment';
 
 export default function drawField(context, sprites) {
 
-    const drawCollisions = createCollisionLayer(sprites);
-    const drawCameraView = createCameraLayer(sprites.camera);
+    // const drawCollisions = createCollisionLayer(sprites);
+    // const drawCameraView = createCameraLayer(sprites.camera);
 
     const timer = new Timer(1/60);
     timer.update = function update(deltaTime) {
         sprites.update(deltaTime, context);
-        drawCollisions(context, sprites.camera);
-        drawCameraView(context, sprites.camera);
+        // drawCollisions(context, sprites.camera);
+        // drawCameraView(context, sprites.camera);
     }
     timer.start();
 

@@ -10,7 +10,7 @@ export default function(sprites) {
     createPlayerEnv(cosmo);
 
     const input = setupKeyboard(cosmo);
-    setupMouseControl(canvas, cosmo, sprites.camera);
+    // setupMouseControl(canvas, cosmo, sprites.camera);
     input.listenTo(window);
 }
 

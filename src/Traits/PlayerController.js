@@ -26,9 +26,9 @@ export default class PlayerController extends Trait {
             this.player.pos.set(this.checkPoint.x, this.checkPoint.y);
             sprites.entities.add(this.player);
         } else {
-
             entity.stateCosmo.alive = false;
             entity.sounds.playSound('gameOver');
+            sprites.gameOver();
         }
 
         this.updateTimer();
@@ -38,7 +38,7 @@ export default class PlayerController extends Trait {
         this.time = TIME_LIMIT;
     }
 
-    update(entity, deltaTime, sprites) {
+    update(entity, deltaTime, sprites, context) {
         if (!sprites.entities.has(entity) && entity.stateCosmo.alive) {
 
             this.death(entity, sprites);
