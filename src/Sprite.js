@@ -5,6 +5,11 @@ import {createAnimation} from './animations';
 import Spritesheet from './spritesheet';
 import Sounds from './Sounds';
 
+import drawBackground from './layers/background';
+import {loadJSON} from './loaders';
+import {createEntities} from './createEntities';
+import createPlayerEnvironment from './createPlayerEnvironment';
+
 export default class Sprite extends Spritesheet {
     constructor(image, data) {
         super(image, data);
@@ -21,8 +26,6 @@ export default class Sprite extends Spritesheet {
     }
 
     draw(name, context, x, y, type, flip) {
-
-
         const buffer = this.tiles.get(`${name}.png`)[flip ? 1 : 0];
 
         if (type) {
@@ -72,9 +75,38 @@ export default class Sprite extends Spritesheet {
                                   cosmo.pos.y - this.camera.pos.y);
     }
 
+    createLevelCompositor(result) {
+        return loadJSON(`./levels/1-${this.level}`).then((layout) => {
+            this.entities.forEach(entity => {
+                if (!result) {
+                    this.entities.delete(entity);
+                } else {
+                    if (!entity.player) {
+                        this.entities.delete(entity);
+                    } else {
+                        entity.pos.set(100, 100);
+                    }
+                }
+            });
+            this.tilesMatrix.grid = [];
+            this.camera.pos.x = 0;
+
+            createEntities(this, layout);
+            if (!result) {
+                createPlayerEnvironment(this);
+            }
+
+            this.drawLevel = drawBackground(this, layout);
+        }).catch(e => {
+            console.log('Congratulations, no more levels');
+            console.log(e);
+        });
+    }
+
     update(deltaTime, context) {
+        this.drawLevel(context);
         this.entities.forEach(entity => {
-            entity.update(deltaTime, this);
+            entity.update(deltaTime, this, context);
 
             if (entity.name === 'cosmo') {
                 this.drawCosmo(entity, context);

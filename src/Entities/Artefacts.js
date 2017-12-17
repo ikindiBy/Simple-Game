@@ -13,11 +13,12 @@ class Behavior extends Trait{
 
         if (them.stomper) {
             us.killable.removeAfter = 0;
-            
+
             if (us.name.includes('coin')) {
                 us.killable.kill();
                 them.stateCosmo.coins++;
                 them.sounds.playSound('getCoin');
+                them.playerController.time++;
             } else if (us.name.includes('key')) {
                 us.killable.kill();
                 them.stateCosmo.keys++;
@@ -26,7 +27,11 @@ class Behavior extends Trait{
                 if (them.stateCosmo.keys) {
                     us.killable.kill();
                     them.sounds.playSound('openLocks');
+                    them.stateCosmo.locks++;
+                    them.stateCosmo.keys--;
                     console.log('congratulation - next level');
+                } else {
+                    console.log('take a key');
                 }
             }
         }

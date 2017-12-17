@@ -1,7 +1,7 @@
 import {Trait} from '../Entity';
 import {Vect} from '../math';
 
-const TIME_LIMIT = 60;
+export const TIME_LIMIT = 60;
 
 export default class PlayerController extends Trait {
     constructor(entity) {
@@ -15,19 +15,23 @@ export default class PlayerController extends Trait {
     }
 
     death(entity, sprites) {
-
         this.player.stateCosmo.lives--;
-        
+
+        if (this.player.stateCosmo.alive) {
+            this.player.killable.kill();
+        }
+
         if (this.player.stateCosmo.lives > 0) {
             this.player.killable.revive();
             this.player.pos.set(this.checkPoint.x, this.checkPoint.y);
             sprites.entities.add(this.player);
-            this.updateTimer();
         } else {
 
             entity.stateCosmo.alive = false;
             entity.sounds.playSound('gameOver');
         }
+
+        this.updateTimer();
     }
 
     updateTimer() {
@@ -40,14 +44,12 @@ export default class PlayerController extends Trait {
             this.death(entity, sprites);
 
         } else if (!this.stopTime){
-            
+
             this.time -= deltaTime;
         }
 
         if (this.time <= 0) {
-
             this.death(entity, sprites);
-            this.updateTimer();
         }
     }
 }

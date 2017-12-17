@@ -1,6 +1,11 @@
-export default function createDashboardLayer(entity) {
-    return function drawDashboard(context) {
+import {Trait} from '../Entity';
 
+export default class Dashboard extends Trait {
+    constructor() {
+        super('dashboard');
+    }
+
+    update(entity, deltaTime, sprites, context) {
         const time = Math.round(entity.playerController.time);
 
     	context.font = "22px Verdana";
@@ -14,18 +19,10 @@ export default function createDashboardLayer(entity) {
 
         context.fillText(`TIME : ${time}`, 840, 22);
 
-
         // if (!entity.stateCosmo.alive)  {
-
-        if (!entity.stateCosmo.alive)  {
-
-        	context.font = "50px Verdana";
-    		context.strokeStyle = "red";
-    		context.strokeText(`GAME OVER`, 350, 350);
-
-            entity.playerController.time = 60;
-            entity.playerController.stopTime = true;
-            entity.killable.kill();
-        }
+        // 	context.font = "50px Verdana";
+    	// 	context.strokeStyle = "red";
+    	// 	context.strokeText(`GAME OVER`, 350, 350);
+        // }
     }
 }
