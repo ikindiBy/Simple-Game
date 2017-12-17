@@ -29,6 +29,8 @@ class Behavior extends Trait{
                     them.stateCosmo.locks++;
                     them.stateCosmo.keys--;
                     console.log('congratulation - next level');
+                } else {
+                    console.log('take a key');
                 }
             }
         }

@@ -22,7 +22,6 @@ const game = Promise.all([
     for (let sprite in tileData) {
         sprites.define(sprite);
     }
-    await sprites.createLevelCompositor();
 
     const font = new Font(fontImage, fontData);
     for (let letter in fontData) {
@@ -31,17 +30,17 @@ const game = Promise.all([
 
     drawStartMenu(context, sprites, font);
 
+    const start = function(event) {
+        if (event.key === 'Enter') {
+            window.removeEventListener('keypress', start);
+
+            game.then(([sprites, font]) => {
+                drawField(context, sprites);
+            })
+        }
+    }
+
+    window.addEventListener('keypress', start);
+
     return [sprites, font];
 })
-
-const start = function(event) {
-    if (event.key === 'Enter') {
-        window.removeEventListener('keypress', start);
-
-        game.then(([sprites, font]) => {
-            drawField(context, sprites);
-        })
-    }
-}
-
-window.addEventListener('keypress', start);

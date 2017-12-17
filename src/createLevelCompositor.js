@@ -16,5 +16,9 @@ export default function(sprites) {
         createEntities(sprites, layout);
 
         sprites.drawLevel = drawBackground(sprites, layout);
+
+        console.log('me1');
+    }).catch(e => {
+        console.log('no more levels');
     });
 }

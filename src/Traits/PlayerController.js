@@ -42,10 +42,10 @@ export default class PlayerController extends Trait {
         } else if (!this.stopTime){
 
             this.time -= deltaTime;
+            console.log('time');
         }
 
         if (this.time <= 0) {
-
             this.death(entity, sprites);
             this.updateTimer();
         }

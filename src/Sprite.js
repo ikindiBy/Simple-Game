@@ -75,7 +75,7 @@ export default class Sprite extends Spritesheet {
     }
 
     createLevelCompositor() {
-        loadJSON(`./levels/1-${this.level}`).then((layout) => {
+         loadJSON(`./levels/1-${this.level}`).then((layout) => {
             this.entities.forEach(entity => {
               if (!entity.player) {
                   this.entities.delete(entity);
