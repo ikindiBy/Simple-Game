@@ -23,7 +23,7 @@ export default class Physics extends Trait {
 
             if (!entity.killable.dead) {
                 entity.vel.y = 0;
-                entity.pos.y = entity.startPositin.y * positionBySinusoid;
+                entity.pos.y = entity.startPosition.y * positionBySinusoid;
             }
         }
 
