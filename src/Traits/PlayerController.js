@@ -1,6 +1,8 @@
 import {Trait} from '../Entity';
 import {Vect} from '../math';
 
+const TIME_LIMIT = 60;
+
 export default class PlayerController extends Trait {
     constructor(entity) {
         super('playerController');
@@ -8,7 +10,7 @@ export default class PlayerController extends Trait {
         this.player = entity;
         this.checkPoint = new Vect(0, 0);
 
-        this.time = 60;
+        this.time = TIME_LIMIT;
         this.stopTime = false;
     }
 
@@ -19,6 +21,7 @@ export default class PlayerController extends Trait {
             this.player.killable.revive();
             this.player.pos.set(this.checkPoint.x, this.checkPoint.y);
             sprites.entities.add(this.player);
+            this.time = TIME_LIMIT;
         }
     }
 
@@ -31,7 +34,7 @@ export default class PlayerController extends Trait {
 
         if (this.time <= 0) {
             this.death(entity,sprites);
-            this.time = 60;
+            this.time = TIME_LIMIT;
         }
     }
 }

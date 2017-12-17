@@ -1,11 +1,5 @@
-import {createCosmoFactory} from './Entities/Cosmo';
 import {createEnemiesFactory} from './Entities/Enemies'
 import {createArtefactsFactory} from './Entities/Artefacts'
-
-import PlayerController from './Traits/PlayerController';
-
-import setupKeyboard from './input';
-import {setupMouseControl} from './debug';
 
 export function createEntities(sprites, layout) {
 
@@ -30,7 +24,7 @@ export function createEntities(sprites, layout) {
                               reverse, pictures, deadPic);
         });
     });
-    
+
     layout.artefacts.forEach(artef => {
         const name = artef.name;
         // const [sizeX, sizeY] = artef.data.size;
@@ -44,22 +38,4 @@ export function createEntities(sprites, layout) {
                               pictures);
         });
     });
-
-
-    const createCosmo = createCosmoFactory(sprites);
-    const cosmo = createCosmo();
-
-    createPlayerEnv(cosmo);
-
-    const input = setupKeyboard(cosmo);
-    setupMouseControl(canvas, cosmo, sprites.camera);
-    input.listenTo(window);
-
-    return cosmo;
-}
-
-function createPlayerEnv (playerEntity) {
-    const playerControl = new PlayerController(playerEntity);
-    playerControl.checkPoint.set(42, 42);
-    playerEntity.addTrait(playerControl);
 }
