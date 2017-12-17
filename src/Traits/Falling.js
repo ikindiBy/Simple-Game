@@ -8,12 +8,6 @@ export default class Falling extends Trait {
     update(entity, deltaTime, sprites) {
         let currentX = entity.pos.x;
         if (entity.pos.y > 800 && entity.stateCosmo.alive) {
-            // entity.stateCosmo.lives--;
-            // if (entity.stateCosmo.lives > 0) {
-            //     entity.pos.y = 100;
-            //     entity.pos.x = currentX - 65;
-            // }
-
             entity.playerController.death(entity, sprites);
         }
     }

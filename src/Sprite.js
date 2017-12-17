@@ -15,6 +15,7 @@ export default class Sprite extends Spritesheet {
         this.entityCollider = new EntityCollider(this.entities);
 
         this.gravity = 2000;
+        this.level = 1;
     }
 
     draw(name, context, x, y, type, flip) {

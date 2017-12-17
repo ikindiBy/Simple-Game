@@ -40,5 +40,45 @@ q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0; }
+@font-face {
+  font-family: "Bello-Script";
+  src: url("/style/fonts/Bello-Script.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal; }
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  background-color: #4d4d4d;
+  color: palegoldenrod;
+  height: 100vh; }
+
+header, main, footer, canvas {
+  margin: auto; }
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; }
+
+article {
+  margin-top: 30px;
+  width: 50%; }
+
+h1 {
+  font-size: 2rem;
+  font-family: "Bello-Script", Arial;
+  color: gold;
+  text-transform: uppercase;
+  text-align: center; }
+
+article {
+  font-family: Arial; }
+
+.main-canvas {
+  image-rendering: pixelated; }
 
 /*# sourceMappingURL=style.css.map*/

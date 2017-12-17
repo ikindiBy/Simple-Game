@@ -34,13 +34,7 @@ export default function drawBackground(sprites, layout) {
     });
 
     return function drawBackgroundLayer(context) {
-        context.drawImage(buffer, 0 + sprites.camera.pos.x,
-                                  0 + sprites.camera.pos.y,
-                                  960, 629,
-                                  0,
-                                  0,
-                                  960, 629);
-        // context.drawImage(buffer, 0 - sprites.camera.pos.x,
-        //                           0 - sprites.camera.pos.y);
+        context.drawImage(buffer, 0 - sprites.camera.pos.x,
+                                  0 - sprites.camera.pos.y);
     };
 }

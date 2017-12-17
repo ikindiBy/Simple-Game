@@ -12,14 +12,17 @@ export default function createDashboardLayer(entity) {
         context.fillText(`TIME : ${time}`, 840, 22);
 
 
+        // if (!entity.stateCosmo.alive)  {
 
-        if (!entity.stateCosmo.alive)  {
+        if (!entity.stateCosmo.alive || entity.killable.dead)  {
+
         	context.font = "50px Verdana";
     		context.strokeStyle = "red";
     		context.strokeText(`GAME OVER`, 350, 350);
 
             entity.playerController.time = 60;
             entity.playerController.stopTime = true;
+            entity.killable.kill();
         }
     }
 }

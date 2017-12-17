@@ -112,6 +112,7 @@
       ]
     },
     {
+
       "name": "sky1",
       "type": "decoration",
       "pos": [
@@ -282,7 +283,9 @@
       },
       "positions": [
         {
+
            "pos": [1, 12]
+
         }
 
       ]
