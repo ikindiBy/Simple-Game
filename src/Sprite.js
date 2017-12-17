@@ -5,6 +5,10 @@ import {createAnimation} from './animations';
 import Spritesheet from './spritesheet';
 import Sounds from './Sounds';
 
+import drawBackground from './layers/background';
+import {loadJSON} from './loaders';
+import {createEntities} from './entities';
+
 export default class Sprite extends Spritesheet {
     constructor(image, data) {
         super(image, data);
@@ -21,8 +25,6 @@ export default class Sprite extends Spritesheet {
     }
 
     draw(name, context, x, y, type, flip) {
-
-
         const buffer = this.tiles.get(`${name}.png`)[flip ? 1 : 0];
 
         if (type) {
@@ -70,6 +72,25 @@ export default class Sprite extends Spritesheet {
 
         context.drawImage(buffer, cosmo.pos.x - this.camera.pos.x,
                                   cosmo.pos.y - this.camera.pos.y);
+    }
+
+    createLevelCompositor() {
+        loadJSON(`./levels/1-${this.level}`).then((layout) => {
+            this.entities.forEach(entity => {
+              if (!entity.player) {
+                  this.entities.delete(entity);
+              } else {
+                  entity.pos.set(100, 100);
+              }
+            });
+            this.tilesMatrix.grid = [];
+
+            createEntities(this, layout);
+
+            this.drawLevel = drawBackground(this, layout);
+        }).catch(e => {
+            console.log('congratulations, no more levels');
+        })
     }
 
     update(deltaTime, context) {

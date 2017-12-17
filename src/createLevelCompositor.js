@@ -3,7 +3,7 @@ import {loadJSON} from './loaders';
 import {createEntities} from './entities';
 
 export default function(sprites) {
-      return loadJSON(`./levels/1-${sprites.level}`).then((layout) => {
+      loadJSON(`./levels/1-${sprites.level}`).then((layout) => {
         sprites.entities.forEach(entity => {
             if (!entity.player) {
                 sprites.entities.delete(entity);
@@ -15,7 +15,6 @@ export default function(sprites) {
 
         createEntities(sprites, layout);
 
-        const drawBackgroundLayer = drawBackground(sprites, layout);
-        return drawBackgroundLayer;
+        sprites.drawLevel = drawBackground(sprites, layout);
     });
 }

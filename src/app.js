@@ -22,10 +22,9 @@ const game = Promise.all([
     for (let sprite in tileData) {
         sprites.define(sprite);
     }
-    sprites.drawLevel = await createLevelCompositor(sprites);
+    await sprites.createLevelCompositor();
 
     const font = new Font(fontImage, fontData);
-
     for (let letter in fontData) {
         font.define(letter);
     }
