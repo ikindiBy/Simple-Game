@@ -34,6 +34,10 @@ export default class PlayerController extends Trait {
         this.updateTimer();
     }
 
+    updateTimer() {
+        this.time = TIME_LIMIT;
+    }
+
     update(entity, deltaTime, sprites) {
         if (!sprites.entities.has(entity) && entity.stateCosmo.alive) {
 

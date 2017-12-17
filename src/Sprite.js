@@ -8,6 +8,7 @@ import Sounds from './Sounds';
 import drawBackground from './layers/background';
 import {loadJSON} from './loaders';
 import {createEntities} from './createEntities';
+import createPlayerEnvironment from './createPlayerEnvironment';
 
 export default class Sprite extends Spritesheet {
     constructor(image, data) {
@@ -74,23 +75,26 @@ export default class Sprite extends Spritesheet {
                                   cosmo.pos.y - this.camera.pos.y);
     }
 
-    createLevelCompositor() {
+    createLevelCompositor(result) {
         return loadJSON(`./levels/1-${this.level}`).then((layout) => {
             this.entities.forEach(entity => {
-                if (this.level > 1) {
+                if (!result) {
+                    this.entities.delete(entity);
+                } else {
                     if (!entity.player) {
                         this.entities.delete(entity);
                     } else {
                         entity.pos.set(100, 100);
                     }
-                } else {
-                    this.entities.delete(entity);
                 }
             });
             this.tilesMatrix.grid = [];
             this.camera.pos.x = 0;
 
             createEntities(this, layout);
+            if (!result) {
+                createPlayerEnvironment(this);
+            }
 
             this.drawLevel = drawBackground(this, layout);
         }).catch(e => {
