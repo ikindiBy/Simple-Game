@@ -21,6 +21,7 @@ export default class StateCosmo extends Trait {
             this.locks = 0;
             sprites.level++;
             sprites.createLevelCompositor('won');
+            entity.playerController.updateTimer();
         }
     }
 }

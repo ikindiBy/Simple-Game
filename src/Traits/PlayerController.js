@@ -45,7 +45,7 @@ export default class PlayerController extends Trait {
 
         } else if (!this.stopTime){
 
-            this.time -= deltaTime;
+            this.time -= deltaTime * sprites.level;
         }
 
         if (this.time <= 0) {
