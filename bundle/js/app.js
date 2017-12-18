@@ -809,41 +809,41 @@ const FAST_DRAG = 1 / 5000;
 
 function createCosmoFactory(sprites) {
 
-        function setTurboState(turtleOn) {
-                this.go.dragFactor = turtleOn ? SLOW_DRAG : FAST_DRAG;
-        }
+    function setTurboState(turtleOn) {
+        this.go.dragFactor = turtleOn ? SLOW_DRAG : FAST_DRAG;
+    }
 
-        function setTurtleState(turboOn) {
-                this.go.dragFactor = turboOn ? FAST_DRAG : SLOW_DRAG;
-        }
+    function setTurtleState(turboOn) {
+        this.go.dragFactor = turboOn ? FAST_DRAG : SLOW_DRAG;
+    }
 
-        return function createCosmo() {
-                const cosmo = new __WEBPACK_IMPORTED_MODULE_0__Entity__["c" /* default */]('cosmo');
+    return function createCosmo() {
+        const cosmo = new __WEBPACK_IMPORTED_MODULE_0__Entity__["c" /* default */]('cosmo');
 
-                cosmo.player = true;
+        cosmo.player = true;
 
-                cosmo.size.set(20, 50);
+        cosmo.size.set(20, 50);
 
-                cosmo.pos.set(185, 420);
-                cosmo.vel.set(0, -600);
-                cosmo.offset.set(9, 0);
+        cosmo.pos.set(185, 420);
+        cosmo.vel.set(0, -600);
+        cosmo.offset.set(9, 0);
 
-                sprites.entities.add(cosmo);
+        sprites.entities.add(cosmo);
 
-                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_4__Traits_Physics__["a" /* default */]());
-                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_1__Traits_Jump__["a" /* default */]());
-                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_2__Traits_Go__["a" /* default */]());
-                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_3__Traits_Stomper__["a" /* default */]());
-                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_5__Traits_Killable__["a" /* default */]());
-                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_6__Traits_Falling__["a" /* default */]());
-                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_7__Traits_StateCosmo__["a" /* default */]());
-                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_8__Traits_Dashboard__["a" /* default */]());
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_4__Traits_Physics__["a" /* default */]());
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_1__Traits_Jump__["a" /* default */]());
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_2__Traits_Go__["a" /* default */]());
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_3__Traits_Stomper__["a" /* default */]());
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_5__Traits_Killable__["a" /* default */]());
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_6__Traits_Falling__["a" /* default */]());
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_7__Traits_StateCosmo__["a" /* default */]());
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_8__Traits_Dashboard__["a" /* default */]());
 
-                cosmo.turboAndSlow = setTurboState;
-                cosmo.slowAndTurbo = setTurtleState;
+        cosmo.turboAndSlow = setTurboState;
+        cosmo.slowAndTurbo = setTurtleState;
 
-                return cosmo;
-        };
+        return cosmo;
+    };
 }
 
 /***/ }),
@@ -978,6 +978,7 @@ class StateCosmo extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] 
             this.locks = 0;
             sprites.level++;
             sprites.createLevelCompositor('won');
+            entity.playerController.updateTimer();
         }
     }
 }
@@ -1070,7 +1071,7 @@ class PlayerController extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trai
             this.death(entity, sprites);
         } else if (!this.stopTime) {
 
-            this.time -= deltaTime;
+            this.time -= deltaTime * sprites.level;
         }
 
         if (this.time <= 0) {
