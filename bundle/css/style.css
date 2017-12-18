@@ -40,5 +40,108 @@ q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0; }
+<<<<<<< HEAD
+=======
+@font-face {
+  font-family: "Bello-Script";
+  src: url("/style/fonts/Bello-Script.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal; }
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  background-color: midnightblue;
+  color: palegoldenrod;
+  font-family: Arial; }
+
+p {
+  text-indent: 1.5rem;
+  font-size: 1.2rem;
+  line-height: 1.4rem; }
+
+header, footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100px; }
+
+header, main, footer, canvas {
+  margin: auto; }
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  max-width: 940px; }
+
+article {
+  margin-top: 30px;
+  width: 100%; }
+
+h1, h3 {
+  text-align: center;
+  margin: 15px 0;
+  text-transform: uppercase; }
+
+h1 {
+  font-size: 3rem;
+  font-family: "Bello-Script", Arial;
+  color: gold;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 1rem; }
+
+h3 {
+  font-size: 2rem; }
+
+article {
+  font-family: Arial; }
+
+.main-canvas {
+  image-rendering: pixelated; }
+
+.developers {
+  height: 300px;
+  width: 100%; }
+  .developers div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 100%; }
+  .developers figure {
+    height: 60%;
+    font-size: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center; }
+    .developers figure p {
+      max-height: 100%; }
+      .developers figure p img {
+        border-radius: 50%;
+        height: 150px; }
+
+.technoligies div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 400px;
+  width: 100%; }
+  .technoligies div img {
+    max-height: 150px; }
+
+footer p {
+  font-size: 0.8rem; }
+>>>>>>> 6b0046336be52417061005e1e467172dae63f86d
 
 /*# sourceMappingURL=style.css.map*/

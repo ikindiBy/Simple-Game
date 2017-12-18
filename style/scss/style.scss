@@ -1,41 +1,113 @@
 @import "fonts";
-
-
-
-$main-color: rgb(0,0,128);
-$title-color: rgb(255, 215, 0);
-$text-color: rgb(238, 232, 170);
-
-@mixin block_flex ($justify-content: flex-start, $align-items: stretch, $direction: row) {
-  display: flex;
-  flex-direction: $direction;
-  justify-content: $justify-content;
-  align-items: $align-items;
-}
-
+@import "mixin";
+@import "variables";
 
 body {
   @include block_flex ($justify-content: space-between, $direction: column);
-  background-color: $main-color;
+  background-color: $main-bg-color;
   color: $text-color;
-  height: 100vh;
+  font-family: Arial;
+}
+p {
+  text-indent: 1.5rem;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
 }
 
-header, main, footer {
-  width: 50%;
-  margin: 0 auto;
 
+header, footer {
+  @include block_flex ($justify-content: space-around, $align-items: center, $direction: column);
+  height: 100px;
+}
+
+header, main, footer, canvas {
+  margin: auto;
+}
+
+main {
+  @include block_flex ($justify-content: space-between, $align-items: center, $direction: column);
+  width: 60%;
+  max-width: 940px;
+}
+
+article {
+  margin-top: 30px;
+  width: 100%;
+}
+
+h1, h3 {
+  text-align: center;
+  margin: 15px 0;
+  text-transform: uppercase;
 }
 
 
 h1 {
-  font-size: 2rem;
+
+  font-size: 3rem;
+
   font-family: "Bello-Script", Arial;
   color: $title-color;
   text-transform: uppercase;
   text-align: center;
+  letter-spacing: 1rem;
 }
+
+h3 {
+    font-size: 2rem;
+  }
 
 article {
    font-family: Arial;
 }
+
+.main-canvas {
+  image-rendering: pixelated;
+}
+
+.developers {
+  height: 300px;
+  width: 100%;
+
+  div {
+    @include block_flex ($justify-content: space-around, $align-items: center, $direction: row);
+    height: 100%;
+    width: 100%;
+  }
+ 
+
+  figure {
+    height: 60%;
+    font-size: 1.6rem;
+    @include block_flex ($justify-content: space-between, $align-items: center, $direction: column);
+
+    p {
+      max-height: 100%; 
+
+      img {
+        border-radius: 50%;
+        height: 150px; 
+      }
+    }  
+  }
+}
+
+.technoligies div {
+
+  @include block_flex ($justify-content: space-around, $align-items: center, $direction: row);
+  flex-wrap: wrap;
+  height: 400px;
+  width: 100%;
+
+      img {
+        max-height: 150px; 
+    }
+}
+
+footer {
+
+  p {
+    font-size: 0.8rem;
+  }
+}
+
