@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69,7 +69,7 @@
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__math__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BoundingBox_js__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BoundingBox_js__ = __webpack_require__(17);
 
 
 
@@ -132,9 +132,9 @@ class Entity {
         });
     }
 
-    update(deltaTime, sprites) {
+    update(deltaTime, sprites, context) {
         this.traits.forEach(trait => {
-            trait.update(this, deltaTime, sprites);
+            trait.update(this, deltaTime, sprites, context);
         });
 
         this.lifetime += deltaTime;
@@ -241,103 +241,34 @@ class Killable extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Camera__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entities_Cosmo__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Traits_PlayerController__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__input__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__debug__ = __webpack_require__(25);
 
 
-class Spritesheet {
-    constructor(image, data) {
-        this.image = image;
-        this.data = data;
-        this.tiles = new Map();
 
-        this.camera = new __WEBPACK_IMPORTED_MODULE_0__Camera__["a" /* default */]();
-        this.TILE_SIZE = 37;
-    }
 
-    define(name) {
 
-        const buffers = [false, true].map(flip => {
-            const buffer = document.createElement('canvas');
-            const context = buffer.getContext('2d');
-            const png = this.data[`${name}`].frame;
-            buffer.width = png['w'];
-            buffer.height = png['h'];
+/* harmony default export */ __webpack_exports__["a"] = (function (sprites) {
+    const createCosmo = Object(__WEBPACK_IMPORTED_MODULE_0__Entities_Cosmo__["a" /* createCosmoFactory */])(sprites);
+    const cosmo = createCosmo();
 
-            if (flip) {
-                context.scale(-1, 1);
-                context.translate(-buffer.width, 0);
-            }
+    createPlayerEnv(cosmo);
 
-            if (png['w'] < this.TILE_SIZE && png['h'] < this.TILE_SIZE && !name.includes('enemy')) {
-                buffer.width = this.TILE_SIZE;
-                buffer.height = this.TILE_SIZE;
-                let deltaX = (this.TILE_SIZE - png['w']) / 2;
-                let deltaY = (this.TILE_SIZE - png['h']) / 2;
-                context.drawImage(this.image, png['x'], png['y'], png['w'], png['h'], deltaX, deltaY, png['w'], png['h']);
-            } else {
-                context.drawImage(this.image, png['x'], png['y'], png['w'], png['h'], 0, 0, png['w'], png['h']);
-            }
-            return buffer;
-        });
-        this.tiles.set(name, buffers);
-    }
-    /* this method can be deleted? i don't know where we can use it  BUT may be it for fonts??? */
-    draw(name, context, x, y, type, flip) {
+    const input = Object(__WEBPACK_IMPORTED_MODULE_2__input__["a" /* default */])(cosmo);
+    // setupMouseControl(canvas, cosmo, sprites.camera);
+    input.listenTo(window);
+});
 
-        const buffer = this.tiles.get(`${name}.png`)[flip ? 1 : 0];
-
-        x = x * buffer.width;
-        y = y * buffer.width;
-
-        context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
-    }
-
-    drawTiles(name, context, type, x1, x2, y1, y2) {
-        for (let x = x1; x < x2; ++x) {
-            for (let y = y1; y < y2; ++y) {
-                this.draw(name, context, x, y, type);
-            }
-        }
-    }
-
-    getEntitiesByName(name) {
-        let entities = [];
-        this.entities.forEach(value => {
-            if (value.name == name) {
-                entities.push(value);
-            }
-        });
-        return entities;
-    }
-
-    update(deltaTime, context) {}
+function createPlayerEnv(playerEntity) {
+    const playerControl = new __WEBPACK_IMPORTED_MODULE_1__Traits_PlayerController__["a" /* default */](playerEntity);
+    playerControl.checkPoint.set(42, 42);
+    playerEntity.addTrait(playerControl);
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Spritesheet;
-
 
 /***/ }),
 /* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = loadImage;
-/* harmony export (immutable) */ __webpack_exports__["b"] = loadJSON;
-function loadImage(url) {
-    return new Promise(resolve => {
-        const image = new Image();
-        image.addEventListener('load', () => {
-            resolve(image);
-        });
-        image.src = url;
-    });
-}
-
-function loadJSON(name) {
-    return fetch(`./src/database/${name}.json`).then(response => response.json());
-}
-
-/***/ }),
-/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -400,7 +331,7 @@ class Jump extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -445,7 +376,7 @@ class Go extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -492,12 +423,97 @@ class Physics extends __WEBPACK_IMPORTED_MODULE_0__Entity_js__["b" /* Trait */] 
 
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-__webpack_require__(9);
-__webpack_require__(40);
-module.exports = __webpack_require__(41);
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = loadImage;
+/* harmony export (immutable) */ __webpack_exports__["b"] = loadJSON;
+function loadImage(url) {
+    return new Promise(resolve => {
+        const image = new Image();
+        image.addEventListener('load', () => {
+            resolve(image);
+        });
+        image.src = url;
+    });
+}
+
+function loadJSON(name) {
+    return fetch(`./src/database/${name}.json`).then(response => response.json());
+}
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Camera__ = __webpack_require__(31);
+
+
+class Spritesheet {
+    constructor(image, data) {
+        this.image = image;
+        this.data = data;
+        this.tiles = new Map();
+
+        this.camera = new __WEBPACK_IMPORTED_MODULE_0__Camera__["a" /* default */]();
+        this.TILE_SIZE = 37;
+    }
+
+    define(name) {
+        const buffers = [false, true].map(flip => {
+            const buffer = document.createElement('canvas');
+            const context = buffer.getContext('2d');
+            const png = this.data[`${name}`].frame;
+            buffer.width = png['w'];
+            buffer.height = png['h'];
+
+            if (flip) {
+                context.scale(-1, 1);
+                context.translate(-buffer.width, 0);
+            }
+
+            if (png['w'] < this.TILE_SIZE && png['h'] < this.TILE_SIZE && !name.includes('enemy')) {
+                buffer.width = this.TILE_SIZE;
+                buffer.height = this.TILE_SIZE;
+                let deltaX = (this.TILE_SIZE - png['w']) / 2;
+                let deltaY = (this.TILE_SIZE - png['h']) / 2;
+                context.drawImage(this.image, png['x'], png['y'], png['w'], png['h'], deltaX, deltaY, png['w'], png['h']);
+            } else {
+                context.drawImage(this.image, png['x'], png['y'], png['w'], png['h'], 0, 0, png['w'], png['h']);
+            }
+            return buffer;
+        });
+        this.tiles.set(name, buffers);
+    }
+
+    // draw(name, context, x, y, type, flip) {
+    //     const buffer = this.tiles.get(`${name}.png`)[flip ? 1 : 0];
+    //     context.drawImage(buffer, x - this.camera.pos.x, y - this.camera.pos.y);
+    // }
+
+    drawTiles(name, context, type, x1, x2, y1, y2) {
+        for (let x = x1; x < x2; ++x) {
+            for (let y = y1; y < y2; ++y) {
+                this.draw(name, context, x, y, type);
+            }
+        }
+    }
+
+    getEntitiesByName(name) {
+        let entities = [];
+        this.entities.forEach(value => {
+            if (value.name == name) {
+                entities.push(value);
+            }
+        });
+        return entities;
+    }
+
+    update(deltaTime, context) {}
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Spritesheet;
 
 
 /***/ }),
@@ -505,120 +521,703 @@ module.exports = __webpack_require__(41);
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_field__ = __webpack_require__(10);
+/* harmony export (immutable) */ __webpack_exports__["c"] = showGameOver;
+/* harmony export (immutable) */ __webpack_exports__["b"] = showCongratulations;
+/* harmony export (immutable) */ __webpack_exports__["a"] = drawStartMenu;
 
+function showGameOver(sprites) {
+    const buffer = sprites.tiles.get(`bg.png`)[0];
 
-const canvas = document.getElementById('canvas');
-const context = canvas.getContext('2d');
-// canvas.setAttribute('width', `${window.devicePixelRatio}` * 960);
-// canvas.setAttribute('height', `${window.devicePixelRatio}` * 640);
-// canvas.style.width = `960px`;
-// canvas.style.height = `640px`;
+    return function (context) {
+        context.drawImage(buffer, 0, 0, 960, 629);
 
-canvas.setAttribute('width', 960);
-canvas.setAttribute('height', 629);
+        context.font = "50px Verdana";
+        context.strokeStyle = "red";
+        context.strokeText(`GAME OVER`, 320, 210);
+        context.strokeText(`PRESS RESTART BUTTON`, 170, 310);
+        context.strokeText(`Key "-"`, 420, 410);
+    };
+}
 
-Object(__WEBPACK_IMPORTED_MODULE_0__game_field__["a" /* default */])(context, canvas);
+function showCongratulations(sprites) {
+    const buffer = sprites.tiles.get(`bg.png`)[0];
+
+    return function (context) {
+        context.drawImage(buffer, 0, 0, 960, 629);
+
+        context.font = "50px Verdana";
+        context.strokeStyle = "lightblue";
+        context.strokeText(`CONGRATULATIONS`, 250, 320);
+
+        context.font = "italic 25px Helvetica";
+        context.fillStyle = "darkSlateBlue";
+        context.fillText(`no more levels`, 10, 580);
+        context.fillText(`key "-" to restart`, 10, 600);
+    };
+}
+
+function drawStartMenu(context, sprites, font) {
+
+    sprites.draw('bg', context, 0, 0);
+    font.print('PRESS', context, 150, 50, 60, 60);
+    sprites.draw('boy1', context, 80, 210);
+    sprites.draw('boy2', context, 120, 210);
+    sprites.draw('boy3', context, 160, 210);
+    sprites.draw('boy2', context, 200, 210);
+    font.print('ENTER', context, 340, 208, 60, 60);
+    sprites.draw('boy4', context, 780, 210);
+    font.print('TO', context, 150, 350, 60, 60);
+    font.print('START', context, 350, 450, 60, 60);
+}
 
 /***/ }),
 /* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = drawField;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Sprite__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Font__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__loaders__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__timer__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layers_collision__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__layers_camera__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__createLevelCompositor__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__createPlayerEnvironment__ = __webpack_require__(29);
+__webpack_require__(11);
+__webpack_require__(39);
+module.exports = __webpack_require__(40);
 
-
-
-
-
-
-
-
-
-
-
-function drawField(context, canvas) {
-        Promise.all([Object(__WEBPACK_IMPORTED_MODULE_2__loaders__["a" /* loadImage */])('./images/sprites.png'), Object(__WEBPACK_IMPORTED_MODULE_2__loaders__["b" /* loadJSON */])('./sprites'), Object(__WEBPACK_IMPORTED_MODULE_2__loaders__["b" /* loadJSON */])('./alphabet'), Object(__WEBPACK_IMPORTED_MODULE_2__loaders__["a" /* loadImage */])('./images/alphabet.png')]).then(async ([tileImage, tileData, fontData, fontImage]) => {
-
-                const sprites = new __WEBPACK_IMPORTED_MODULE_0__Sprite__["a" /* default */](tileImage, tileData);
-                for (let sprite in tileData) {
-                        sprites.define(sprite);
-                }
-
-                // const font = new Font(fontsData, fontData);
-                // 
-                // for (let letter in fontData) {
-                //     font.define(letter);
-                // }
-
-                const drawCollisions = Object(__WEBPACK_IMPORTED_MODULE_4__layers_collision__["a" /* default */])(sprites);
-                const drawCameraView = Object(__WEBPACK_IMPORTED_MODULE_5__layers_camera__["a" /* default */])(sprites.camera);
-
-                const [drawDashboard, cosmo] = Object(__WEBPACK_IMPORTED_MODULE_7__createPlayerEnvironment__["a" /* default */])(sprites);
-                sprites.drawLevel = await Object(__WEBPACK_IMPORTED_MODULE_6__createLevelCompositor__["a" /* default */])(sprites);
-
-                // let loadSound = function(url, callback) {
-                //     console.log('loadSound', url)
-                //     let loaded = function () {
-                //         callback(sound);
-                //         sound.removeEventListener("canplaythrough", loaded);
-                //     }
-                //     let sound = new Audio (url);
-                //     sound.addEventListener("canplaythrough", loaded);
-                //     sound.load();
-                // }
-
-                // let self = this;
-
-                // loadSound('src/sound.mp3', function(mySound) {
-                //     self.mySound = mySound;
-
-                // });
-
-                // this.mySound.load();
-                // this.mySound.play();
-
-                // let sound = new Audio ('src/sound.mp3');
-
-                // sound.load();
-                // sound.play();
-
-
-                const timer = new __WEBPACK_IMPORTED_MODULE_3__timer__["a" /* default */](1 / 60);
-                timer.update = function update(deltaTime) {
-
-                        sprites.drawLevel(context);
-                        sprites.update(deltaTime, context);
-
-                        drawCollisions(context, sprites.camera);
-                        drawCameraView(context, sprites.camera);
-
-                        drawDashboard(context);
-                };
-                timer.start();
-        });
-}
 
 /***/ }),
 /* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_field__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__loaders__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Sprite__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Font__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__drawInfo__ = __webpack_require__(9);
+
+
+
+
+
+
+const canvas = document.getElementById('canvas');
+const context = canvas.getContext('2d');
+canvas.setAttribute('width', 960);
+canvas.setAttribute('height', 629);
+
+const game = Promise.all([Object(__WEBPACK_IMPORTED_MODULE_1__loaders__["a" /* loadImage */])('./images/sprites.png'), Object(__WEBPACK_IMPORTED_MODULE_1__loaders__["b" /* loadJSON */])('./sprites'), Object(__WEBPACK_IMPORTED_MODULE_1__loaders__["b" /* loadJSON */])('./alphabet'), Object(__WEBPACK_IMPORTED_MODULE_1__loaders__["a" /* loadImage */])('./images/alphabet.png')]).then(async ([tileImage, tileData, fontData, fontImage]) => {
+
+    const sprites = new __WEBPACK_IMPORTED_MODULE_2__Sprite__["a" /* default */](tileImage, tileData);
+    for (let sprite in tileData) {
+        sprites.define(sprite);
+    }
+    await sprites.createLevelCompositor();
+
+    const font = new __WEBPACK_IMPORTED_MODULE_3__Font__["a" /* default */](fontImage, fontData);
+    for (let letter in fontData) {
+        font.define(letter);
+    }
+
+    Object(__WEBPACK_IMPORTED_MODULE_4__drawInfo__["a" /* drawStartMenu */])(context, sprites, font);
+    window.addEventListener('keypress', start);
+
+    return [sprites, font];
+});
+
+const start = event => {
+    if (event.key === 'Enter') {
+        window.removeEventListener('keypress', start);
+
+        game.then(([sprites, font]) => {
+            Object(__WEBPACK_IMPORTED_MODULE_0__game_field__["a" /* default */])(context, sprites);
+        });
+    }
+};
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = drawField;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__timer__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layers_collision__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__layers_camera__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__createPlayerEnvironment__ = __webpack_require__(3);
+
+
+
+
+
+
+
+function drawField(context, sprites) {
+
+    // const drawCollisions = createCollisionLayer(sprites);
+    // const drawCameraView = createCameraLayer(sprites.camera);
+
+    const timer = new __WEBPACK_IMPORTED_MODULE_0__timer__["a" /* default */](1 / 60);
+    timer.update = function update(deltaTime) {
+        sprites.update(deltaTime, context);
+        // drawCollisions(context, sprites.camera);
+        // drawCameraView(context, sprites.camera);
+    };
+    timer.start();
+
+    window.addEventListener('keypress', restart.bind(this, sprites));
+}
+
+const restart = async (sprites, e) => {
+    if (e.key === '-') {
+        sprites.level = 1;
+        await sprites.createLevelCompositor();
+    }
+};
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Timer {
+    constructor(deltaTime = 1 / 60) {
+        let lastTime = 0;
+        let accumulatedTime = 0;
+        let start = true;
+
+        this.updateProxy = time => {
+            if (start === true) {
+                lastTime = time;
+                start = false;
+            }
+
+            accumulatedTime += (time - lastTime) / 1000;
+
+            while (accumulatedTime > deltaTime) {
+                this.update(deltaTime);
+                accumulatedTime -= deltaTime;
+            }
+
+            lastTime = time;
+            this.enqueue();
+        };
+    }
+
+    enqueue() {
+        requestAnimationFrame(this.updateProxy);
+    }
+
+    start() {
+        this.enqueue();;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Timer;
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export default */
+function drawEntityBox(entities) {
+    return function drawBoundingBoxes(context, camera) {
+        context.strokeStyle = 'red';
+        entities.forEach(entity => {
+            context.beginPath();
+            context.rect(entity.bounds.left - camera.pos.x, entity.bounds.top - camera.pos.y, entity.size.x, entity.size.y);
+            context.stroke();
+        });
+    };
+}
+
+function createTileCandidateLayer(tileCollider) {
+    const resolvedTiles = [];
+
+    const tileResolver = tileCollider.tiles;
+    const tileSize = tileResolver.tileSize;
+
+    const getByIndexOriginal = tileResolver.getByIndex;
+
+    tileResolver.getByIndex = function getByIndexFake(x, y) {
+        resolvedTiles.push({ x, y });
+        return getByIndexOriginal.call(tileResolver, x, y);
+    };
+
+    return function drawTileCandidates(context, camera) {
+        context.strokeStyle = 'blue';
+        resolvedTiles.forEach(({ x, y }) => {
+            context.beginPath();
+            context.rect(x * tileSize - camera.pos.x, y * tileSize - camera.pos.y, tileSize, tileSize);
+            context.stroke();
+        });
+
+        resolvedTiles.length = 0;
+    };
+}
+
+function createCollisionLayer(sprites) {
+
+    const drawTileCandidates = createTileCandidateLayer(sprites.tileCollider);
+    const drawBoundingBoxes = drawEntityBox(sprites.entities);
+
+    return function drawCollisions(context, camera) {
+        drawTileCandidates(context, camera);
+        drawBoundingBoxes(context, camera);
+    };
+}
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export default */
+function createCameraLayer(cameraToDraw) {
+    return function drawCameraRect(context, fromCamera) {
+        context.strokeStyle = 'purple';
+        context.beginPath();
+        context.rect(cameraToDraw.pos.x - fromCamera.pos.x, cameraToDraw.pos.y - fromCamera.pos.y, cameraToDraw.size.x, cameraToDraw.size.y);
+        context.stroke();
+    };
+}
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = createCosmoFactory;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Traits_Jump__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Traits_Go__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Traits_Stomper__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Traits_Physics__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Traits_Killable__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Traits_Falling__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Traits_StateCosmo__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Traits_Dashboard__ = __webpack_require__(21);
+
+
+
+
+
+
+
+
+
+
+
+const SLOW_DRAG = 1 / 2000;
+const FAST_DRAG = 1 / 5000;
+
+function createCosmoFactory(sprites) {
+
+    function setTurboState(turtleOn) {
+        this.go.dragFactor = turtleOn ? SLOW_DRAG : FAST_DRAG;
+    }
+
+    function setTurtleState(turboOn) {
+        this.go.dragFactor = turboOn ? FAST_DRAG : SLOW_DRAG;
+    }
+
+    return function createCosmo() {
+        const cosmo = new __WEBPACK_IMPORTED_MODULE_0__Entity__["c" /* default */]('cosmo');
+
+        cosmo.player = true;
+
+        cosmo.size.set(20, 50);
+
+        cosmo.pos.set(185, 420);
+        cosmo.vel.set(0, -600);
+        cosmo.offset.set(9, 0);
+
+        sprites.entities.add(cosmo);
+
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_4__Traits_Physics__["a" /* default */]());
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_1__Traits_Jump__["a" /* default */]());
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_2__Traits_Go__["a" /* default */]());
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_3__Traits_Stomper__["a" /* default */]());
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_5__Traits_Killable__["a" /* default */]());
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_6__Traits_Falling__["a" /* default */]());
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_7__Traits_StateCosmo__["a" /* default */]());
+        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_8__Traits_Dashboard__["a" /* default */]());
+
+        cosmo.turboAndSlow = setTurboState;
+        cosmo.slowAndTurbo = setTurtleState;
+
+        return cosmo;
+    };
+}
+
+/***/ }),
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class BoundingBox {
+    constructor(pos, size, offset) {
+        this.pos = pos;
+        this.size = size;
+        this.offset = offset;
+    }
+
+    overlaps(box) {
+        return this.bottom > box.top && this.top < box.bottom && this.left < box.right && this.right > box.left;
+    }
+
+    get bottom() {
+        return this.pos.y + this.size.y + this.offset.y;
+    }
+
+    set bottom(y) {
+        this.pos.y = y - (this.size.y + this.offset.y);
+    }
+
+    get top() {
+        return this.pos.y + this.offset.y;
+    }
+
+    set top(y) {
+        this.pos.y = y - this.offset.y;
+    }
+
+    get left() {
+        return this.pos.x + this.offset.x;
+    }
+
+    set left(x) {
+        this.pos.x = x - this.offset.x;
+    }
+
+    get right() {
+        return this.pos.x + this.size.x + this.offset.x;
+    }
+
+    set right(x) {
+        this.pos.x = x - (this.size.x + this.offset.x);
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = BoundingBox;
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity_js__ = __webpack_require__(0);
+
+
+class Stomper extends __WEBPACK_IMPORTED_MODULE_0__Entity_js__["b" /* Trait */] {
+    constructor() {
+        super('stomper');
+        this.queueBounce = false;
+        this.bounceSpeed = 400;
+    }
+
+    bounce() {
+        this.queueBounce = true;
+    }
+
+    update(entity) {
+        if (this.queueBounce) {
+            entity.vel.y = -this.bounceSpeed;
+            this.queueBounce = false;
+        }
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Stomper;
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
+
+
+class Falling extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
+    constructor() {
+        super('falling');
+    }
+
+    update(entity, deltaTime, sprites) {
+        if (entity.pos.y > 800 && entity.stateCosmo.alive) {
+            entity.playerController.death(entity, sprites);
+            entity.sounds.playSound('fallInAbyss');
+        }
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Falling;
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
+
+
+class StateCosmo extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
+    constructor() {
+        super('stateCosmo');
+        this.lives = 3;
+        this.coins = 0;
+        this.keys = 0;
+        this.locks = 0;
+        this.alive = true;
+    }
+
+    update(entity, deltaTime, sprites) {
+
+        if (this.coins > 50) {
+            this.coins = 0;
+            this.lives++;
+        }
+
+        if (this.locks === 1) {
+            this.locks = 0;
+            sprites.level++;
+            sprites.createLevelCompositor('won');
+        }
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = StateCosmo;
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
+
+
+class Dashboard extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
+    constructor() {
+        super('dashboard');
+    }
+
+    update(entity, deltaTime, sprites, context) {
+        const time = Math.round(entity.playerController.time);
+
+        context.font = "22px Verdana";
+
+        context.fillStyle = "darkViolet";
+        context.fillText(`LEVEL : 1`, 20, 22);
+        context.fillText(`COINS : ${entity.stateCosmo.coins}`, 160, 22);
+        context.fillText(`LIVES : ${entity.stateCosmo.lives}`, 300, 22);
+
+        context.fillText(`KEYS : ${entity.stateCosmo.keys}`, 460, 22);
+
+        context.fillText(`TIME : ${time}`, 840, 22);
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Dashboard;
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__math__ = __webpack_require__(1);
+
+
+
+const TIME_LIMIT = 60;
+/* unused harmony export TIME_LIMIT */
+
+
+class PlayerController extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
+    constructor(entity) {
+        super('playerController');
+
+        this.player = entity;
+        this.checkPoint = new __WEBPACK_IMPORTED_MODULE_1__math__["b" /* Vect */](0, 0);
+
+        this.time = TIME_LIMIT;
+        this.stopTime = false;
+    }
+
+    death(entity, sprites) {
+        this.player.stateCosmo.lives--;
+
+        if (this.player.stateCosmo.alive) {
+            this.player.killable.kill();
+        }
+
+        if (this.player.stateCosmo.lives > 0) {
+            this.player.killable.revive();
+            this.player.pos.set(this.checkPoint.x, this.checkPoint.y);
+            sprites.entities.add(this.player);
+        } else {
+            entity.stateCosmo.alive = false;
+            entity.sounds.playSound('gameOver');
+            sprites.gameOver();
+        }
+
+        this.updateTimer();
+    }
+
+    updateTimer() {
+        this.time = TIME_LIMIT;
+    }
+
+    update(entity, deltaTime, sprites, context) {
+        if (!sprites.entities.has(entity) && entity.stateCosmo.alive) {
+
+            this.death(entity, sprites);
+        } else if (!this.stopTime) {
+
+            this.time -= deltaTime;
+        }
+
+        if (this.time <= 0) {
+            this.death(entity, sprites);
+        }
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = PlayerController;
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = setupKeyboard;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__keyboardState__ = __webpack_require__(24);
+
+
+function setupKeyboard(cosmo) {
+    const input = new __WEBPACK_IMPORTED_MODULE_0__keyboardState__["a" /* default */]();
+
+    input.addMapping('Space', keyState => {
+        if (keyState) {
+            cosmo.jump.start();
+        } else {
+            cosmo.jump.cancel();
+        }
+    });
+
+    input.addMapping('KeyO', keyState => {
+        cosmo.slowAndTurbo(keyState);
+    });
+    input.addMapping('KeyP', keyState => {
+        cosmo.turboAndSlow(keyState);
+    });
+
+    input.addMapping('ArrowRight', keyState => {
+        cosmo.go.dir += keyState ? 1 : -1;
+    });
+
+    input.addMapping('ArrowLeft', keyState => {
+        cosmo.go.dir += keyState ? -1 : 1;
+    });
+
+    return input;
+}
+
+/***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const PRESSED = 1;
+const RELEASED = 0;
+
+class KeyboardState {
+    constructor() {
+        this.keyStates = new Map();
+        this.keyMap = new Map();
+    }
+    addMapping(code, callback) {
+        this.keyMap.set(code, callback);
+    }
+    handleEvent(event) {
+        const { code } = event;
+
+        if (!this.keyMap.has(code)) {
+            return;
+        }
+
+        event.preventDefault();
+
+        const keyState = event.type === 'keydown' ? PRESSED : RELEASED;
+
+        if (this.keyStates.get(code) === keyState) {
+            return;
+        }
+
+        this.keyStates.set(code, keyState);
+
+        this.keyMap.get(code)(keyState);
+    }
+
+    listenTo(window) {
+        ['keydown', 'keyup'].forEach(eventName => {
+            window.addEventListener(eventName, event => {
+                this.handleEvent(event);
+            });
+        });
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = KeyboardState;
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export setupMouseControl */
+function setupMouseControl(canvas, entity, camera) {
+    let lastEvent;
+
+    ['mousedown', 'mousemove'].forEach(eventName => {
+        canvas.addEventListener(eventName, event => {
+            if (event.buttons === 1) {
+                entity.vel.set(0, 0);
+                entity.pos.set(event.offsetX + camera.pos.x, event.offsetY + camera.pos.y);
+            }
+        });
+    });
+
+    window.addEventListener('keydown', event => {
+        // console.log(event.code);
+        if (event.code === 'KeyD') {
+            camera.pos.x += 75;
+        }
+        if (event.code === 'KeyA') {
+            camera.pos.x -= 75;
+        }
+    });
+}
+
+/***/ }),
+/* 26 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__math__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TileCollider__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__EntityCollider__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__animations__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__spritesheet__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Sounds__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TileCollider__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__EntityCollider__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__animations__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__spritesheet__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Sounds__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__layers_background__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__loaders__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__createEntities__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__createPlayerEnvironment__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__drawInfo__ = __webpack_require__(9);
+
+
+
+
+
+
+
 
 
 
@@ -642,7 +1241,6 @@ class Sprite extends __WEBPACK_IMPORTED_MODULE_4__spritesheet__["a" /* default *
     }
 
     draw(name, context, x, y, type, flip) {
-
         const buffer = this.tiles.get(`${name}.png`)[flip ? 1 : 0];
 
         if (type) {
@@ -691,9 +1289,53 @@ class Sprite extends __WEBPACK_IMPORTED_MODULE_4__spritesheet__["a" /* default *
         context.drawImage(buffer, cosmo.pos.x - this.camera.pos.x, cosmo.pos.y - this.camera.pos.y);
     }
 
-    update(deltaTime, context) {
+    createLevelCompositor(result) {
+        return Object(__WEBPACK_IMPORTED_MODULE_7__loaders__["b" /* loadJSON */])(`./levels/1-${this.level}`).then(layout => {
+            this.entities.forEach(entity => {
+                if (!result) {
+                    this.entities.delete(entity);
+                } else {
+                    if (!entity.player) {
+                        this.entities.delete(entity);
+                    } else {
+                        entity.pos.set(100, 100);
+                    }
+                }
+            });
+            this.tilesMatrix.grid = [];
+            this.camera.pos.x = 0;
+
+            Object(__WEBPACK_IMPORTED_MODULE_8__createEntities__["a" /* createEntities */])(this, layout);
+            if (!result) {
+                Object(__WEBPACK_IMPORTED_MODULE_9__createPlayerEnvironment__["a" /* default */])(this);
+            }
+
+            this.drawLevel = Object(__WEBPACK_IMPORTED_MODULE_6__layers_background__["a" /* default */])(this, layout);
+        }).catch(e => {
+            console.log('Congratulations, no more levels');
+            console.log(e);
+            this.gameOver('done');
+        });
+    }
+
+    gameOver(result) {
         this.entities.forEach(entity => {
-            entity.update(deltaTime, this);
+            this.entities.delete(entity);
+        });
+        this.tilesMatrix.grid = [];
+        this.camera.pos.x = 0;
+
+        if (!result) {
+            this.drawLevel = Object(__WEBPACK_IMPORTED_MODULE_10__drawInfo__["c" /* showGameOver */])(this);
+        } else {
+            this.drawLevel = Object(__WEBPACK_IMPORTED_MODULE_10__drawInfo__["b" /* showCongratulations */])(this);
+        }
+    }
+
+    update(deltaTime, context) {
+        this.drawLevel(context);
+        this.entities.forEach(entity => {
+            entity.update(deltaTime, this, context);
 
             if (entity.name === 'cosmo') {
                 this.drawCosmo(entity, context);
@@ -714,11 +1356,11 @@ class Sprite extends __WEBPACK_IMPORTED_MODULE_4__spritesheet__["a" /* default *
 
 
 /***/ }),
-/* 12 */
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TileResolver__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TileResolver__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Entity__ = __webpack_require__(0);
 
 
@@ -733,7 +1375,8 @@ class TileCollider {
             entity.pos.x = 0;
         }
         if (entity.bounds.right > this.tiles.tileSize * this.tiles.matrix.grid.length) {
-            entity.pos.x = this.tiles.tileSize * this.tiles.matrix.grid.length - entity.size.x;
+            entity.pos.x = this.tiles.tileSize * this.tiles.matrix.grid.length - entity.size.x - entity.offset.x;
+            console.log(entity.pos.x);
         }
 
         let x;
@@ -815,7 +1458,7 @@ class TileCollider {
 
 
 /***/ }),
-/* 13 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -882,58 +1525,7 @@ class TileResolver {
 
 
 /***/ }),
-/* 14 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class BoundingBox {
-    constructor(pos, size, offset) {
-        this.pos = pos;
-        this.size = size;
-        this.offset = offset;
-    }
-
-    overlaps(box) {
-        return this.bottom > box.top && this.top < box.bottom && this.left < box.right && this.right > box.left;
-    }
-
-    get bottom() {
-        return this.pos.y + this.size.y + this.offset.y;
-    }
-
-    set bottom(y) {
-        this.pos.y = y - (this.size.y + this.offset.y);
-    }
-
-    get top() {
-        return this.pos.y + this.offset.y;
-    }
-
-    set top(y) {
-        this.pos.y = y - this.offset.y;
-    }
-
-    get left() {
-        return this.pos.x + this.offset.x;
-    }
-
-    set left(x) {
-        this.pos.x = x - this.offset.x;
-    }
-
-    get right() {
-        return this.pos.x + this.size.x + this.offset.x;
-    }
-
-    set right(x) {
-        this.pos.x = x - (this.size.x + this.offset.x);
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = BoundingBox;
-
-
-/***/ }),
-/* 15 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -959,7 +1551,7 @@ class EntityCollider {
 
 
 /***/ }),
-/* 16 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -973,7 +1565,7 @@ function createAnimation(frames, frameLen) {
 }
 
 /***/ }),
-/* 17 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -990,7 +1582,7 @@ class Camera {
 
 
 /***/ }),
-/* 18 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1021,164 +1613,7 @@ class Sounds {
 
 
 /***/ }),
-/* 19 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spritesheet__ = __webpack_require__(3);
-
-
-class Font extends __WEBPACK_IMPORTED_MODULE_0__spritesheet__["a" /* default */] {
-    constructor(image, data) {
-        super(image, data);
-    }
-
-    print(text, context, x, y, sizeX, sizeY, flip) {
-        [...text].forEach((letter, index) => {
-            const buffer = this.tiles.get(`${letter}.png`)[flip ? 1 : 0];
-
-            context.drawImage(buffer, x + index * sizeX, y, sizeX, sizeY);
-        });
-    }
-}
-/* unused harmony export default */
-
-
-/***/ }),
-/* 20 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Timer {
-    constructor(deltaTime = 1 / 60) {
-        let lastTime = 0;
-        let accumulatedTime = 0;
-
-        this.updateProxy = time => {
-            accumulatedTime += (time - lastTime) / 1000;
-
-            while (accumulatedTime > deltaTime) {
-                this.update(deltaTime);
-                accumulatedTime -= deltaTime;
-            }
-
-            lastTime = time;
-            this.enqueue();
-        };
-    }
-
-    enqueue() {
-        requestAnimationFrame(this.updateProxy);
-    }
-
-    start() {
-        this.enqueue();
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Timer;
-
-
-/***/ }),
-/* 21 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = createCollisionLayer;
-function drawEntityBox(entities) {
-    return function drawBoundingBoxes(context, camera) {
-        context.strokeStyle = 'red';
-        entities.forEach(entity => {
-            context.beginPath();
-            context.rect(entity.bounds.left - camera.pos.x, entity.bounds.top - camera.pos.y, entity.size.x, entity.size.y);
-            context.stroke();
-        });
-    };
-}
-
-function createTileCandidateLayer(tileCollider) {
-    const resolvedTiles = [];
-
-    const tileResolver = tileCollider.tiles;
-    const tileSize = tileResolver.tileSize;
-
-    const getByIndexOriginal = tileResolver.getByIndex;
-
-    tileResolver.getByIndex = function getByIndexFake(x, y) {
-        resolvedTiles.push({ x, y });
-        return getByIndexOriginal.call(tileResolver, x, y);
-    };
-
-    return function drawTileCandidates(context, camera) {
-        context.strokeStyle = 'blue';
-        resolvedTiles.forEach(({ x, y }) => {
-            context.beginPath();
-            context.rect(x * tileSize - camera.pos.x, y * tileSize - camera.pos.y, tileSize, tileSize);
-            context.stroke();
-        });
-
-        resolvedTiles.length = 0;
-    };
-}
-
-function createCollisionLayer(sprites) {
-
-    const drawTileCandidates = createTileCandidateLayer(sprites.tileCollider);
-    const drawBoundingBoxes = drawEntityBox(sprites.entities);
-
-    return function drawCollisions(context, camera) {
-        drawTileCandidates(context, camera);
-        drawBoundingBoxes(context, camera);
-    };
-}
-
-/***/ }),
-/* 22 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = createCameraLayer;
-function createCameraLayer(cameraToDraw) {
-    return function drawCameraRect(context, fromCamera) {
-        context.strokeStyle = 'purple';
-        context.beginPath();
-        context.rect(cameraToDraw.pos.x - fromCamera.pos.x, cameraToDraw.pos.y - fromCamera.pos.y, cameraToDraw.size.x, cameraToDraw.size.y);
-        context.stroke();
-    };
-}
-
-/***/ }),
-/* 23 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layers_background__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__loaders__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__entities__ = __webpack_require__(25);
-
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = (function (sprites) {
-    // return loadJSON(`./levels/1-${sprites.level}`).then((layout) => {
-    return Object(__WEBPACK_IMPORTED_MODULE_1__loaders__["b" /* loadJSON */])(`./levels/1-2`).then(layout => {
-        sprites.entities.forEach(entity => {
-            if (!entity.player) {
-                sprites.entities.delete(entity);
-            } else {
-                entity.pos.set(100, 100);
-            }
-        });
-        sprites.tilesMatrix.grid = [];
-
-        Object(__WEBPACK_IMPORTED_MODULE_2__entities__["a" /* createEntities */])(sprites, layout);
-
-        const drawBackgroundLayer = Object(__WEBPACK_IMPORTED_MODULE_0__layers_background__["a" /* default */])(sprites, layout);
-        return drawBackgroundLayer;
-    });
-});
-
-/***/ }),
-/* 24 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1226,13 +1661,13 @@ function drawBackground(sprites, layout) {
 }
 
 /***/ }),
-/* 25 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = createEntities;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entities_Enemies__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Entities_Artefacts__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entities_Enemies__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Entities_Artefacts__ = __webpack_require__(37);
 
 
 
@@ -1268,17 +1703,17 @@ function createEntities(sprites, layout) {
 }
 
 /***/ }),
-/* 26 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = createEnemiesFactory;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Traits_Jump__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Traits_Go__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Traits_Jump__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Traits_Go__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Traits_Killable__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Traits_PendulumWalk__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Traits_Physics__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Traits_PendulumWalk__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Traits_Physics__ = __webpack_require__(6);
 
 
 
@@ -1341,7 +1776,7 @@ function createEnemiesFactory(sprites) {
 }
 
 /***/ }),
-/* 27 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1370,7 +1805,7 @@ class PendulumWalk extends __WEBPACK_IMPORTED_MODULE_0__Entity_js__["b" /* Trait
 
 
 /***/ }),
-/* 28 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1397,6 +1832,7 @@ class Behavior extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
                 us.killable.kill();
                 them.stateCosmo.coins++;
                 them.sounds.playSound('getCoin');
+                them.playerController.time++;
             } else if (us.name.includes('key')) {
                 us.killable.kill();
                 them.stateCosmo.keys++;
@@ -1405,7 +1841,11 @@ class Behavior extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
                 if (them.stateCosmo.keys) {
                     us.killable.kill();
                     them.sounds.playSound('openLocks');
+                    them.stateCosmo.locks++;
+                    them.stateCosmo.keys--;
                     console.log('congratulation - next level');
+                } else {
+                    console.log('take a key');
                 }
             }
         }
@@ -1429,439 +1869,37 @@ function createArtefactsFactory(sprites) {
 }
 
 /***/ }),
-/* 29 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entities_Cosmo__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Traits_PlayerController__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__input__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__debug__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layers_dashboard__ = __webpack_require__(39);
-
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = (function (sprites) {
-    const createCosmo = Object(__WEBPACK_IMPORTED_MODULE_0__Entities_Cosmo__["a" /* createCosmoFactory */])(sprites);
-    const cosmo = createCosmo();
-
-    createPlayerEnv(cosmo);
-    const drawDashboard = Object(__WEBPACK_IMPORTED_MODULE_4__layers_dashboard__["a" /* default */])(cosmo);
-
-    const input = Object(__WEBPACK_IMPORTED_MODULE_2__input__["a" /* default */])(cosmo);
-    Object(__WEBPACK_IMPORTED_MODULE_3__debug__["a" /* setupMouseControl */])(canvas, cosmo, sprites.camera);
-    input.listenTo(window);
-
-    return [drawDashboard, cosmo];
-});
-
-function createPlayerEnv(playerEntity) {
-    const playerControl = new __WEBPACK_IMPORTED_MODULE_1__Traits_PlayerController__["a" /* default */](playerEntity);
-    playerControl.checkPoint.set(42, 42);
-    playerEntity.addTrait(playerControl);
-}
-
-/***/ }),
-/* 30 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = createCosmoFactory;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Traits_Jump__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Traits_Go__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Traits_Stomper__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Traits_Physics__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Traits_Killable__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Traits_ReachEdge__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Traits_Falling__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Traits_StateCosmo__ = __webpack_require__(34);
-
-
-
-
-
-
-
-
-
-
-
-
-const SLOW_DRAG = 1 / 2000;
-const FAST_DRAG = 1 / 5000;
-
-function createCosmoFactory(sprites) {
-
-        function setTurboState(turtleOn) {
-                this.go.dragFactor = turtleOn ? SLOW_DRAG : FAST_DRAG;
-        }
-
-        function setTurtleState(turboOn) {
-                this.go.dragFactor = turboOn ? FAST_DRAG : SLOW_DRAG;
-        }
-
-        return function createCosmo() {
-                const cosmo = new __WEBPACK_IMPORTED_MODULE_0__Entity__["c" /* default */]('cosmo');
-
-                cosmo.player = true;
-
-                cosmo.size.set(20, 50);
-
-                cosmo.pos.set(185, 420);
-                cosmo.vel.set(0, -600);
-                cosmo.offset.set(9, 0);
-
-                sprites.entities.add(cosmo);
-
-                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_4__Traits_Physics__["a" /* default */]());
-                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_1__Traits_Jump__["a" /* default */]());
-                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_2__Traits_Go__["a" /* default */]());
-                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_3__Traits_Stomper__["a" /* default */]());
-                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_5__Traits_Killable__["a" /* default */]());
-
-                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_7__Traits_Falling__["a" /* default */]());
-                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_8__Traits_StateCosmo__["a" /* default */]());
-
-                cosmo.turboAndSlow = setTurboState;
-                cosmo.slowAndTurbo = setTurtleState;
-
-                return cosmo;
-        };
-}
-
-/***/ }),
-/* 31 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity_js__ = __webpack_require__(0);
-
-
-class Stomper extends __WEBPACK_IMPORTED_MODULE_0__Entity_js__["b" /* Trait */] {
-    constructor() {
-        super('stomper');
-        this.queueBounce = false;
-        this.bounceSpeed = 400;
-    }
-
-    bounce() {
-        this.queueBounce = true;
-    }
-
-    update(entity) {
-        if (this.queueBounce) {
-            entity.vel.y = -this.bounceSpeed;
-            this.queueBounce = false;
-        }
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Stomper;
-
-
-/***/ }),
-/* 32 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
-
-
-class ReachEdge extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
-    constructor() {
-        super('reachEdge');
-    }
-
-    update(entity, deltaTime, sprites) {
-        if (entity.pos.x < 0) {
-            // entity.pos.x = 1;
-        }
-    }
-}
-/* unused harmony export default */
-
-
-/***/ }),
-/* 33 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
-
-
-class Falling extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
-    constructor() {
-        super('falling');
-    }
-
-    update(entity, deltaTime, sprites) {
-        let currentX = entity.pos.x;
-        if (entity.pos.y > 800 && entity.stateCosmo.alive) {
-            entity.playerController.death(entity, sprites);
-
-            entity.sounds.playSound('fallInAbyss');
-
-            entity.playerController.updateTimer();
-        }
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Falling;
-
-
-/***/ }),
-/* 34 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
-
-
-class StateCosmo extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
-    constructor() {
-        super('stateCosmo');
-        this.lives = 3;
-        this.coins = 0;
-        this.keys = 0;
-        this.locks = 0;
-        this.opebedLocks = 0;
-        this.alive = true;
-    }
-
-    update(entity, deltaTime, sprites) {
-
-        if (this.coins > 50) {
-            this.coins = 0;
-            this.lives++;
-        }
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = StateCosmo;
-
-
-/***/ }),
-/* 35 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Entity__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__math__ = __webpack_require__(1);
-
-
-
-const TIME_LIMIT = 60;
-
-class PlayerController extends __WEBPACK_IMPORTED_MODULE_0__Entity__["b" /* Trait */] {
-    constructor(entity) {
-        super('playerController');
-
-        this.player = entity;
-        this.checkPoint = new __WEBPACK_IMPORTED_MODULE_1__math__["b" /* Vect */](0, 0);
-
-        this.time = TIME_LIMIT;
-        this.stopTime = false;
-    }
-
-    death(entity, sprites) {
-
-        this.player.stateCosmo.lives--;
-
-        if (this.player.stateCosmo.lives > 0) {
-            this.player.killable.revive();
-            this.player.pos.set(this.checkPoint.x, this.checkPoint.y);
-            sprites.entities.add(this.player);
-            this.updateTimer();
-        } else {
-
-            entity.stateCosmo.alive = false;
-            entity.sounds.playSound('gameOver');
-        }
-    }
-
-    updateTimer() {
-        this.time = TIME_LIMIT;
-    }
-
-    update(entity, deltaTime, sprites) {
-        if (!sprites.entities.has(entity) && entity.stateCosmo.alive) {
-
-            this.death(entity, sprites);
-        } else if (!this.stopTime) {
-
-            this.time -= deltaTime;
-        }
-
-        if (this.time <= 0) {
-
-            this.death(entity, sprites);
-            this.updateTimer();
-        }
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = PlayerController;
-
-
-/***/ }),
-/* 36 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = setupKeyboard;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__keyboardState__ = __webpack_require__(37);
-
-
-function setupKeyboard(cosmo) {
-    const input = new __WEBPACK_IMPORTED_MODULE_0__keyboardState__["a" /* default */]();
-
-    input.addMapping('Space', keyState => {
-        if (keyState) {
-            cosmo.jump.start();
-        } else {
-            cosmo.jump.cancel();
-        }
-    });
-
-    input.addMapping('KeyO', keyState => {
-        cosmo.slowAndTurbo(keyState);
-    });
-    input.addMapping('KeyP', keyState => {
-        cosmo.turboAndSlow(keyState);
-    });
-
-    input.addMapping('ArrowRight', keyState => {
-        cosmo.go.dir += keyState ? 1 : -1;
-    });
-
-    input.addMapping('ArrowLeft', keyState => {
-        cosmo.go.dir += keyState ? -1 : 1;
-    });
-
-    return input;
-}
-
-/***/ }),
-/* 37 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const PRESSED = 1;
-const RELEASED = 0;
-
-class KeyboardState {
-    constructor() {
-        this.keyStates = new Map();
-        this.keyMap = new Map();
-    }
-    addMapping(code, callback) {
-        this.keyMap.set(code, callback);
-    }
-    handleEvent(event) {
-        const { code } = event;
-
-        if (!this.keyMap.has(code)) {
-            return;
-        }
-
-        event.preventDefault();
-
-        const keyState = event.type === 'keydown' ? PRESSED : RELEASED;
-
-        if (this.keyStates.get(code) === keyState) {
-            return;
-        }
-
-        this.keyStates.set(code, keyState);
-
-        this.keyMap.get(code)(keyState);
-    }
-
-    listenTo(window) {
-        ['keydown', 'keyup'].forEach(eventName => {
-            window.addEventListener(eventName, event => {
-                this.handleEvent(event);
-            });
-        });
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = KeyboardState;
-
-
-/***/ }),
 /* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = setupMouseControl;
-function setupMouseControl(canvas, entity, camera) {
-    let lastEvent;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spritesheet__ = __webpack_require__(8);
 
-    ['mousedown', 'mousemove'].forEach(eventName => {
-        canvas.addEventListener(eventName, event => {
-            if (event.buttons === 1) {
-                entity.vel.set(0, 0);
-                entity.pos.set(event.offsetX + camera.pos.x, event.offsetY + camera.pos.y);
-            }
+
+class Font extends __WEBPACK_IMPORTED_MODULE_0__spritesheet__["a" /* default */] {
+    constructor(image, data) {
+        super(image, data);
+    }
+
+    print(text, context, x, y, sizeX, sizeY, flip) {
+        [...text].forEach((letter, index) => {
+            const buffer = this.tiles.get(`${letter}.png`)[flip ? 1 : 0];
+
+            context.drawImage(buffer, x + index * sizeX, y, sizeX, sizeY);
         });
-    });
-
-    window.addEventListener('keydown', event => {
-        // console.log(event.code);
-        if (event.code === 'KeyD') {
-            camera.pos.x += 75;
-        }
-        if (event.code === 'KeyA') {
-            camera.pos.x -= 75;
-        }
-    });
+    }
 }
+/* harmony export (immutable) */ __webpack_exports__["a"] = Font;
+
 
 /***/ }),
 /* 39 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = createDashboardLayer;
-function createDashboardLayer(entity) {
-        return function drawDashboard(context) {
-
-                const time = Math.round(entity.playerController.time);
-
-                context.font = "22px Verdana";
-
-                context.fillStyle = "darkViolet";
-                context.fillText(`LEVEL : 1`, 20, 22);
-                context.fillText(`COINS : ${entity.stateCosmo.coins}`, 160, 22);
-                context.fillText(`LIVES : ${entity.stateCosmo.lives}`, 300, 22);
-
-                context.fillText(`KEYS : ${entity.stateCosmo.keys}`, 460, 22);
-
-                context.fillText(`TIME : ${time}`, 840, 22);
-
-                // if (!entity.stateCosmo.alive)  {
-
-                if (!entity.stateCosmo.alive) {
-
-                        context.font = "50px Verdana";
-                        context.strokeStyle = "red";
-                        context.strokeText(`GAME OVER`, 350, 350);
-
-                        entity.playerController.time = 60;
-                        entity.playerController.stopTime = true;
-                        entity.killable.kill();
-                }
-        };
-}
-
-/***/ }),
-/* 40 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
