@@ -60,22 +60,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-<<<<<<< HEAD
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
-=======
 /******/ 	return __webpack_require__(__webpack_require__.s = 10);
->>>>>>> 6b0046336be52417061005e1e467172dae63f86d
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-<<<<<<< HEAD
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(1);
-__webpack_require__(2);
-module.exports = __webpack_require__(3);
-=======
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -154,19 +143,10 @@ class Entity {
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["c"] = Entity;
->>>>>>> 6b0046336be52417061005e1e467172dae63f86d
 
 
 /***/ }),
 /* 1 */
-<<<<<<< HEAD
-/***/ (function(module, exports) {
-
-// Entry file for js scripts
-
-/***/ }),
-/* 2 */
-=======
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -829,41 +809,41 @@ const FAST_DRAG = 1 / 5000;
 
 function createCosmoFactory(sprites) {
 
-    function setTurboState(turtleOn) {
-        this.go.dragFactor = turtleOn ? SLOW_DRAG : FAST_DRAG;
-    }
+        function setTurboState(turtleOn) {
+                this.go.dragFactor = turtleOn ? SLOW_DRAG : FAST_DRAG;
+        }
 
-    function setTurtleState(turboOn) {
-        this.go.dragFactor = turboOn ? FAST_DRAG : SLOW_DRAG;
-    }
+        function setTurtleState(turboOn) {
+                this.go.dragFactor = turboOn ? FAST_DRAG : SLOW_DRAG;
+        }
 
-    return function createCosmo() {
-        const cosmo = new __WEBPACK_IMPORTED_MODULE_0__Entity__["c" /* default */]('cosmo');
+        return function createCosmo() {
+                const cosmo = new __WEBPACK_IMPORTED_MODULE_0__Entity__["c" /* default */]('cosmo');
 
-        cosmo.player = true;
+                cosmo.player = true;
 
-        cosmo.size.set(20, 50);
+                cosmo.size.set(20, 50);
 
-        cosmo.pos.set(185, 420);
-        cosmo.vel.set(0, -600);
-        cosmo.offset.set(9, 0);
+                cosmo.pos.set(185, 420);
+                cosmo.vel.set(0, -600);
+                cosmo.offset.set(9, 0);
 
-        sprites.entities.add(cosmo);
+                sprites.entities.add(cosmo);
 
-        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_4__Traits_Physics__["a" /* default */]());
-        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_1__Traits_Jump__["a" /* default */]());
-        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_2__Traits_Go__["a" /* default */]());
-        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_3__Traits_Stomper__["a" /* default */]());
-        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_5__Traits_Killable__["a" /* default */]());
-        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_6__Traits_Falling__["a" /* default */]());
-        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_7__Traits_StateCosmo__["a" /* default */]());
-        cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_8__Traits_Dashboard__["a" /* default */]());
+                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_4__Traits_Physics__["a" /* default */]());
+                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_1__Traits_Jump__["a" /* default */]());
+                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_2__Traits_Go__["a" /* default */]());
+                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_3__Traits_Stomper__["a" /* default */]());
+                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_5__Traits_Killable__["a" /* default */]());
+                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_6__Traits_Falling__["a" /* default */]());
+                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_7__Traits_StateCosmo__["a" /* default */]());
+                cosmo.addTrait(new __WEBPACK_IMPORTED_MODULE_8__Traits_Dashboard__["a" /* default */]());
 
-        cosmo.turboAndSlow = setTurboState;
-        cosmo.slowAndTurbo = setTurtleState;
+                cosmo.turboAndSlow = setTurboState;
+                cosmo.slowAndTurbo = setTurtleState;
 
-        return cosmo;
-    };
+                return cosmo;
+        };
 }
 
 /***/ }),
@@ -1914,23 +1894,15 @@ class Font extends __WEBPACK_IMPORTED_MODULE_0__spritesheet__["a" /* default */]
 
 /***/ }),
 /* 39 */
->>>>>>> 6b0046336be52417061005e1e467172dae63f86d
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-<<<<<<< HEAD
-/* 3 */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed: ModuleNotFoundError: Module not found: Error: Can't resolve '../src/fonts/Bello-Script.ttf' in 'D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\style\\scss'\n    at factoryCallback (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\webpack\\lib\\Compilation.js:276:40)\n    at factory (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\webpack\\lib\\NormalModuleFactory.js:235:20)\n    at resolver (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\webpack\\lib\\NormalModuleFactory.js:60:20)\n    at asyncLib.parallel.e (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\webpack\\lib\\NormalModuleFactory.js:127:20)\n    at D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\async\\dist\\async.js:3874:9\n    at D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\async\\dist\\async.js:473:16\n    at iteratorCallback (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\async\\dist\\async.js:1048:13)\n    at D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\async\\dist\\async.js:958:16\n    at D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\async\\dist\\async.js:3871:13\n    at resolvers.normal.resolve (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\webpack\\lib\\NormalModuleFactory.js:119:22)\n    at onError (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\Resolver.js:65:10)\n    at loggingCallbackWrapper (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\createInnerCallback.js:31:19)\n    at runAfter (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\Resolver.js:158:4)\n    at innerCallback (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\Resolver.js:146:3)\n    at loggingCallbackWrapper (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\createInnerCallback.js:31:19)\n    at next (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\tapable\\lib\\Tapable.js:252:11)\n    at D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\UnsafeCachePlugin.js:40:4\n    at loggingCallbackWrapper (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\createInnerCallback.js:31:19)\n    at runAfter (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\Resolver.js:158:4)\n    at innerCallback (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\Resolver.js:146:3)\n    at loggingCallbackWrapper (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\createInnerCallback.js:31:19)\n    at next (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\tapable\\lib\\Tapable.js:252:11)\n    at innerCallback (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\Resolver.js:144:11)\n    at loggingCallbackWrapper (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\createInnerCallback.js:31:19)\n    at next (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\tapable\\lib\\Tapable.js:249:35)\n    at resolver.doResolve.createInnerCallback (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\DescriptionFilePlugin.js:44:6)\n    at loggingCallbackWrapper (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\createInnerCallback.js:31:19)\n    at afterInnerCallback (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\Resolver.js:168:10)\n    at loggingCallbackWrapper (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\enhanced-resolve\\lib\\createInnerCallback.js:31:19)\n    at next (D:\\JS_RollingScopes\\___RSS#2\\Game for 2 stage\\Santa\\node_modules\\tapable\\lib\\Tapable.js:252:11)");
-=======
 /* 40 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
->>>>>>> 6b0046336be52417061005e1e467172dae63f86d
 
 /***/ })
 /******/ ]);

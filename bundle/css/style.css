@@ -40,8 +40,6 @@ q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0; }
-<<<<<<< HEAD
-=======
 @font-face {
   font-family: "Bello-Script";
   src: url("/style/fonts/Bello-Script.ttf") format("truetype");
@@ -142,6 +140,5 @@ article {
 
 footer p {
   font-size: 0.8rem; }
->>>>>>> 6b0046336be52417061005e1e467172dae63f86d
 
 /*# sourceMappingURL=style.css.map*/
