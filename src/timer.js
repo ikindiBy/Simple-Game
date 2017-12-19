@@ -11,15 +11,18 @@ export default class Timer {
             }
 
             accumulatedTime += (time - lastTime) / 1000;
-
             while (accumulatedTime > deltaTime) {
                 this.update(deltaTime);
                 accumulatedTime -= deltaTime;
             }
 
             lastTime = time;
-            this.enqueue();
+            if (!this.stop) {
+                this.enqueue();
+            }
         }
+
+        this.stop = false;
     }
 
     enqueue() {
@@ -27,6 +30,11 @@ export default class Timer {
     }
 
     start() {
+        this.stop = false;
         this.enqueue();;
+    }
+
+    stopTimer() {
+        this.stop = true;
     }
 }

@@ -25,7 +25,7 @@ export function showCongratulations(sprites) {
 
         context.font = "italic 25px Helvetica";
         context.fillStyle = "darkSlateBlue";
-        context.fillText(`no more levels`, 10, 580);
+        context.fillText(`no more levels`, 10, 570);
         context.fillText(`key "R" to restart`, 10, 600);
     }
 }

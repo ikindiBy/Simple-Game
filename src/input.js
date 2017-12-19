@@ -11,10 +11,10 @@ export default function setupKeyboard(cosmo) {
         }
     });
 
-    input.addMapping('KeyO', keyState => {
+    input.addMapping('ShiftLeft', keyState => {
         cosmo.slowAndTurbo(keyState);
     });
-    input.addMapping('KeyP', keyState => {
+    input.addMapping('ControlLeft', keyState => {
         cosmo.turboAndSlow(keyState);
     });
 

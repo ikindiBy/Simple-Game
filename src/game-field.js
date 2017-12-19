@@ -19,6 +19,7 @@ export default function drawField(context, sprites) {
     timer.start();
 
     window.addEventListener('keypress', restart.bind(this, sprites));
+    window.addEventListener('keypress', stopTimer.bind(this, timer));
 }
 
 const restart = async (sprites, e) => {
@@ -26,4 +27,14 @@ const restart = async (sprites, e) => {
         sprites.level = 1;
         await sprites.createLevelCompositor();
     }
-}
+};
+
+const stopTimer = (timer, e) => {
+    if (e.code === 'KeyP') {
+        if (timer.stop) {
+            timer.start();
+        } else {
+            timer.stopTimer();
+        }
+    }
+};
