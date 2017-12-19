@@ -22,7 +22,7 @@ export default function drawField(context, sprites) {
 }
 
 const restart = async (sprites, e) => {
-    if (e.key === '-') {
+    if (e.code === 'KeyR') {
         sprites.level = 1;
         await sprites.createLevelCompositor();
     }

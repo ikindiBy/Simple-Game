@@ -9,7 +9,7 @@ export function showGameOver(sprites) {
         context.strokeStyle = "red";
         context.strokeText(`GAME OVER`, 320, 210);
         context.strokeText(`PRESS RESTART BUTTON`, 170, 310);
-        context.strokeText(`Key "-"`, 420, 410);
+        context.strokeText(`Key "R"`, 380, 410);
     }
 }
 
@@ -26,12 +26,12 @@ export function showCongratulations(sprites) {
         context.font = "italic 25px Helvetica";
         context.fillStyle = "darkSlateBlue";
         context.fillText(`no more levels`, 10, 580);
-        context.fillText(`key "-" to restart`, 10, 600);
+        context.fillText(`key "R" to restart`, 10, 600);
     }
 }
 
 export function drawStartMenu(context, sprites, font) {
-    
+
     sprites.draw('bg', context, 0, 0);
     font.print('PRESS', context, 150, 50, 60, 60);
     sprites.draw('boy1', context, 80, 210);
