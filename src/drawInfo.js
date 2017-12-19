@@ -44,3 +44,37 @@ export function drawStartMenu(context, sprites, font) {
     font.print('START', context, 350, 450, 60, 60);
 
 }
+
+export function drawPauseScreen() {
+    const buffer = document.createElement('canvas');
+    const context = buffer.getContext('2d');
+    buffer.setAttribute('width', 960);
+    buffer.setAttribute('height', 629);
+
+    context.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    context.fillRect(0, 0, 960, 629);
+
+    context.lineWidth = 40;
+    context.strokeStyle = "red";
+
+    context.strokeStyle = "rgba(222, 22, 220, 0.5)";
+
+    context.beginPath();
+    context.moveTo(420, 250);
+    context.lineTo(420,370);
+    context.stroke();
+    context.closePath();
+
+    context.beginPath();
+    context.moveTo(500, 250);
+    context.lineTo(500,370);
+    context.stroke();
+
+    context.font = "40px Verdana";
+    context.fillStyle = "rgba(222, 22, 220, 0.4)";
+    context.fillText(`press "P" to play`, 20, 600);
+
+    return function showPause(context) {
+        context.drawImage(buffer, 0, 0);
+    }
+}

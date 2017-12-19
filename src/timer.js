@@ -5,27 +5,24 @@ export default class Timer {
 
         let lastTime = 0;
         let accumulatedTime = 0;
+
         this.updateProxy = (time) => {
-            if (this._stop) {
-                return;
-            }
+            if (!this._stop) {
+                if (this._start) {
+                    lastTime = time;
+                    this._start = false;
+                }
 
-            if (this._start) {
+                accumulatedTime += (time - lastTime) / 1000;
+                while (accumulatedTime > deltaTime) {
+                    this.update(deltaTime);
+                    accumulatedTime -= deltaTime;
+                }
+
                 lastTime = time;
-                this._start = false;
+                this.enqueue();
             }
-
-            accumulatedTime += (time - lastTime) / 1000;
-            while (accumulatedTime > deltaTime) {
-                this.update(deltaTime);
-                accumulatedTime -= deltaTime;
-            }
-
-            lastTime = time;
-            this.enqueue();
         }
-
-
     }
 
     enqueue() {
