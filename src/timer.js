@@ -1,13 +1,18 @@
 export default class Timer {
     constructor(deltaTime = 1/60) {
+        this._start = true;
+        this._stop = false;
+
         let lastTime = 0;
         let accumulatedTime = 0;
-        let start = true;
-
         this.updateProxy = (time) => {
-            if (start === true) {
+            if (this._stop) {
+                return;
+            }
+
+            if (this._start) {
                 lastTime = time;
-                start = false;
+                this._start = false;
             }
 
             accumulatedTime += (time - lastTime) / 1000;
@@ -17,12 +22,10 @@ export default class Timer {
             }
 
             lastTime = time;
-            if (!this.stop) {
-                this.enqueue();
-            }
+            this.enqueue();
         }
 
-        this.stop = false;
+
     }
 
     enqueue() {
@@ -30,11 +33,12 @@ export default class Timer {
     }
 
     start() {
-        this.stop = false;
-        this.enqueue();;
+        this.enqueue();
+        this._stop = false;
     }
 
-    stopTimer() {
-        this.stop = true;
+    stop() {
+        this._start = true;
+        this._stop = true;
     }
 }

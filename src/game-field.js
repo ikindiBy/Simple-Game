@@ -31,10 +31,10 @@ const restart = async (sprites, e) => {
 
 const stopTimer = (timer, e) => {
     if (e.code === 'KeyP') {
-        if (timer.stop) {
+        if (timer._stop) {
             timer.start();
         } else {
-            timer.stopTimer();
+            timer.stop();
         }
     }
 };
