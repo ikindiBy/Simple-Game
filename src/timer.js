@@ -8,7 +8,7 @@ export default class Timer {
 
         this.updateProxy = (time) => {
             if (!this._stop) {
-                if (this._start) {
+                if (this._start || time - lastTime > 3000) {
                     lastTime = time;
                     this._start = false;
                 }
