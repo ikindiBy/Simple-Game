@@ -1,24 +1,27 @@
 export default class Timer {
     constructor(deltaTime = 1/60) {
+        this._start = true;
+        this._stop = false;
+
         let lastTime = 0;
         let accumulatedTime = 0;
-        let start = true;
 
         this.updateProxy = (time) => {
-            if (start === true) {
+            if (!this._stop) {
+                if (this._start || time - lastTime > 3000) {
+                    lastTime = time;
+                    this._start = false;
+                }
+
+                accumulatedTime += (time - lastTime) / 1000;
+                while (accumulatedTime > deltaTime) {
+                    this.update(deltaTime);
+                    accumulatedTime -= deltaTime;
+                }
+
                 lastTime = time;
-                start = false;
+                this.enqueue();
             }
-
-            accumulatedTime += (time - lastTime) / 1000;
-
-            while (accumulatedTime > deltaTime) {
-                this.update(deltaTime);
-                accumulatedTime -= deltaTime;
-            }
-
-            lastTime = time;
-            this.enqueue();
         }
     }
 
@@ -27,6 +30,12 @@ export default class Timer {
     }
 
     start() {
-        this.enqueue();;
+        this.enqueue();
+        this._stop = false;
+    }
+
+    stop() {
+        this._start = true;
+        this._stop = true;
     }
 }

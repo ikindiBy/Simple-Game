@@ -35,7 +35,7 @@ const game = Promise.all([
 })
 
 const start = (event) => {
-    if (event.key === 'Enter') {
+    if (event.code === 'Enter') {
         window.removeEventListener('keypress', start);
 
         game.then(([sprites, font]) => {

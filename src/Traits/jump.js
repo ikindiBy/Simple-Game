@@ -27,11 +27,9 @@ export default class Jump extends Trait {
     }
 
     obstruct(entity, side) {
-
         if (side === Sides.BOTTOM) {
             this.ready = 1;
         } else if (side === Sides.TOP) {
-
             this.cancel();
         }
     }
@@ -44,7 +42,6 @@ export default class Jump extends Trait {
             }
             this.requestTime -= deltaTime;
         }
-
 
         if (this.engageTime > 0) {
             entity.vel.y = -(this.velocity + Math.abs(entity.vel.x) * this.speedBoost);
