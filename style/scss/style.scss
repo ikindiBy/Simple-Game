@@ -1,113 +1,559 @@
 @import "fonts";
 @import "mixin";
 @import "variables";
+@import "sprites";
+@import "reset";
+
+* {
+  box-sizing: border-box;
+  user-select: none;
+}
+
+html {
+  font-size: 10px;
+}
 
 body {
-  @include block_flex ($justify-content: space-between, $direction: column);
+  @include flex-box (flex-start, center, column, nowrap);
   background-color: $main-bg-color;
   color: $text-color;
-  font-family: Arial;
-}
-p {
-  text-indent: 1.5rem;
-  font-size: 1.2rem;
-  line-height: 1.4rem;
-}
-
-
-header, footer {
-  @include block_flex ($justify-content: space-around, $align-items: center, $direction: column);
-  height: 100px;
-}
-
-header, main, footer, canvas {
-  margin: auto;
+  font-family: NeuzeitGroT, sans-serif;
+  min-height: 100vh;
 }
 
 main {
-  @include block_flex ($justify-content: space-between, $align-items: center, $direction: column);
-  width: 60%;
-  max-width: 940px;
+  @include flex-box (space-between, center, column, nowrap);
+  margin: auto;
+  width: 960px;
+  flex: 1;
 }
 
-article {
-  margin-top: 30px;
-  width: 100%;
-}
-
-h1, h3 {
-  text-align: center;
-  margin: 15px 0;
-  text-transform: uppercase;
-}
-
-
-h1 {
-
-  font-size: 3rem;
-
-  font-family: "Bello-Script", Arial;
+body > header {
+  font: bold 7rem "Berlin Sans FB Demi", sans-serif;
   color: $title-color;
-  text-transform: uppercase;
   text-align: center;
-  letter-spacing: 1rem;
-}
-
-h3 {
-    font-size: 2rem;
-  }
-
-article {
-   font-family: Arial;
+  letter-spacing: 2rem;
+  margin: 1% 0;
 }
 
 .main-canvas {
   image-rendering: pixelated;
 }
 
-.developers {
-  height: 300px;
-  width: 100%;
+.main__screenshots {
+  @include flex-box (space-between, center, row, wrap);
 
-  div {
-    @include block_flex ($justify-content: space-around, $align-items: center, $direction: row);
-    height: 100%;
+  figcaption {
     width: 100%;
+    font: 6rem "Molot", sans-serif;
+    text-align: center;
+    margin: 15% 0 1%;
   }
- 
 
-  figure {
-    height: 60%;
-    font-size: 1.6rem;
-    @include block_flex ($justify-content: space-between, $align-items: center, $direction: column);
-
-    p {
-      max-height: 100%; 
-
-      img {
-        border-radius: 50%;
-        height: 150px; 
-      }
-    }  
+  img {
+    width: 48%;
   }
 }
 
-.technoligies div {
+.main__description {
+  @include flex-box (space-between, center, row, wrap);
 
-  @include block_flex ($justify-content: space-around, $align-items: center, $direction: row);
-  flex-wrap: wrap;
-  height: 400px;
+  > h2 {
+    @include flex-box (space-between, center, row, wrap);
+    width: 100%;
+    font: 6rem "Molot", sans-serif;
+    text-align: center;
+    padding: 0 7.5%;
+    letter-spacing: 8px;
+    margin: 15% 0 2%;
+    position: relative;
+
+    &:before {
+      content: "";
+      width: 63px;
+      height: 66px;
+      background: url("../../images/css/css_sprites.png") -66px -150px;
+      position: relative;
+      left: 0;
+      top: 5px;
+    }
+
+    &:after {
+      content: "";
+      width: 63px;
+      height: 66px;
+      background: url("../../images/css/css_sprites.png") -149px -150px;
+      position: relative;
+      right: 0;
+      top: 5px;
+    }
+  }
+
+  > h3 {
+    font: 2.5rem "NeuzeitGroT", sans-serif;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+    letter-spacing: 3px;
+  }
+
+  > div {
+    @include flex-box (space-around, center, row, wrap);
+    width: 100%;
+    padding: 5%;
+
+    > ul {
+      font: 1.6rem "NeuzeitGroT", sans-serif;
+      text-transform: uppercase;
+      list-style-type: none;
+      text-align: right;
+      margin: 0 2%;
+      flex-grow: 1;
+      letter-spacing: 4px;
+
+      > li > span {
+        font-size: 2.4rem;
+      }
+
+      > li:not(:last-child) {
+        margin-bottom: 1%;
+      }
+    }
+  }
+
+  > div:nth-child(4) {
+    > div:first-child {
+      order: 2;
+    }
+
+    > ul {
+      order: 1;
+      text-align: left;
+    }
+
+    > div:last-child {
+      order: 0;
+    }
+  }
+}
+
+.main__rules {
+  @include flex-box (center, flex-end, row, wrap);
+  font: 1.6rem "NeuzeitGroT", sans-serif;
+  position: relative;
+  position: relative;
+  margin: 15% 0 0;
+  text-transform: uppercase;
+
+  > h2 {
+    width: 100%;
+    font: 6rem "Molot", sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    position: relative;
+
+    &:before {
+      content: "";
+      position: absolute;
+      left: 495px;
+      top: -15px;
+      width: 50px;
+      height: 30px;
+      background: url("../../images/css/css_sprites.png") -10px -291px;
+    }
+  }
+
+  .green_l {
+    display: flex;
+    height: 69px;
+    width: 23px;
+    background: url("../../images/css/css_sprites.png") -281px -86px;
+  }
+
+  > div {
+    width: 100%;
+    vertical-align: baseline;
+    @include flex-box (center, flex-end, row, wrap);
+    letter-spacing: 4px;
+    margin: 0.3% 0;
+
+    > div {
+      @include flex-box (center, flex-end, row, wrap);
+      font-size: 2.5rem;
+      margin: -0.3% 0.5%;
+    }
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    right: 93px;
+    top: 80px;
+    width: 55px;
+    height: 49px;
+    background: url('../../images/css/css_sprites.png') -275px -179px;
+  }
+}
+
+.main__controlls {
+  @include flex-box(center, center, row, wrap);
+  text-transform: uppercase;
   width: 100%;
 
-      img {
-        max-height: 150px; 
+  > header {
+    @include flex-box(center, center, column, nowrap);
+    width: 100%;
+    position: relative;
+
+    > h2 {
+      width: 100%;
+      font: 6rem "Molot", sans-serif;
+      text-align: center;
+      letter-spacing: 0.8rem;
+      margin: 15% 0 2%;
     }
-}
 
-footer {
+    .joystick {
+      position: absolute;
+      left: 450px;
+      top: 90px;
+    }
 
-  p {
-    font-size: 0.8rem;
+    > p {
+      font: 2rem "NeuzeitGroT", sans-serif;
+      text-align: center;
+      letter-spacing: 0.1rem;
+      line-height: 4rem;
+
+      > span {
+        font-size: 3.5rem;
+      }
+    }
+  }
+
+  > div {
+    @include flex-box(space-between, flex-end, row, nowrap);
+    width: 100%;
+    padding: 5% 0 0;
+
+    > div {
+      @include flex-box(space-between, center, row, wrap);
+      width: 25%;
+      position: relative;
+      font: 2rem "NeuzeitGroT", sans-serif;
+      letter-spacing: 0.2rem;
+      text-transform: uppercase;
+
+      > div {
+        width: 32%;
+        padding: 8% 0;
+        border: 0.3rem solid $text-color;
+        border-radius: 0.6rem;
+        margin: 0.6%;
+        position: relative;
+      }
+
+      > div:nth-child(3),
+      > div:first-child {
+        border: none;
+      }
+
+      > div:nth-child(2) {
+        &:after {
+          content: "";
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 0 10px 10px 10px;
+          border-color: transparent transparent $text-color transparent;
+          position: absolute;
+          left: 25px;
+          bottom: 12px;
+        }
+      }
+
+      > div:nth-child(5) {
+        &:after {
+          content: "";
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 10px 10px 0 10px;
+          border-color: $text-color transparent transparent transparent;
+          position: absolute;
+          left: 25px;
+          bottom: 10px;
+        }
+      }
+
+      > div:nth-child(4) {
+        &:after {
+          content: "";
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 10px 10px 10px 0;
+          border-color: transparent $text-color transparent transparent;
+          position: absolute;
+          left: 31px;
+          bottom: 8px;
+        }
+      }
+
+      > div:last-child {
+        &:after {
+          content: "";
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 10px 0 10px 10px;
+          border-color: transparent transparent transparent $text-color;
+          position: absolute;
+          left: 31px;
+          bottom: 8px;
+        }
+      }
+
+      &:first-child:after {
+        content: "move";
+        font: 1rem "Myriad Pro", sans-serif;
+        letter-spacing: 0.2rem;
+        text-transform: uppercase;
+        position: absolute;
+        bottom: -16px;
+        left: 102px;
+      }
+
+      &:nth-child(2):after {
+        content: "move faster";
+        font: 1rem "Myriad Pro", sans-serif;
+        letter-spacing: 0.2rem;
+        text-transform: uppercase;
+        position: absolute;
+        bottom: -16px;
+        left: 74px;
+      }
+
+      &:nth-child(3):after {
+        content: "move slower";
+        font: 1rem "Myriad Pro", sans-serif;
+        letter-spacing: 0.2rem;
+        text-transform: uppercase;
+        position: absolute;
+        bottom: -16px;
+        left: 75px;
+      }
+    }
+
+    > div:nth-child(2),
+    div:nth-child(3) {
+      @include flex-box(center, center, row, wrap);
+
+      > p {
+        border: 0.3rem solid $text-color;
+        border-radius: 0.6rem;
+        width: 40%;
+        padding: 8% 9%;
+        text-align: center;
+      }
+    }
+
+    > div:nth-child(3) {
+      > p {
+        padding: 8% 42% 8% 20%;
+      }
+    }
+
+    > div:last-child {
+      @include flex-box(space-around, center, row, wrap);
+      font: 2rem "NeuzeitGroT", sans-serif;
+      letter-spacing: 0.2rem;
+      text-transform: uppercase;
+      width: 25%;
+      position: relative;
+      padding: 0;
+
+      > p {
+        border: 0.3rem solid $text-color;
+        border-radius: 0.6rem;
+        width: 40%;
+        padding: 8% 9%;
+        text-align: center;
+        width: 30%;
+      }
+
+      &:before {
+        content: "restart";
+        font: 1rem "Myriad Pro", sans-serif;
+        letter-spacing: 0.2rem;
+        text-transform: uppercase;
+        position: absolute;
+        bottom: -16px;
+        left: 32px;
+      }
+
+      &:after {
+        content: "pause";
+        font: 1rem "Myriad Pro", sans-serif;
+        letter-spacing: 0.2rem;
+        text-transform: uppercase;
+        position: absolute;
+        bottom: -16px;
+        right: 36px;
+      }
+    }
+  }
+
+  > div:last-child {
+    @include flex-box(center, center, row, wrap);
+    border: 0.3rem solid $text-color;
+    font: 2rem "NeuzeitGroT", sans-serif;
+    letter-spacing: 0.2rem;
+    width: 100%;
+    margin: 5% 3% 5% 0.5%;
+    border-radius: 0.4rem;
+    padding: 1%;
+    position: relative;
+
+    &:after {
+      content: "jump";
+      font: 1rem "Myriad Pro", sans-serif;
+      letter-spacing: 0.2rem;
+      text-transform: uppercase;
+      position: absolute;
+      bottom: -27px;
+      left: 440px;
+    }
   }
 }
 
+main > footer {
+  @include flex-box(flex-start, center, column, nowrap);
+
+  .footer__technologies {
+    @include flex-box(center, center, row, wrap);
+
+    > figcaption {
+      @include flex-box(center, center, row, wrap);
+      width: 100%;
+      font: 6rem "Molot", sans-serif;
+      text-align: center;
+      letter-spacing: 0.8rem;
+      margin: 15% 0 0;
+
+      > div {
+        display: flex;
+      }
+    }
+
+    > div {
+      @include flex-box(center, center, row, wrap);
+
+      > img {
+        padding: 4%;
+      }
+
+      > img:first-child {
+        width: 20%;
+      }
+
+      > img:nth-child(2) {
+        width: 60%;
+      }
+
+      > img:nth-child(3) {
+        width: 20%;
+      }
+
+      > img:nth-child(4) {
+        width: 25%;
+      }
+
+      > img:nth-child(5) {
+        width: 25%;
+      }
+
+      > img:last-child {
+        width: 25%;
+      }
+    }
+  }
+
+  .footer__developers {
+    @include flex-box(center, center, row, wrap);
+
+    > h2 {
+      @include flex-box(center, center, row, wrap);
+      width: 100%;
+      font: 6rem "Molot", sans-serif;
+      text-align: center;
+      letter-spacing: 0.8rem;
+      position: relative;
+      margin: 15% 0 0;
+
+      &:before {
+        content: "";
+        width: 90px;
+        height: 120px;
+        background: url("../../images/css/css_sprites.png") -10px -10px;
+        position: absolute;
+        top: -58px;
+        left: 227px;
+      }
+    }
+
+    > figure {
+      width: 23%;
+      padding: 3%;
+
+      > figcaption {
+        font: 2rem "NeuzeitGroT", sans-serif;
+        letter-spacing: 0.2rem;
+        width: 100%;
+        text-transform: uppercase;
+        text-align: center;
+        margin: 8% 0;
+      }
+
+      > a {
+        @include flex-box(center, center, row, wrap);
+        width: 100%;
+        border: 0.3rem solid $text-color;
+        border-radius: 0.6rem;
+
+        > img {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  > a {
+    width: 30%;
+    text-decoration: none;
+    font: 6rem "Molot", sans-serif;
+    text-align: center;
+    letter-spacing: 0.8rem;
+    background-color: $text-color;
+    color: $main-bg-color;
+    border-radius: 1rem;
+    margin: 10% 0 7%;
+    border: 0.2rem solid $text-color;
+
+    &:hover {
+      background-color: $main-bg-color;
+      color: $text-color;
+    }
+  }
+}
+
+body > footer {
+  @include flex-box(center, center, row, wrap);
+
+  > p {
+    font: 2rem "NeuzeitGroT", sans-serif;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+  }
+}

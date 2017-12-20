@@ -1,68 +1,142 @@
 <!doctype html>
 <html>
+
 <head>
   <title>Cosmo</title>
-  <link rel="stylesheet" href="bundle/css/style.css" />
+  <link rel="stylesheet" href="style/css/style.css" />
 </head>
+
 <body>
-  <header>
-    <h1> COSMO</h1>
-  </header>
+  <a name="game"></a>
+  <header> COSMO </header>
   <main>
-    <div class="canvas-game">
-      <canvas id="canvas" class="main-canvas">    </canvas>
-    </div>
+    <canvas id="canvas" class="main__canvas">    </canvas>
 
-      <article>
-        <h3> Short description </h3>
-        <p> You are a cosmos discoverer on a recently opened planet. Your task is save your live,  collect gold discs as many as possible, find key to secret station and get to it. </p>
-        <p> But one more condition - your space suit has limited an oxygen supply. Don't waste time, you have only 60 items of time. </p>
-        <p> By the way: if you collect more than 60 discs, you will get one more life! </p>
-      </article>
+    <figure class="main__screenshots">
+      <figcaption>Screenshots</figcaption>
+      <img src="images/screenshots/kill1.png" alt="game screenshot">
+      <img src="images/screenshots/hello2.png" alt="game screenshot">
+    </figure>
 
-     <article>
-        <h3> Rules</h3>
-        <p> You can kill enemies only if you jump on top of them. Be careful with abysses - they are deadly dangerous. </p>
-    </article>
+    <section class="main__description">
 
-    <article>
-      <h3> Controls</h3>
-      <p> To move use keys with arrows, and to jump - the longest key on your keyboard (SPACE). To START press to 'ENTER', an to RESTART press to '-'.</p>
-    </article>
+      <h2>
+        Short description
+      </h2>
 
-    <article class="technoligies">
-        <h3> We used </h3>
-        <div>
-          <img src="images/es6-logo.png" alt="es6-logo ava" />
-          <img src="images/webpack.png" alt="webpack ava" />
-          <img src="images/babel.png" alt="babel ava" />    
-          <img src="images/npm-1.png" alt="Npm ava" />
-          <img src="images/github.png" alt="github ava" />
-          <img src="images/trello.png" alt="trello ava" />
-        </div>
-    </article>
+      <h3> You are a cosmos discoverer on a recently opened planet. </h3>
 
-    <div class="developers">
-      <h3> Developers </h3> 
-      <div> 
-        <figure>
-          <p><img src="images/f.jpg" alt="Fedor's ava" /></p>
-          <figcaption>Fedor</figcaption>
-        </figure>
-        <figure>
-          <p><img src="images/fan2.jpg" alt="Alex's ava" /></p>
-          <figcaption>Alex</figcaption>  
-        </figure>
+      <div>
+        <div class="cosmo_desc1"></div>
+        <ul>
+          <li>Your task is to <span>save your live</span></li>
+          <li>collect <span>gold discs</span> as many as possible</li>
+          <li>find <span>key to secret station</span> and <span>get</span> to it</li>
+        </ul>
+        <div class="curve_y"></div>
       </div>
-    </div>
 
+      <div>
+        <div class="cosmo_desc2"></div>
+        <ul>
+          <li>But one more condition:</li>
+          <li>your space suit has <span>limited</span> an oxygen supply</li>
+          <li>Don't waste time, you have only 60 items of time</li>
+        </ul>
+        <div class="curve_azure"></div>
+      </div>
+
+      <div>
+        <div class="cosmo_desc3"></div>
+        <ul>
+          <li>By the way:</li>
+          <li>if you collect more than 60 discs</li>
+          <li>you will <span>get one more life!</span></li>
+        </ul>
+        <div class="curve_pink"></div>
+      </div>
+    </section>
+
+    <section class="main__rules">
+      <h2> Rules</h2>
+      <div> You can
+        <div>k<div class="green_l"></div>ll enemies</div> only if you jump on top of them. </div>
+      <div> Be careful with abysses - they are deadly dangerous. </div>
+    </section>
+
+    <section class="main__controlls">
+      <header>
+        <h2> Controls</h2>
+        <div class="joystick"></div>
+        <p> To move use keys with arrows, and to jump - the longest key on your keyboard (SPACE). </p>
+        <p>To START press to <span>ENTER</span>, and to RESTART press to <span>R</span>.</p>
+      </header>
+
+      <div>
+
+        <div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <div>
+          <p>ctrl</p>
+        </div>
+
+        <div>
+          <p>shift</p>
+        </div>
+
+        <div>
+          <p>R</p>
+          <p>P</p>
+        </div>
+      </div>
+
+      <div>
+        space
+      </div>
+
+    </section>
+
+    <footer>
+      <figure class="footer__technologies">
+        <figcaption> We <div class="crutches"></div> used </figcaption>
+        <div>
+          <img src="./images/css/es6-logo.png" alt="es6-logo ava" />
+          <img src="./images/css/babel.png" alt="babel ava" />
+          <img src="./images/css/webpack.png" alt="webpack ava" />
+          <img src="./images/css/github.png" alt="github ava" />
+          <img src="./images/css/npm-1.png" alt="Npm ava" />
+          <img src="./images/css/trello.png" alt="trello ava" />
+        </div>
+      </figure>
+
+      <section class="footer__developers">
+        <h2> Developers </h2>
+        <figure>
+          <figcaption>Fedor</figcaption>
+          <a href="https://github.com/chelovekdrakon"> <img src="images/css/f.jpg" alt="Fedor's ava" /> </a>
+        </figure>
+        <figure>
+          <figcaption>Alex</figcaption>
+          <a href="https://github.com/ikindiBy"> <img src="images/css/fan2.jpg" alt="Alex's ava" /> </a>
+        </figure>
+      </section>
+
+      <a href="#game"> play </a>
+    </footer>
   </main>
 
   <footer>
     <p>Developed by students of RSSchool, 2017</p>
   </footer>
-  
-  <div id="app"></div>
+
   <script src="bundle/js/app.js"></script>
 </body>
+
 </html>
