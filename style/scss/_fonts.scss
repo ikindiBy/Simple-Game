@@ -1,4 +1,3 @@
-
 @font-face {
   font-family: "Bello-Script";
   src: url("/style/fonts/Bello-Script.ttf") format("truetype");
@@ -6,3 +5,47 @@
   font-weight: normal;
 }
 
+@font-face {
+    font-family: 'NeuzeitGroT';
+    src: local('NeuzeitGroT Bold'), local('NeuzeitGroT-Bold'),
+        url('/style/fonts/NeuzeitGroT-Bold.woff2') format('woff2'),
+        url('/style/fonts/NeuzeitGroT-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NeuzeitGroT';
+    src: local('NeuzeitGroT'), local('NeuzeitGroT-Regu'),
+        url('/style/fonts/NeuzeitGroT-Regu.woff2') format('woff2'),
+        url('/style/fonts/NeuzeitGroT-Regu.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Berlin Sans FB Demi';
+    src: local('Berlin Sans FB Demi Bold'), local('BerlinSansFBDemi-Bold'),
+        url('/style/fonts/BerlinSansFBDemi-Bold.woff2') format('woff2'),
+        url('/style/fonts/BerlinSansFBDemi-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Molot';
+    src: local('Molot'),
+        url('/style/fonts/Molot.woff2') format('woff2'),
+        url('/style/fonts/Molot.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Myriad Pro';
+    src: local('Myriad Pro Regular'), local('MyriadPro-Regular'),
+        url('/style/fonts/MyriadPro-Regular.woff2') format('woff2'),
+        url('/style/fonts/MyriadPro-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

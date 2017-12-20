@@ -732,7 +732,7 @@ class Timer {
 
         this.updateProxy = time => {
             if (!this._stop) {
-                if (this._start) {
+                if (this._start || time - lastTime > 3000) {
                     lastTime = time;
                     this._start = false;
                 }
@@ -1645,7 +1645,7 @@ function createAnimation(frames, frameLen) {
 class Camera {
     constructor() {
         this.pos = new __WEBPACK_IMPORTED_MODULE_0__math__["b" /* Vect */](0, 0);
-        this.size = new __WEBPACK_IMPORTED_MODULE_0__math__["b" /* Vect */](900, 629);
+        this.size = new __WEBPACK_IMPORTED_MODULE_0__math__["b" /* Vect */](960, 629);
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Camera;
