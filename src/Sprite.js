@@ -139,7 +139,11 @@ export default class Sprite extends Spritesheet {
         });
 
         this.entities.forEach(entity => {
-            this.entityCollider.check(entity);
+            if (entity.name !== 'cosmo') {
+                return;
+            } else {
+                this.entityCollider.check(entity);
+            }
         });
     }
 }
